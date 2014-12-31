@@ -67,5 +67,10 @@ public class BoardTest {
 		RiskBoard board = new RiskBoard();
 		board.setup("TestRisk.txt");
 		
+		assertEquals("None", board.getFaction("Alaska"));
+		/*
+		board.setFaction("Alaska", "Blue");
+		assertEquals("Blue", board.getFaction("Alaska"));
+		*/
 	}
 }
