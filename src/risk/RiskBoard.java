@@ -110,7 +110,7 @@ public class RiskBoard {
 	 * @param territory	the name of the territory to add to
 	 * @param num		the number of troops to add(or subtract)
 	 **/
-	public void setTroops(String territory, int num) {
+	public void changeTroops(String territory, int num) {
 		for(Territory terra : territories){
 			if (terra.getName().equals(territory)){
 				int troops = terra.getTroops() + num;
