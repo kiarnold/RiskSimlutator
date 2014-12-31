@@ -39,26 +39,26 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testAddRemoveTroops(){
+	public void testChangeTroops(){
 		RiskBoard board = new RiskBoard();
 		board.setup("TestRisk.txt");
 		
-		board.addTroops("Argentina", 5);
+		board.changeTroops("Argentina", 5);
 		assertEquals(5, board.getTroops("Argentina"));
 		
-		board.addTroops("Argentina", 2);
+		board.changeTroops("Argentina", 2);
 		assertEquals(7, board.getTroops("Argentina"));
 		
-		board.removeTroops("Argentina", 2);
+		board.changeTroops("Argentina", -2);
 		assertEquals(5, board.getTroops("Argentina"));
 		
-		board.removeTroops("Argentina", 2);
+		board.changeTroops("Argentina", -2);
 		assertEquals(3, board.getTroops("Argentina"));
 		
-		board.removeTroops("Argentina", 2);
+		board.changeTroops("Argentina", -2);
 		assertEquals(1, board.getTroops("Argentina"));
 		
-		board.removeTroops("Argentina", 20);
+		board.changeTroops("Argentina", -20);
 		assertEquals(0, board.getTroops("Argentina"));
 	}
 	
@@ -66,7 +66,6 @@ public class BoardTest {
 	public void testFactions(){
 		RiskBoard board = new RiskBoard();
 		board.setup("TestRisk.txt");
-		
 		
 	}
 }
