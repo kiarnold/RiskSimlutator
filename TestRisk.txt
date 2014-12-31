@@ -5,3 +5,10 @@ Alberta
 Region: South America (2)
 Argentina
 Brazil
+
+Routes:
+Alaska-Alberta
+Alberta-Argentina
+Argentina-Brazil
+Argentina-Alaska
+
