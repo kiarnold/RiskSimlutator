@@ -76,18 +76,26 @@ public class RiskBoard {
 	
 	/**
 	 * Method to add connections to territories. Note: all connections are 2 way.
+	 * Will ignore adds where either territory cannot be found.
 	 * 
 	 * @paramfrom	Territory to start in
 	 * @param to	Territory to end in
 	 **/
 	public void addConnection(String from, String to){
+		Territory terraFrom = null; 
+		Territory terraTo = null;
 		for(Territory terra : territories){
 			if (terra.getName().equals(from)){
-				terra.addConnection(to);
+				terraFrom = terra;
 			}
 			else if(terra.getName().equals(to)){
-				terra.addConnection(from);
+				terraTo = terra;
 			}
+		}
+		
+		if(terraFrom != null && terraTo != null){
+			terraFrom.addConnection(terraTo);
+			terraTo.addconnection(terraFrom);
 		}
 	}
 	
