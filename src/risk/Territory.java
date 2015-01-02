@@ -32,6 +32,10 @@ public class Territory {
 	
 	public String getFaction() { return faction; }
 	
+	public void addConnections(Territory terra){ connections.add(terra); }
+	
+	public List<Territory> getConnections() { return connections; }
+	
 	// toString
 	@Override
 	public String toString(){ return name; }
