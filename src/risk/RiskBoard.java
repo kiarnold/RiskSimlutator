@@ -122,5 +122,35 @@ public class RiskBoard {
 			}
 		}
 	}
+	
+	/**
+	 * Will return the name of the faction holding the territroy given.
+	 * 
+	 * @param territory	the name of the territory to look up
+	 * @return 		a string with the name of the faction in control
+	 **/
+	public String getFaction(String territory) {
+		for(Territory terra : territories){
+			if (terra.getName().equals(territory)){
+				return terra.getFaction();
+			}
+		}
+		return "None";
+	}
+	
+	
+	/**
+	 * Sets the name of the faction for a partuicular territory.
+	 * 
+	 * @param territory	the name of the territory
+	 * @param faction	the name of the faction to change it to
+	 **/
+	public void setFaction(String territory, String faction) {
+		for(Territory terra : territories){
+			if (terra.getName().equals(territory)){
+				terra.setFaction(faction);
+			}
+		}
+	}
 
 }
