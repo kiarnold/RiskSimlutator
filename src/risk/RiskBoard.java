@@ -56,12 +56,39 @@ public class RiskBoard {
 	/**
 	 * Private method takes a BufferedReader and reads in each line, 
 	 * adds connection to territory objects in the territories list until 
-	 * it reaches a blank line or end of file.
+	 * it reaches a blank line or end of file. The accepted format is:
+	 * "Territory1-Terrotory2";
 	 * 
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
 	private void setupRoutes(BufferedReader br) throws IOException {
-		// TODO stub
+		while(br.ready()){
+			String input = br.readLine();
+			if(input.equals("")) return;
+			else {
+				String[] route = input.split("-");
+				addConnection(route[1],route[2]);
+			}
+			
+		}
+	}
+	
+	
+	/**
+	 * Method to add connections to territories. Note: all connections are 2 way.
+	 * 
+	 * @paramfrom	Territory to start in
+	 * @param to	Territory to end in
+	 **/
+	public void addConnection(String from, String to){
+		for(Territory terra : territories){
+			if (terra.getName().equals(from)){
+				terra.addConnection(to);
+			}
+			else if(terra.getName().equals(to)){
+				terra.addConnection(from);
+			}
+		}
 	}
 	
 	/**
