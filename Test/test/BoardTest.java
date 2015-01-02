@@ -79,5 +79,15 @@ public class BoardTest {
 		assertEquals("Black", board.getFaction("Alaska"));
 	}
 	
+	@Test
+	public void testRoutes(){
+		RiskBoard board = new RiskBoard();
+		board.setup("TestRisk.txt");
+		
+		List<Territory> connections = Arrays.asList(new Territory("Alberta"), new Territory("Argentina"))
+		
+		assertEquals(connections.toString(), board.getConnections("Alaska").toString());
+	}
+	
 	
 }
