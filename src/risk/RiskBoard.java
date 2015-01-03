@@ -99,6 +99,13 @@ public class RiskBoard {
 		}
 	}
 	
+	
+	/**
+	 * Looks up a territory and returns that territory's connections list.
+	 * 
+	 * @param territory	the territory to look up	
+	 * @return			a list of connections from the given territory
+	 */
 	public List<Territory> getConnections(String territory){
 		for(Territory terra : territories){
 			if (terra.getName().equals(territory)){
