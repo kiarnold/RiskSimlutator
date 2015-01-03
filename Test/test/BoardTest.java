@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -84,7 +85,7 @@ public class BoardTest {
 		RiskBoard board = new RiskBoard();
 		board.setup("TestRisk.txt");
 		
-		List<Territory> connections = Arrays.asList(new Territory("Alberta"), new Territory("Argentina"))
+		List<Territory> connections = Arrays.asList(new Territory("Alberta"), new Territory("Argentina"));		
 		
 		assertEquals(connections.toString(), board.getConnections("Alaska").toString());
 	}

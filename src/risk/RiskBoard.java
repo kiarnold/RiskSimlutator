@@ -38,7 +38,7 @@ public class RiskBoard {
 				if (input.contains("Region: ")){
 					// setup regions
 					this.setupRegions(br);
-				}else if(input.contains("Routes: ")){
+				}else if(input.contains("Routes:")){
 					// setup routes
 					this.setupRoutes(br);
 				}
@@ -67,7 +67,7 @@ public class RiskBoard {
 			if(input.equals("")) return;
 			else {
 				String[] route = input.split("-");
-				addConnection(route[1],route[2]);
+				addConnection(route[0],route[1]);
 			}
 			
 		}
@@ -95,8 +95,17 @@ public class RiskBoard {
 		
 		if(terraFrom != null && terraTo != null){
 			terraFrom.addConnection(terraTo);
-			terraTo.addconnection(terraFrom);
+			terraTo.addConnection(terraFrom);
 		}
+	}
+	
+	public List<Territory> getConnections(String territory){
+		for(Territory terra : territories){
+			if (terra.getName().equals(territory)){
+				return terra.getConnections();
+			}
+		}
+		return null;
 	}
 	
 	/**

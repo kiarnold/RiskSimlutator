@@ -1,5 +1,6 @@
 package risk;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Territory {
@@ -32,7 +33,7 @@ public class Territory {
 	
 	public String getFaction() { return faction; }
 	
-	public void addConnections(Territory terra){ connections.add(terra); }
+	public void addConnection(Territory terra){ connections.add(terra); }
 	
 	public List<Territory> getConnections() { return connections; }
 	
