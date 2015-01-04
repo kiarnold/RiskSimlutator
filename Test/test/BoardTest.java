@@ -13,12 +13,16 @@ import risk.RiskBoard;
 import risk.Territory;
 
 public class BoardTest {
+	RiskBoard board;
+	
+	@Before
+	public void setUp(){
+		board = new RiskBoard();
+		board.setup("TestRisk.txt");
+	}
 
 	@Test
-	public void testNewBlankBoard() {
-		RiskBoard board = new RiskBoard();
-		board.setup("TestRisk.txt");
-		
+	public void testNewBlankBoard() {		
 		for(Territory territory : board.getTerritories()){
 			assertEquals(0,territory.getTroops());
 		}
@@ -26,8 +30,6 @@ public class BoardTest {
 
 	@Test
 	public void testBoardSetup() {
-		RiskBoard board = new RiskBoard();
-		board.setup("TestRisk.txt");
 		
 		List<Territory> expected = new ArrayList<>();
 		expected.add(new Territory("Alaska"));
@@ -41,9 +43,6 @@ public class BoardTest {
 	
 	@Test
 	public void testChangeTroops(){
-		RiskBoard board = new RiskBoard();
-		board.setup("TestRisk.txt");
-		
 		board.changeTroops("Argentina", 5);
 		assertEquals(5, board.getTroops("Argentina"));
 		
@@ -65,9 +64,6 @@ public class BoardTest {
 	
 	@Test
 	public void testFactions(){
-		RiskBoard board = new RiskBoard();
-		board.setup("TestRisk.txt");
-		
 		assertEquals("None", board.getFaction("Alaska"));
 		
 		board.setFaction("Alaska", "Blue");
@@ -82,13 +78,35 @@ public class BoardTest {
 	
 	@Test
 	public void testRoutes(){
-		RiskBoard board = new RiskBoard();
-		board.setup("TestRisk.txt");
-		
 		List<Territory> connections = Arrays.asList(new Territory("Alberta"), new Territory("Argentina"));		
 		
 		assertEquals(connections.toString(), board.getConnections("Alaska").toString());
 	}
 	
+	@Test
+	public void testAttack(){
+		board.changeTroops("Alaska", 2);
+		board.changeTroops("Alberta", 2);
+		
+		board.attack("Alaska", "Alberta");
+		
+		assertTrue(board.getTroops("Alaska")!=2 || board.getTroops("Alberta")!=2);
+		assertTrue(board.getTroops("Alaska")==1 || board.getTroops("Alberta")==1);
+	}
 	
+	@Test
+	public void testTooFewToAttack(){
+		board.changeTroops("Alaska", 1);
+		board.changeTroops("Alberta", 10);
+		
+		board.attack("Alaska", "Alberta");
+		
+		assertTrue(board.getTroops("Alaska")==1);
+		assertTrue(board.getTroops("Alberta")==10);
+	}
+	
+	@Test
+	public void testTakeTerritory() {
+		
+	}
 }

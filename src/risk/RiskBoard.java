@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RiskBoard {
@@ -202,6 +203,81 @@ public class RiskBoard {
 				terra.setFaction(faction);
 			}
 		}
+	}
+	
+	/**
+	 * Method takes an attacking territory name and a defending 
+	 * territory name, checks if it is a valid attack and rolls 
+	 * with the most dice possible (3) if not given. If the defending
+	 * territory reaches 0 troops, the attacker invades.
+	 * 
+	 * @param attacker	the attacking territory
+	 * @param defender	the defending territory
+	 * @param num		the number of troops to attack with (1 - 3)		
+	 */
+	public void attack(String attacker, String defender, int num) {
+		int defendTroops = getTroops(defender);
+		int attackTroops = getTroops(attacker);
+		
+		// Error check num is not more than available troops.
+		if (num > 3) num = 3;
+		if (num > attackTroops-1) num = attackTroops-1;
+		
+		// Check for an empty territory, will end method if true.
+		if(defendTroops <= 0) {
+			setFaction(defender, getFaction(attacker));
+			changeTroops(defender, num);
+			return;
+		}
+		
+		// Find max troops available to defend.
+		int dNum = 1;
+		if (defendTroops > 1) dNum = 2;
+		
+		//dice rolls
+		int[] defendRolls = getRolls(dNum);
+		int[] attackRolls = getRolls(num);
+		
+		// take away troops based on the highest rolls (defender's advantage)
+		if (dNum <= num){
+			for (int i = 0; i < defendRolls.length; i++){
+				if(defendRolls[i] >= attackRolls[i]) changeTroops(attacker, -1); 
+				else changeTroops(defender, -1);
+			}
+		} else {
+			for (int i = 0; i < attackRolls.length; i++){
+				if(defendRolls[i] >= attackRolls[i]) changeTroops(attacker, -1); 
+				else changeTroops(defender, -1);
+			}
+		}
+		
+		/* Check for 0 troops in defending territory, if so 
+		 * move # of attacking troops into territory and switch faction
+		*/ 
+		
+		if(getTroops(defender) <= 0) {
+			setFaction(defender, getFaction(attacker));
+			changeTroops(defender, num);
+		}
+	}
+	
+	public void attack(String attacker, String defender) {
+		attack(attacker, defender, 3);
+	}
+	
+	private int[] getRolls(int num) {
+		int[] rolls = new int[num];
+		
+		for(int i = 0; i< num; i++){
+			rolls[i] = rollDice(6);
+		}
+		
+		Arrays.sort(rolls);
+		return rolls;
+	}
+
+	private int rollDice(int i) {
+		return (int) (Math.random()*i) + 1;
 	}
 
 }
