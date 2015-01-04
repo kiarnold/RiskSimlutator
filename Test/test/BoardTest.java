@@ -88,6 +88,9 @@ public class BoardTest {
 		board.changeTroops("Alaska", 2);
 		board.changeTroops("Alberta", 2);
 		
+		board.setFaction("Alaska", "White");
+		board.setFaction("Alberta", "Black");
+		
 		board.attack("Alaska", "Alberta");
 		
 		assertTrue(board.getTroops("Alaska")!=2 || board.getTroops("Alberta")!=2);
@@ -107,6 +110,39 @@ public class BoardTest {
 	
 	@Test
 	public void testTakeTerritory() {
+		board.changeTroops("Alaska", 1);
+		board.changeTroops("Alberta", 100);
 		
+		board.setFaction("Alaska", "Black");
+		board.setFaction("Alberta", "White");
+		
+		
+		// Chances of not taking the territory are very, very small, 
+		// but there is a chance this test will fail.
+		for(int i=0; i<1000; i++){
+			board.attack("Alberta", "Alaska");
+		}
+		
+		assertSame("White", board.getFaction("Alaska"));
+		assertSame(3, board.getTroops("Alaska"));
+	}
+	
+	@Test
+	public void testTakeTerritoryWithTwo() {
+		board.changeTroops("Alaska", 1);
+		board.changeTroops("Alberta", 100);
+		
+		board.setFaction("Alaska", "Black");
+		board.setFaction("Alberta", "White");
+		
+		
+		// Chances of not taking the territory are very, very small, 
+		// but there is a chance this test will fail.
+		for(int i=0; i<1000; i++){
+			board.attack("Alberta", "Alaska", 2);
+		}
+		
+		assertSame("White", board.getFaction("Alaska"));
+		assertSame(2, board.getTroops("Alaska"));
 	}
 }

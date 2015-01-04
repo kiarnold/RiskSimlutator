@@ -219,6 +219,9 @@ public class RiskBoard {
 		int defendTroops = getTroops(defender);
 		int attackTroops = getTroops(attacker);
 		
+		// Error check for same owner
+		if(getFaction(defender).equals(getFaction(attacker))) return;
+		
 		// Error check num is not more than available troops.
 		if (num > 3) num = 3;
 		if (num > attackTroops-1) num = attackTroops-1;
