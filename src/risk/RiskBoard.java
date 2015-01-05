@@ -15,7 +15,7 @@ public class RiskBoard {
 	/**
 	 * Colors of game pieces.
 	 **/
-	private enum Colors{
+	public enum Colors{
 		 BLACK, BLUE, GREEN, PINK, RED, YELLOW;
 	}
 	
