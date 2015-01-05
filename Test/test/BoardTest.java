@@ -145,4 +145,14 @@ public class BoardTest {
 		assertSame("White", board.getFaction("Alaska"));
 		assertSame(2, board.getTroops("Alaska"));
 	}
+	
+	@Test
+	public void testAssignTerritories() {
+		board.randomStart();
+		
+		assertTrue(board.getFaction("Alaska" != "None");
+		assertTrue(board.getFaction("Alberta" != "None");
+		assertTrue(board.getFaction("Brazil" != "None");
+		assertTrue(board.getFaction("Argentina" != "None");
+	}
 }
