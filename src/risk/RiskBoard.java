@@ -10,6 +10,14 @@ import java.util.List;
 
 public class RiskBoard {
 	private List<Territory> territories;
+	private int playerCount;
+	
+	/**
+	 * Colors of game pieces.
+	 **/
+	private enum Colors{
+		 BLACK, BLUE, GREEN, PINK, RED, YELLOW;
+	}
 	
 	// A new board will be blank, with no territories and no connections
 	public RiskBoard(){ 
@@ -264,10 +272,19 @@ public class RiskBoard {
 		}
 	}
 	
+	/**
+	 * Overflow method to attack with max troops (3).
+	 **/
 	public void attack(String attacker, String defender) {
 		attack(attacker, defender, 3);
 	}
 	
+	/**
+	 * Helper method to roll a number of dice in succession. 
+	 * 
+	 * @param num	the number of times to roll dice
+	 * @return 	an array with the number of dice rolled.
+	 **/
 	private int[] getRolls(int num) {
 		int[] rolls = new int[num];
 		
@@ -279,8 +296,16 @@ public class RiskBoard {
 		return rolls;
 	}
 
+	/**
+	 * Helper method to roll a die.
+	 * 
+	 * @param i	the number of sides on the dice.
+	 * @return	the dice roll
+	 **/
 	private int rollDice(int i) {
 		return (int) (Math.random()*i) + 1;
 	}
+	
+	
 
 }
