@@ -16,7 +16,7 @@ public class RiskBoard {
 	 * Colors of game pieces.
 	 **/
 	public enum Colors{
-		 BLACK, BLUE, GREEN, PINK, RED, YELLOW;
+		 BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
 	}
 	
 	// A new board will be blank, with no territories and no connections
@@ -189,13 +189,13 @@ public class RiskBoard {
 	 * @param territory	the name of the territory to look up
 	 * @return 		a string with the name of the faction in control
 	 **/
-	public String getFaction(String territory) {
+	public Color getFaction(String territory) {
 		for(Territory terra : territories){
 			if (terra.getName().equals(territory)){
 				return terra.getFaction();
 			}
 		}
-		return "None";
+		return Color.NONE;
 	}
 	
 	
@@ -205,7 +205,7 @@ public class RiskBoard {
 	 * @param territory	the name of the territory
 	 * @param faction	the name of the faction to change it to
 	 **/
-	public void setFaction(String territory, String faction) {
+	public void setFaction(String territory, Color faction) {
 		for(Territory terra : territories){
 			if (terra.getName().equals(territory)){
 				terra.setFaction(faction);
@@ -305,7 +305,5 @@ public class RiskBoard {
 	private int rollDice(int i) {
 		return (int) (Math.random()*i) + 1;
 	}
-	
-	
 
 }
