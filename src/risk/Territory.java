@@ -7,7 +7,7 @@ public class Territory {
 	private int troops;
 	private String name;
 	private List<Territory> connections;
-	private String faction;
+	private Color faction;
 	
 	/**
 	 * Constructor builds the object with name initalized, 
@@ -19,7 +19,7 @@ public class Territory {
 		troops = 0;
 		this.name = name; 
 		connections = new ArrayList<Territory>();
-		faction = "None";
+		faction = Color.NONE;
 	}
 
 	// Getters and Setters
@@ -29,9 +29,9 @@ public class Territory {
 
 	public void setTroops(int num) { this.troops = num; }
 	
-	public void setFaction(String faction) { this.faction = faction; }
+	public void setFaction(Color faction) { this.faction = faction; }
 	
-	public String getFaction() { return faction; }
+	public Color getFaction() { return faction; }
 	
 	public void addConnection(Territory terra){ connections.add(terra); }
 	
