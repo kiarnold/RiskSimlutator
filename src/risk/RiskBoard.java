@@ -10,13 +10,19 @@ import java.util.List;
 
 public class RiskBoard {
 	private List<Territory> territories;
-	private int playerCount;
+	private List<Colors> players;
 	
 	/**
 	 * Colors of game pieces.
 	 **/
 	public enum Colors{
 		 BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
+		 
+		 public Colors getRandomColor(){
+		 	int rand = rollDice(6);
+		 	
+		 	return BLACK;
+		 }
 	}
 	
 	// A new board will be blank, with no territories and no connections
@@ -50,6 +56,9 @@ public class RiskBoard {
 				}else if(input.contains("Routes:")){
 					// setup routes
 					this.setupRoutes(br);
+				} else if (input.contains("Players: ")){
+					// setup number of players
+					this.setupPlayers(br);
 				}
 			}
 			
@@ -137,6 +146,61 @@ public class RiskBoard {
 			if(input.equals("")) return;
 			else territories.add(new Territory(input));
 		}
+	}
+	
+	/**
+	 * Private method takes a BufferedReader and reads in each line, 
+	 * adds players and assigns them a random Colors.
+	 * 
+	 * @param br 	a BufferedReader object of the file with setup information
+	 **/
+	private void setupRoutes(BufferedReader br) throws IOException {
+		while(br.ready()){
+			String input = br.readLine();
+			if(input.equals("")) {
+				players = new ArrayList<Colors>();
+				return;
+			} else {
+				int num = Integer.parseInt(input);
+				addPlayers(num);
+			}
+		}
+	}
+	
+	/**
+	 * Method that will add the specified number of players using a random color
+	 * from the Colors enum.
+	 * 
+	 * @param num	the number of players to add, min: 0, max: 6
+	 **/
+	private void addPlayers(int num){
+		// error checking for out of bounds
+		if (num < 0) num = 0;
+		else if (num > 6) num = 6;
+		
+		// assigning a random, unused color
+		for(int i = 0; i<num; i++){
+			Colors playerColor = Colors.getRandomColor();
+			while(!uniquePlayer(playerColor)){
+				playerColor = Colors.getRandomColor();
+			}
+			player.add(playerColor);
+		}
+	}
+	
+	/**
+	 * Helper method to check if a given Colors enum is in the player list.
+	 * 
+	 * @param playerColor	Colors enum in question
+	 * @return		true if no other is present, false otherwise
+	 **/
+	private boolean uniquePlayer(Colors playerColor){
+		for(Colors color : players){
+			for(Colors colorValue : Colors.values()){
+				if(color.equals(colorValue)) return false;
+			}
+		}
+		return true;
 	}
 
 	/**
