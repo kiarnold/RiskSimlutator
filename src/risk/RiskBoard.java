@@ -20,15 +20,25 @@ public class RiskBoard {
 		 
 		 // Unfinished, to be implimented
 		 public Colors getRandomColor(){
-		 	int rand = rollDice(6);
+		 	// get the colors not used
+		 	List<Colors> colors = new ArrayList<Colors>();
 		 	
-		 	return BLACK;
+		 	for(Colors col; Colors.values()){
+		 		if(uniquePlayer(col)) colors.add(col);
+		 	}
+		 	
+		 	// roll a random number corresponding each element
+		 	int rand = rollDice(colors.size())-1;
+		 	
+		 	// return the random element
+		 	return colors.get(rand);
 		 }
 	}
 	
 	// A new board will be blank, with no territories and no connections
 	public RiskBoard(){ 
 		territories = new ArrayList<Territory>();
+		players = new ArrayList<Colors>();
 	}
 
 	/**
@@ -197,9 +207,7 @@ public class RiskBoard {
 	 **/
 	private boolean uniquePlayer(Colors playerColor){
 		for(Colors color : players){
-			for(Colors colorValue : Colors.values()){
-				if(color.equals(colorValue)) return false;
-			}
+			if(color.equals(playerColor)) return false;
 		}
 		return true;
 	}
