@@ -3,11 +3,13 @@ package risk;
 import java.util.ArrayList;
 import java.util.List;
 
+import risk.RiskBoard.Colors;
+
 public class Territory {
 	private int troops;
 	private String name;
 	private List<Territory> connections;
-	private Color faction;
+	private Colors faction;
 	
 	/**
 	 * Constructor builds the object with name initalized, 
@@ -19,7 +21,7 @@ public class Territory {
 		troops = 0;
 		this.name = name; 
 		connections = new ArrayList<Territory>();
-		faction = Color.NONE;
+		faction = Colors.NONE;
 	}
 
 	// Getters and Setters
@@ -29,9 +31,9 @@ public class Territory {
 
 	public void setTroops(int num) { this.troops = num; }
 	
-	public void setFaction(Color faction) { this.faction = faction; }
+	public void setFaction(Colors faction) { this.faction = faction; }
 	
-	public Color getFaction() { return faction; }
+	public Colors getFaction() { return faction; }
 	
 	public void addConnection(Territory terra){ connections.add(terra); }
 	

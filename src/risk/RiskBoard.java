@@ -189,13 +189,13 @@ public class RiskBoard {
 	 * @param territory	the name of the territory to look up
 	 * @return 		a string with the name of the faction in control
 	 **/
-	public Color getFaction(String territory) {
+	public Colors getFaction(String territory) {
 		for(Territory terra : territories){
 			if (terra.getName().equals(territory)){
 				return terra.getFaction();
 			}
 		}
-		return Color.NONE;
+		return Colors.NONE;
 	}
 	
 	
@@ -205,7 +205,7 @@ public class RiskBoard {
 	 * @param territory	the name of the territory
 	 * @param faction	the name of the faction to change it to
 	 **/
-	public void setFaction(String territory, Color faction) {
+	public void setFaction(String territory, Colors faction) {
 		for(Territory terra : territories){
 			if (terra.getName().equals(territory)){
 				terra.setFaction(faction);
@@ -304,6 +304,11 @@ public class RiskBoard {
 	 **/
 	private int rollDice(int i) {
 		return (int) (Math.random()*i) + 1;
+	}
+
+	public void randomStart() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
