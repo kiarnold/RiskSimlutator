@@ -18,6 +18,7 @@ public class RiskBoard {
 	public enum Colors{
 		 BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
 		 
+		 // Unfinished, to be implimented
 		 public Colors getRandomColor(){
 		 	int rand = rollDice(6);
 		 	
