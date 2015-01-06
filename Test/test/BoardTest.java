@@ -121,7 +121,7 @@ public class BoardTest {
 		board.setFaction("Alberta", Colors.BLACK);
 		
 		
-		// Chances of not taking the territory are very, very small, 
+		// WARNING: Chances of not taking the territory are very, very small, 
 		// but there is a chance this test will fail.
 		for(int i=0; i<1000; i++){
 			board.attack("Alberta", "Alaska");
@@ -140,7 +140,7 @@ public class BoardTest {
 		board.setFaction("Alberta", Colors.BLACK);
 		
 		
-		// Chances of not taking the territory are very, very small, 
+		// WARNING: Chances of not taking the territory are very, very small, 
 		// but there is a chance this test will fail.
 		for(int i=0; i<1000; i++){
 			board.attack("Alberta", "Alaska", 2);
