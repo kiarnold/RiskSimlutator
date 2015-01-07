@@ -157,7 +157,7 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testAssignTerritories() {
+	public void testAssignRandomTerritories() {
 		board.randomStart();
 		
 		assertTrue(board.getFaction("Alaska") != Colors.NONE);
