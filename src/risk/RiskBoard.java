@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 
 public class RiskBoard {
 	private List<Territory> territories;
@@ -393,9 +394,25 @@ public class RiskBoard {
 		return (int) (Math.random()*i) + 1;
 	}
 
+	/**
+	 * Sets up the board with random pieces from each player in the player list.
+	 * Will check for minimum players (3) in the player list.
+	 **/
 	public void randomStart() {
-		// TODO Auto-generated method stub
+		// Error check for minimum number of players.
+		if (players.size() > 3) return;
 		
+		int count = 0;
+		
+		// randomize territories list
+		Collections.shuffle(territories);
+		
+		// iterate through the territories and assign each player in turn.
+		for (Territory terra : territories) {
+			terra.setFaction(players.get(count));
+			count++;
+			if(count < players.size()) count = 0;
+		}
 	}
 
 }
