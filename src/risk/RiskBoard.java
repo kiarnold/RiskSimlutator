@@ -10,21 +10,25 @@ import java.util.List;
 
 public class RiskBoard {
 	private List<Territory> territories;
-	private List<Colors> players;
+	private static List<Colors> players;
 	
 	/**
 	 * Colors of game pieces.
 	 **/
-	public enum Colors{
+	public static enum Colors{
 		 BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
 		 
-		 // Unfinished, to be implimented
-		 public Colors getRandomColor(){
+		 /**
+		  * Returns a random color not currently in the players list
+		  * 
+		  * @return	A random, unused color 
+		  */
+		 public static Colors getRandomColor(){
 		 	// get the colors not used
 		 	List<Colors> colors = new ArrayList<Colors>();
 		 	
-		 	for(Colors col; Colors.values()){
-		 		if(uniquePlayer(col)) colors.add(col);
+		 	for(Colors col: Colors.values()){
+		 		if(uniquePlayer(col) && !col.equals(Colors.NONE)) colors.add(col);
 		 	}
 		 	
 		 	// roll a random number corresponding each element
@@ -165,7 +169,7 @@ public class RiskBoard {
 	 * 
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
-	private void setupRoutes(BufferedReader br) throws IOException {
+	private void setupPlayers(BufferedReader br) throws IOException {
 		while(br.ready()){
 			String input = br.readLine();
 			if(input.equals("")) {
@@ -195,7 +199,7 @@ public class RiskBoard {
 			while(!uniquePlayer(playerColor)){
 				playerColor = Colors.getRandomColor();
 			}
-			player.add(playerColor);
+			players.add(playerColor);
 		}
 	}
 	
@@ -205,11 +209,21 @@ public class RiskBoard {
 	 * @param playerColor	Colors enum in question
 	 * @return		true if no other is present, false otherwise
 	 **/
-	private boolean uniquePlayer(Colors playerColor){
+	private static boolean uniquePlayer(Colors playerColor){
 		for(Colors color : players){
 			if(color.equals(playerColor)) return false;
 		}
 		return true;
+	}
+	
+	
+	/**
+	 * Returns the list of players.
+	 * 
+	 * @return	the list of players	
+	 */
+	public List<Colors> getPlayerList(){
+		return players;
 	}
 
 	/**
@@ -375,7 +389,7 @@ public class RiskBoard {
 	 * @param i	the number of sides on the dice.
 	 * @return	the dice roll
 	 **/
-	private int rollDice(int i) {
+	private static int rollDice(int i) {
 		return (int) (Math.random()*i) + 1;
 	}
 
