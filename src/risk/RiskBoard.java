@@ -411,7 +411,7 @@ public class RiskBoard {
 		for (Territory terra : territories) {
 			terra.setFaction(players.get(count));
 			count++;
-			if(count < players.size()) count = 0;
+			if(count >= players.size()) count = 0;
 		}
 	}
 
