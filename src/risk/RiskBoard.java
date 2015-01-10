@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Collections;
 
 public class RiskBoard {
-	private List<Territory> territories;
+	private static List<Territory> territories;
 	private static List<Colors> players;
 	
 	/**
@@ -179,7 +179,6 @@ public class RiskBoard {
 	
 	
 	/**
-	 * Returns the list of players.
 	 * 
 	 * @return	the list of players	
 	 */
@@ -231,35 +230,6 @@ public class RiskBoard {
 		}
 	}
 	
-	/**
-	 * Will return the name of the faction holding the territroy given.
-	 * 
-	 * @param territory	the name of the territory to look up
-	 * @return 		a string with the name of the faction in control
-	 **/
-	public Colors getFaction(String territory) {
-		for(Territory terra : territories){
-			if (terra.getName().equals(territory)){
-				return terra.getFaction();
-			}
-		}
-		return Colors.NONE;
-	}
-	
-	
-	/**
-	 * Sets the name of the faction for a partuicular territory.
-	 * 
-	 * @param territory	the name of the territory
-	 * @param faction	the name of the faction to change it to
-	 **/
-	public void setFaction(String territory, Colors faction) {
-		for(Territory terra : territories){
-			if (terra.getName().equals(territory)){
-				terra.setFaction(faction);
-			}
-		}
-	}
 	
 	/**
 	 * Method takes an attacking territory name and a defending 
@@ -375,4 +345,43 @@ public class RiskBoard {
 		}
 	}
 
+	
+	/*
+	 * GETTERS AND SETTERS
+	 */
+	
+	/**
+	 * Add a territory to the list.
+	 * @param terra	Territory to add
+	 */
+	public static void addTerritory(Territory terra){ territories.add(terra); }
+	
+	/**
+	 * Sets the name of the faction for a particular territory.
+	 * 
+	 * @param territory	the name of the territory
+	 * @param faction	the name of the faction to change it to
+	 **/
+	public void setFaction(String territory, Colors faction) {
+		for(Territory terra : territories){
+			if (terra.getName().equals(territory)){
+				terra.setFaction(faction);
+			}
+		}
+	}
+	
+	/**
+	 * Will return the name of the faction holding the territroy given.
+	 * 
+	 * @param territory	the name of the territory to look up
+	 * @return 		a string with the name of the faction in control
+	 **/
+	public Colors getFaction(String territory) {
+		for(Territory terra : territories){
+			if (terra.getName().equals(territory)){
+				return terra.getFaction();
+			}
+		}
+		return Colors.NONE;
+	}
 }

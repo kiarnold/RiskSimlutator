@@ -29,7 +29,7 @@ public class BoardUtils {
 				
 				if (input.contains("Region: ")){
 					// setup regions
-					board.setupRegions(br);
+					setupRegions(br);
 				}else if(input.contains("Routes:")){
 					// setup routes
 					board.setupRoutes(br);
@@ -45,6 +45,22 @@ public class BoardUtils {
 		} catch (IOException e){
 			System.out.println("File read error: ");
 			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * Private method takes a BufferedReader and reads in each line, 
+	 * creates a territory object, and adds it to the territories list until 
+	 * it reaches a blank line or end of file.
+	 * 
+	 * @param br 	a BufferedReader object of the file with setup information
+	 **/
+	private static void setupRegions(BufferedReader br) throws IOException {
+		while(br.ready()){
+			String input = br.readLine();
+			if(input.equals("")) return;
+			else RiskBoard.addTerritory(new Territory(input));
 		}
 	}
 
