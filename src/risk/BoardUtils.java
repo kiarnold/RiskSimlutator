@@ -32,7 +32,7 @@ public class BoardUtils {
 					setupRegions(board, br);
 				}else if(input.contains("Routes:")){
 					// setup routes
-					board.setupRoutes(br);
+					setupRoutes(board, br);
 				} else if (input.contains("Players: ")){
 					// setup number of players
 					board.setupPlayers(br);
@@ -61,6 +61,27 @@ public class BoardUtils {
 			String input = br.readLine();
 			if(input.equals("")) return;
 			else board.addTerritory(new Territory(input));
+		}
+	}
+	
+	
+	/**
+	 * Private method takes a BufferedReader and reads in each line, 
+	 * adds connection to territory objects in the territories list until 
+	 * it reaches a blank line or end of file. The accepted format is:
+	 * "Territory1-Terrotory2";
+	 * 
+	 * @param br 	a BufferedReader object of the file with setup information
+	 **/
+	public static void setupRoutes(RiskBoard board, BufferedReader br) throws IOException {
+		while(br.ready()){
+			String input = br.readLine();
+			if(input.equals("")) return;
+			else {
+				String[] route = input.split("-");
+				board.addConnection(route[0],route[1]);
+			}
+			
 		}
 	}
 

@@ -194,27 +194,6 @@ public class RiskBoard {
 		}
 		return 0;
 	}
-
-	/**
-	 * Method to add (positive number) or subtract (negative number) troops from a given territory.
-	 * Any calls without a valid name will be ignored. This method will check to ensure the number 
-	 * of troops in a territory does not fall below 0. If it does, the number will be set to 0.
-	 * 
-	 * @param territory	the name of the territory to add to
-	 * @param num		the number of troops to add(or subtract)
-	 **/
-	public void changeTroops(String territory, int num) {
-		for(Territory terra : territories){
-			if (terra.getName().equals(territory)){
-				int troops = terra.getTroops() + num;
-				if(troops > 0){
-					terra.setTroops(troops);
-				} else {
-					terra.setTroops(0);
-				}
-			}
-		}
-	}
 	
 	
 	/**
@@ -332,8 +311,12 @@ public class RiskBoard {
 	}
 
 	
+	
+	
 	/*
+	 * *************************
 	 * GETTERS AND SETTERS
+	 * *************************
 	 */
 	
 	/**
@@ -369,5 +352,26 @@ public class RiskBoard {
 			}
 		}
 		return Colors.NONE;
+	}
+	
+	/**
+	 * Method to add (positive number) or subtract (negative number) troops from a given territory.
+	 * Any calls without a valid name will be ignored. This method will check to ensure the number 
+	 * of troops in a territory does not fall below 0. If it does, the number will be set to 0.
+	 * 
+	 * @param territory	the name of the territory to add to
+	 * @param num		the number of troops to add(or subtract)
+	 **/
+	public void changeTroops(String territory, int num) {
+		for(Territory terra : territories){
+			if (terra.getName().equals(territory)){
+				int troops = terra.getTroops() + num;
+				if(troops > 0){
+					terra.setTroops(troops);
+				} else {
+					terra.setTroops(0);
+				}
+			}
+		}
 	}
 }
