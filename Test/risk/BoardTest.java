@@ -19,7 +19,7 @@ public class BoardTest {
 	@Before
 	public void setUp(){
 		board = new RiskBoard();
-		board.setup("TestRisk.txt");
+		BoardUtils.setup(board, "TestRisk.txt");
 	}
 
 	@Test
