@@ -29,7 +29,7 @@ public class BoardUtils {
 				
 				if (input.contains("Region: ")){
 					// setup regions
-					setupRegions(br);
+					setupRegions(board, br);
 				}else if(input.contains("Routes:")){
 					// setup routes
 					board.setupRoutes(br);
@@ -56,11 +56,11 @@ public class BoardUtils {
 	 * 
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
-	private static void setupRegions(BufferedReader br) throws IOException {
+	private static void setupRegions(RiskBoard board, BufferedReader br) throws IOException {
 		while(br.ready()){
 			String input = br.readLine();
 			if(input.equals("")) return;
-			else RiskBoard.addTerritory(new Territory(input));
+			else board.addTerritory(new Territory(input));
 		}
 	}
 

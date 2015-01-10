@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Collections;
 
 public class RiskBoard {
-	private static List<Territory> territories;
+	private List<Territory> territories;
 	private static List<Colors> players;
 	
 	/**
@@ -109,20 +109,6 @@ public class RiskBoard {
 		return null;
 	}
 	
-	/**
-	 * Private method takes a BufferedReader and reads in each line, 
-	 * creates a territory object, and adds it to the territories list until 
-	 * it reaches a blank line or end of file.
-	 * 
-	 * @param br 	a BufferedReader object of the file with setup information
-	 **/
-	public void setupRegions(BufferedReader br) throws IOException {
-		while(br.ready()){
-			String input = br.readLine();
-			if(input.equals("")) return;
-			else territories.add(new Territory(input));
-		}
-	}
 	
 	/**
 	 * Private method takes a BufferedReader and reads in each line, 
@@ -354,7 +340,7 @@ public class RiskBoard {
 	 * Add a territory to the list.
 	 * @param terra	Territory to add
 	 */
-	public static void addTerritory(Territory terra){ territories.add(terra); }
+	public void addTerritory(Territory terra){ territories.add(terra); }
 	
 	/**
 	 * Sets the name of the faction for a particular territory.
