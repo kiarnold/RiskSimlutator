@@ -79,9 +79,35 @@ public class BoardUtils {
 			if(input.equals("")) return;
 			else {
 				String[] route = input.split("-");
-				board.addConnection(route[0],route[1]);
+				addConnection(board, route[0],route[1]);
 			}
 			
+		}
+	}
+	
+	
+	/**
+	 * Method to add connections to territories. Note: all connections are 2 way.
+	 * Will ignore adds where either territory cannot be found.
+	 * 
+	 * @param from	Territory to start in
+	 * @param to	Territory to end in
+	 **/
+	public static void addConnection(RiskBoard board, String from, String to){
+		Territory terraFrom = null; 
+		Territory terraTo = null;
+		for(Territory terra : board.getTerritories()){
+			if (terra.getName().equals(from)){
+				terraFrom = terra;
+			}
+			else if(terra.getName().equals(to)){
+				terraTo = terra;
+			}
+		}
+		
+		if(terraFrom != null && terraTo != null){
+			terraFrom.addConnection(terraTo);
+			terraTo.addConnection(terraFrom);
 		}
 	}
 

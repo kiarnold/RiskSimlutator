@@ -44,70 +44,7 @@ public class RiskBoard {
 	public RiskBoard(){ 
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
-	}
-
-	
-	/**
-	 * Private method takes a BufferedReader and reads in each line, 
-	 * adds connection to territory objects in the territories list until 
-	 * it reaches a blank line or end of file. The accepted format is:
-	 * "Territory1-Terrotory2";
-	 * 
-	 * @param br 	a BufferedReader object of the file with setup information
-	 **/
-	public void setupRoutes(BufferedReader br) throws IOException {
-		while(br.ready()){
-			String input = br.readLine();
-			if(input.equals("")) return;
-			else {
-				String[] route = input.split("-");
-				addConnection(route[0],route[1]);
-			}
-			
-		}
-	}
-	
-	
-	/**
-	 * Method to add connections to territories. Note: all connections are 2 way.
-	 * Will ignore adds where either territory cannot be found.
-	 * 
-	 * @paramfrom	Territory to start in
-	 * @param to	Territory to end in
-	 **/
-	public void addConnection(String from, String to){
-		Territory terraFrom = null; 
-		Territory terraTo = null;
-		for(Territory terra : territories){
-			if (terra.getName().equals(from)){
-				terraFrom = terra;
-			}
-			else if(terra.getName().equals(to)){
-				terraTo = terra;
-			}
-		}
-		
-		if(terraFrom != null && terraTo != null){
-			terraFrom.addConnection(terraTo);
-			terraTo.addConnection(terraFrom);
-		}
-	}
-	
-	
-	/**
-	 * Looks up a territory and returns that territory's connections list.
-	 * 
-	 * @param territory	the territory to look up	
-	 * @return			a list of connections from the given territory
-	 */
-	public List<Territory> getConnections(String territory){
-		for(Territory terra : territories){
-			if (terra.getName().equals(territory)){
-				return terra.getConnections();
-			}
-		}
-		return null;
-	}
+	}	
 	
 	
 	/**
@@ -172,29 +109,6 @@ public class RiskBoard {
 		return players;
 	}
 
-	/**
-	 * Get method for territories.
-	 * 
-	 * @return	the territories in List<Territory> form.
-	 **/
-	public List<Territory> getTerritories() {return territories;}
-
-	/**
-	 * Method to get the number of troops in a particular territory.
-	 * Method will return 0 for calls without a valid name.
-	 * 
-	 * @param territory	the name of the territory to get info from
-	 * @return		returns the number of troops in a territory
-	 **/
-	public int getTroops(String territory) {
-		for(Territory terra : territories){
-			if (terra.getName().equals(territory)){
-				return terra.getTroops();
-			}
-		}
-		return 0;
-	}
-	
 	
 	/**
 	 * Method takes an attacking territory name and a defending 
@@ -255,12 +169,14 @@ public class RiskBoard {
 		}
 	}
 	
+	
 	/**
 	 * Overflow method to attack with max troops (3).
 	 **/
 	public void attack(String attacker, String defender) {
 		attack(attacker, defender, 3);
 	}
+	
 	
 	/**
 	 * Helper method to roll a number of dice in succession. 
@@ -278,6 +194,7 @@ public class RiskBoard {
 		Arrays.sort(rolls);
 		return rolls;
 	}
+	
 
 	/**
 	 * Helper method to roll a die.
@@ -288,6 +205,7 @@ public class RiskBoard {
 	private static int rollDice(int i) {
 		return (int) (Math.random()*i) + 1;
 	}
+	
 
 	/**
 	 * Sets up the board with random pieces from each player in the player list.
@@ -319,11 +237,21 @@ public class RiskBoard {
 	 * *************************
 	 */
 	
+	
 	/**
 	 * Add a territory to the list.
 	 * @param terra	Territory to add
 	 */
 	public void addTerritory(Territory terra){ territories.add(terra); }
+	
+	
+	/**
+	 * Get method for territories.
+	 * 
+	 * @return	the territories in List<Territory> form.
+	 **/
+	public List<Territory> getTerritories() {return territories;}
+	
 	
 	/**
 	 * Sets the name of the faction for a particular territory.
@@ -339,6 +267,7 @@ public class RiskBoard {
 		}
 	}
 	
+	
 	/**
 	 * Will return the name of the faction holding the territroy given.
 	 * 
@@ -353,6 +282,7 @@ public class RiskBoard {
 		}
 		return Colors.NONE;
 	}
+	
 	
 	/**
 	 * Method to add (positive number) or subtract (negative number) troops from a given territory.
@@ -373,5 +303,38 @@ public class RiskBoard {
 				}
 			}
 		}
+	}
+	
+	
+	/**
+	 * Method to get the number of troops in a particular territory.
+	 * Method will return 0 for calls without a valid name.
+	 * 
+	 * @param territory	the name of the territory to get info from
+	 * @return		returns the number of troops in a territory
+	 **/
+	public int getTroops(String territory) {
+		for(Territory terra : territories){
+			if (terra.getName().equals(territory)){
+				return terra.getTroops();
+			}
+		}
+		return 0;
+	}	
+	
+	
+	/**
+	 * Looks up a territory and returns that territory's connections list.
+	 * 
+	 * @param territory	the territory to look up	
+	 * @return			a list of connections from the given territory
+	 */
+	public List<Territory> getConnections(String territory){
+		for(Territory terra : territories){
+			if (terra.getName().equals(territory)){
+				return terra.getConnections();
+			}
+		}
+		return null;
 	}
 }
