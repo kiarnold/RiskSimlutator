@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 
+import risk.RiskBoard.Colors;
+
 public class RiskBoard {
 	private List<Territory> territories;
 	private static List<Colors> players;
@@ -65,27 +67,7 @@ public class RiskBoard {
 			}
 		}
 	}
-	
-	/**
-	 * Method that will add the specified number of players using a random color
-	 * from the Colors enum.
-	 * 
-	 * @param num	the number of players to add, min: 0, max: 6
-	 **/
-	private void addPlayers(int num){
-		// error checking for out of bounds
-		if (num < 0) num = 0;
-		else if (num > 6) num = 6;
-		
-		// assigning a random, unused color
-		for(int i = 0; i<num; i++){
-			Colors playerColor = Colors.getRandomColor();
-			while(!uniquePlayer(playerColor)){
-				playerColor = Colors.getRandomColor();
-			}
-			players.add(playerColor);
-		}
-	}
+
 	
 	/**
 	 * Helper method to check if a given Colors enum is in the player list.
@@ -98,15 +80,6 @@ public class RiskBoard {
 			if(color.equals(playerColor)) return false;
 		}
 		return true;
-	}
-	
-	
-	/**
-	 * 
-	 * @return	the list of players	
-	 */
-	public List<Colors> getPlayerList(){
-		return players;
 	}
 
 	
@@ -337,4 +310,43 @@ public class RiskBoard {
 		}
 		return null;
 	}
+
+	
+	/**
+	 * Sets the player list.
+	 * @param players	list to set the player list as.
+	 */
+	public void setPlayerList(ArrayList<Colors> players) { this.players = players; }
+	
+	
+	/**
+	 * Gets the player list.
+	 * @return	the list of players	
+	 */
+	public List<Colors> getPlayerList(){
+		return players;
+	}
+	
+	
+	/**
+	 * Method that will add the specified number of players using a random color
+	 * from the Colors enum.
+	 * 
+	 * @param num	the number of players to add, min: 0, max: 6
+	 **/
+	public void addPlayers(int num){
+		// error checking for out of bounds
+		if (num < 0) num = 0;
+		else if (num > 6) num = 6;
+		
+		// assigning a random, unused color
+		for(int i = 0; i<num; i++){
+			Colors playerColor = Colors.getRandomColor();
+			while(!uniquePlayer(playerColor)){
+				playerColor = Colors.getRandomColor();
+			}
+			players.add(playerColor);
+		}
+	}
+	
 }

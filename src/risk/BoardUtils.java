@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import risk.RiskBoard.Colors;
 
 public class BoardUtils {
 		
@@ -35,7 +38,7 @@ public class BoardUtils {
 					setupRoutes(board, br);
 				} else if (input.contains("Players: ")){
 					// setup number of players
-					board.setupPlayers(br);
+					setupPlayers(board, br);
 				}
 			}
 			
@@ -73,7 +76,7 @@ public class BoardUtils {
 	 * 
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
-	public static void setupRoutes(RiskBoard board, BufferedReader br) throws IOException {
+	private static void setupRoutes(RiskBoard board, BufferedReader br) throws IOException {
 		while(br.ready()){
 			String input = br.readLine();
 			if(input.equals("")) return;
@@ -111,4 +114,23 @@ public class BoardUtils {
 		}
 	}
 
+	
+	/**
+	 * Private method takes a BufferedReader and reads in each line, 
+	 * adds players and assigns them a random Colors.
+	 * 
+	 * @param br 	a BufferedReader object of the file with setup information
+	 **/
+	public static void setupPlayers(RiskBoard board, BufferedReader br) throws IOException {
+		while(br.ready()){
+			String input = br.readLine();
+			if(input.equals("")) {
+				board.setPlayerList(new ArrayList<Colors>());
+				return;
+			} else {
+				int num = Integer.parseInt(input);
+				board.addPlayers(num);
+			}
+		}
+	}
 }
