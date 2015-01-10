@@ -1,4 +1,4 @@
-package test;
+package risk;
 
 import static org.junit.Assert.*;
 
