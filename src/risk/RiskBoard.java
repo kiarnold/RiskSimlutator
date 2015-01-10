@@ -27,7 +27,7 @@ public class RiskBoard {
 		  * @return	A random, unused color 
 		  */
 		 public static Colors getRandomColor(){
-		 	// get the colors not used
+		 	// get a list of the colors not used
 		 	List<Colors> colors = new ArrayList<Colors>();
 		 	
 		 	for(Colors col: Colors.values()){
@@ -47,6 +47,17 @@ public class RiskBoard {
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
 	}	
+	
+	/**
+	 * Optional constructor to pass a file name directly to setup a board.
+	 * @param fileName
+	 */
+	public RiskBoard(String fileName){ 
+		territories = new ArrayList<Territory>();
+		players = new ArrayList<Colors>();
+		
+		BoardUtils.setup(this, fileName);
+	}
 	
 	
 	/**

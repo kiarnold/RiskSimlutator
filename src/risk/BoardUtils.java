@@ -121,7 +121,7 @@ public class BoardUtils {
 	 * 
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
-	public static void setupPlayers(RiskBoard board, BufferedReader br) throws IOException {
+	private static void setupPlayers(RiskBoard board, BufferedReader br) throws IOException {
 		while(br.ready()){
 			String input = br.readLine();
 			if(input.equals("")) {
