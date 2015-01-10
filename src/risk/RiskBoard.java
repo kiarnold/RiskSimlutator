@@ -1,96 +1,36 @@
 package risk;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
 
-import risk.RiskBoard.Colors;
+import risk.BoardUtils.Colors;
 
 public class RiskBoard {
 	private List<Territory> territories;
-	private static List<Colors> players;
+	private List<Colors> players;
+	
 	
 	/**
-	 * Colors of game pieces.
-	 **/
-	public static enum Colors{
-		 BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
-		 
-		 /**
-		  * Returns a random color not currently in the players list
-		  * 
-		  * @return	A random, unused color 
-		  */
-		 public static Colors getRandomColor(){
-		 	// get a list of the colors not used
-		 	List<Colors> colors = new ArrayList<Colors>();
-		 	
-		 	for(Colors col: Colors.values()){
-		 		if(uniquePlayer(col) && !col.equals(Colors.NONE)) colors.add(col);
-		 	}
-		 	
-		 	// roll a random number corresponding each element
-		 	int rand = rollDice(colors.size())-1;
-		 	
-		 	// return the random element
-		 	return colors.get(rand);
-		 }
-	}
-	
-	// A new board will be blank, with no territories and no connections
+	 * Default constructor setting up a blank board with 
+	 * no territories and no connections.
+	 */
 	public RiskBoard(){ 
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
 	}	
 	
+	
 	/**
 	 * Optional constructor to pass a file name directly to setup a board.
-	 * @param fileName
+	 * @param fileName	Name of a file with setup information
 	 */
 	public RiskBoard(String fileName){ 
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
 		
 		BoardUtils.setup(this, fileName);
-	}
-	
-	
-	/**
-	 * Private method takes a BufferedReader and reads in each line, 
-	 * adds players and assigns them a random Colors.
-	 * 
-	 * @param br 	a BufferedReader object of the file with setup information
-	 **/
-	public void setupPlayers(BufferedReader br) throws IOException {
-		while(br.ready()){
-			String input = br.readLine();
-			if(input.equals("")) {
-				players = new ArrayList<Colors>();
-				return;
-			} else {
-				int num = Integer.parseInt(input);
-				addPlayers(num);
-			}
-		}
-	}
-
-	
-	/**
-	 * Helper method to check if a given Colors enum is in the player list.
-	 * 
-	 * @param playerColor	Colors enum in question
-	 * @return		true if no other is present, false otherwise
-	 **/
-	private static boolean uniquePlayer(Colors playerColor){
-		for(Colors color : players){
-			if(color.equals(playerColor)) return false;
-		}
-		return true;
 	}
 
 	
@@ -160,8 +100,6 @@ public class RiskBoard {
 	public void attack(String attacker, String defender) {
 		attack(attacker, defender, 3);
 	}
-	
-	
 	/**
 	 * Helper method to roll a number of dice in succession. 
 	 * 
@@ -188,28 +126,6 @@ public class RiskBoard {
 	 **/
 	private static int rollDice(int i) {
 		return (int) (Math.random()*i) + 1;
-	}
-	
-
-	/**
-	 * Sets up the board with random pieces from each player in the player list.
-	 * Will check for minimum players (3) in the player list.
-	 **/
-	public void randomStart() {
-		// Error check for minimum number of players.
-		if (players.size() < 3) return;
-		
-		int count = 0;
-		
-		// randomize territories list
-		Collections.shuffle(territories);
-		
-		// iterate through the territories and assign each player in turn.
-		for (Territory terra : territories) {
-			terra.setFaction(players.get(count));
-			count++;
-			if(count >= players.size()) count = 0;
-		}
 	}
 
 	
@@ -338,26 +254,13 @@ public class RiskBoard {
 		return players;
 	}
 	
-	
+
 	/**
-	 * Method that will add the specified number of players using a random color
-	 * from the Colors enum.
-	 * 
-	 * @param num	the number of players to add, min: 0, max: 6
-	 **/
-	public void addPlayers(int num){
-		// error checking for out of bounds
-		if (num < 0) num = 0;
-		else if (num > 6) num = 6;
-		
-		// assigning a random, unused color
-		for(int i = 0; i<num; i++){
-			Colors playerColor = Colors.getRandomColor();
-			while(!uniquePlayer(playerColor)){
-				playerColor = Colors.getRandomColor();
-			}
-			players.add(playerColor);
-		}
+	 * Add a player to the player list
+	 * @param playerColor
+	 */
+	public void addPlayer(Colors player) {
+		players.add(player);
 	}
 	
 }

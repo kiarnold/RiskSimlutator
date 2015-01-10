@@ -3,7 +3,7 @@ package risk;
 import java.util.ArrayList;
 import java.util.List;
 
-import risk.RiskBoard.Colors;
+import risk.BoardUtils.Colors;
 
 public class Territory {
 	private int troops;

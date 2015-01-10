@@ -5,10 +5,38 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import risk.RiskBoard.Colors;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class BoardUtils {
+	
+	/**
+	 * Colors of game pieces.
+	 **/
+	public static enum Colors{
+		 BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
+		 
+		 /**
+		  * Returns a random color not currently in the players list
+		  * 
+		  * @return	A random, unused color 
+		  */
+		 public static Colors getRandomColor(RiskBoard board){
+		 	// get a list of the colors not used
+		 	List<Colors> colors = new ArrayList<Colors>();
+		 	
+		 	for(Colors col: Colors.values()){
+		 		if(uniquePlayer(board, col) && !col.equals(Colors.NONE)) colors.add(col);
+		 	}
+		 	
+		 	// roll a random number corresponding each element
+		 	int rand = rollDice(colors.size())-1;
+		 	
+		 	// return the random element
+		 	return colors.get(rand);
+		 }
+	}
 		
 	/**
 	 * Will attempt to setup the board based on an input file. Territories 
@@ -129,8 +157,97 @@ public class BoardUtils {
 				return;
 			} else {
 				int num = Integer.parseInt(input);
-				board.addPlayers(num);
+				addPlayers(board, num);
 			}
+		}
+	}
+	
+	/**
+	 * Method that will add the specified number of players using a random color
+	 * from the Colors enum.
+	 * 
+	 * @param num	the number of players to add, min: 0, max: 6
+	 **/
+	private static void addPlayers(RiskBoard board,int num){
+		// error checking for out of bounds
+		if (num < 0) num = 0;
+		else if (num > 6) num = 6;
+		
+		// assigning a random, unused color
+		for(int i = 0; i<num; i++){
+			Colors playerColor = Colors.getRandomColor(board);
+			while(!uniquePlayer(board, playerColor)){
+				playerColor = Colors.getRandomColor(board);
+			}
+			board.addPlayer(playerColor);
+		}
+	}
+	
+	
+	/**
+	 * Helper method to roll a number of dice in succession. 
+	 * 
+	 * @param num	the number of times to roll dice
+	 * @return 	an array with the number of dice rolled.
+	 **/
+	private int[] getRolls(int num) {
+		int[] rolls = new int[num];
+		
+		for(int i = 0; i< num; i++){
+			rolls[i] = rollDice(6);
+		}
+		
+		Arrays.sort(rolls);
+		return rolls;
+	}
+	
+
+	/**
+	 * Helper method to roll a die.
+	 * 
+	 * @param i	the number of sides on the dice.
+	 * @return	the dice roll
+	 **/
+	private static int rollDice(int i) {
+		return (int) (Math.random()*i) + 1;
+	}
+	
+	
+	/**
+	 * Helper method to check if a given Colors enum is in the player list.
+	 * 
+	 * @param playerColor	Colors enum in question
+	 * @return		true if no other is present, false otherwise
+	 **/
+	private static boolean uniquePlayer(RiskBoard board, Colors playerColor){
+		for(Colors color : board.getPlayerList()){
+			if(color.equals(playerColor)) return false;
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Sets up the board with random pieces from each player in the player list.
+	 * Will check for minimum players (3) in the player list.
+	 **/
+	public static void randomStart(RiskBoard board) {
+		// Error check for minimum number of players.
+		List<Colors> players = board.getPlayerList();
+		List<Territory> territories = board.getTerritories();
+		
+		if (players.size() < 3) return;
+		
+		int count = 0;
+		
+		// randomize territories list
+		Collections.shuffle(territories);
+		
+		// iterate through the territories and assign each player in turn.
+		for (Territory terra : territories) {
+			board.setFaction(terra.toString(), players.get(count));
+			count++;
+			if(count >= players.size()) count = 0;
 		}
 	}
 }

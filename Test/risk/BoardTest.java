@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import risk.RiskBoard;
-import risk.RiskBoard.Colors;
+import risk.BoardUtils.Colors;
 import risk.Territory;
 
 public class BoardTest {
@@ -158,7 +158,7 @@ public class BoardTest {
 	
 	@Test
 	public void testAssignRandomTerritories() {
-		board.randomStart();
+		BoardUtils.randomStart(board);
 		
 		assertTrue(board.getFaction("Alaska") != Colors.NONE);
 		assertTrue(board.getFaction("Alberta") != Colors.NONE);
