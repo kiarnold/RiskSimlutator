@@ -400,7 +400,7 @@ public class RiskBoard {
 	 **/
 	public void randomStart() {
 		// Error check for minimum number of players.
-		if (players.size() > 3) return;
+		if (players.size() < 3) return;
 		
 		int count = 0;
 		
