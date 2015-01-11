@@ -14,30 +14,32 @@ public class BoardUtils {
 	/**
 	 * Colors of game pieces.
 	 **/
-	public static enum Colors{
-		 BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
-		 
-		 /**
-		  * Returns a random color not currently in the players list
-		  * 
-		  * @return	A random, unused color 
-		  */
-		 public static Colors getRandomColor(RiskBoard board){
-		 	// get a list of the colors not used
-		 	List<Colors> colors = new ArrayList<Colors>();
-		 	
-		 	for(Colors col: Colors.values()){
-		 		if(uniquePlayer(board, col) && !col.equals(Colors.NONE)) colors.add(col);
-		 	}
-		 	
-		 	// roll a random number corresponding each element
-		 	int rand = rollDice(colors.size())-1;
-		 	
-		 	// return the random element
-		 	return colors.get(rand);
-		 }
+	public static enum Colors {
+		BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
+
+		/**
+		 * Returns a random color not currently in the players list
+		 * 
+		 * @return A random, unused color
+		 */
+		public static Colors getRandomColor(RiskBoard board) {
+			// get a list of the colors not used
+			List<Colors> colors = new ArrayList<Colors>();
+
+			for (Colors col : Colors.values()) {
+				if (uniquePlayer(board, col) && !col.equals(Colors.NONE))
+					colors.add(col);
+			}
+
+			// roll a random number corresponding each element
+			int rand = rollDice(colors.size()) - 1;
+
+			// return the random element
+			return colors.get(rand);
+		}
 	}
 		
+	//TODO: this input should be a standard format ie. XML, JSON etc...
 	/**
 	 * Will attempt to setup the board based on an input file. Territories 
 	 * will be added first and then routes will be set up.
@@ -51,34 +53,33 @@ public class BoardUtils {
 	 * 
 	 * @param fileName 	the name of a file containing valid board information
 	 **/
-	public static void setup(RiskBoard board,String fileName){
+	public static void setup(RiskBoard board, String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
-			
-			while(br.ready()){
+
+			while (br.ready()) {
 				String input = br.readLine();
-				
-				if (input.contains("Region: ")){
+
+				if (input.contains("Region: ")) {
 					// setup regions
 					setupRegions(board, br);
-				}else if(input.contains("Routes:")){
+				} else if (input.contains("Routes:")) {
 					// setup routes
 					setupRoutes(board, br);
-				} else if (input.contains("Players: ")){
+				} else if (input.contains("Players: ")) {
 					// setup number of players
 					setupPlayers(board, br);
 				}
 			}
-			
+
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found: ");
 			e.printStackTrace();
-		} catch (IOException e){
+		} catch (IOException e) {
 			System.out.println("File read error: ");
 			e.printStackTrace();
 		}
 	}
-	
 	
 	/**
 	 * Private method takes a BufferedReader and reads in each line, 
@@ -88,10 +89,13 @@ public class BoardUtils {
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
 	private static void setupRegions(RiskBoard board, BufferedReader br) throws IOException {
-		while(br.ready()){
+		while(br.ready()) {
 			String input = br.readLine();
-			if(input.equals("")) return;
-			else board.addTerritory(new Territory(input));
+			if(input.equals("")) {
+				return;
+			} else {
+				board.addTerritory(new Territory(input));
+			}
 		}
 	}
 	
@@ -105,17 +109,16 @@ public class BoardUtils {
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
 	private static void setupRoutes(RiskBoard board, BufferedReader br) throws IOException {
-		while(br.ready()){
+		while (br.ready()) {
 			String input = br.readLine();
-			if(input.equals("")) return;
-			else {
+			if (input.equals("")) {
+				return;
+			} else {
 				String[] route = input.split("-");
-				addConnection(board, route[0],route[1]);
+				addConnection(board, route[0], route[1]);
 			}
-			
 		}
-	}
-	
+	}	
 	
 	/**
 	 * Method to add connections to territories. Note: all connections are 2 way.
@@ -124,19 +127,18 @@ public class BoardUtils {
 	 * @param from	Territory to start in
 	 * @param to	Territory to end in
 	 **/
-	public static void addConnection(RiskBoard board, String from, String to){
-		Territory terraFrom = null; 
+	public static void addConnection(RiskBoard board, String from, String to) {
+		Territory terraFrom = null;
 		Territory terraTo = null;
-		for(Territory terra : board.getTerritories()){
-			if (terra.getName().equals(from)){
+		for (Territory terra : board.getTerritories()) {
+			if (terra.getName().equals(from)) {
 				terraFrom = terra;
-			}
-			else if(terra.getName().equals(to)){
+			} else if (terra.getName().equals(to)) {
 				terraTo = terra;
 			}
 		}
-		
-		if(terraFrom != null && terraTo != null){
+
+		if (terraFrom != null && terraTo != null) {
 			terraFrom.addConnection(terraTo);
 			terraTo.addConnection(terraFrom);
 		}
@@ -150,9 +152,9 @@ public class BoardUtils {
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
 	private static void setupPlayers(RiskBoard board, BufferedReader br) throws IOException {
-		while(br.ready()){
+		while (br.ready()) {
 			String input = br.readLine();
-			if(input.equals("")) {
+			if (input.equals("")) {
 				board.setPlayerList(new ArrayList<Colors>());
 				return;
 			} else {
@@ -176,13 +178,14 @@ public class BoardUtils {
 		// assigning a random, unused color
 		for(int i = 0; i<num; i++){
 			Colors playerColor = Colors.getRandomColor(board);
+			
 			while(!uniquePlayer(board, playerColor)){
 				playerColor = Colors.getRandomColor(board);
 			}
+			
 			board.addPlayer(playerColor);
 		}
 	}
-	
 	
 	/**
 	 * Helper method to roll a number of dice in succession. 
@@ -193,14 +196,13 @@ public class BoardUtils {
 	private int[] getRolls(int num) {
 		int[] rolls = new int[num];
 		
-		for(int i = 0; i< num; i++){
+		for (int i = 0; i < num; i++) {
 			rolls[i] = rollDice(6);
 		}
 		
 		Arrays.sort(rolls);
 		return rolls;
 	}
-	
 
 	/**
 	 * Helper method to roll a die.
@@ -209,9 +211,8 @@ public class BoardUtils {
 	 * @return	the dice roll
 	 **/
 	private static int rollDice(int i) {
-		return (int) (Math.random()*i) + 1;
+		return (int) (Math.random() * i) + 1;
 	}
-	
 	
 	/**
 	 * Helper method to check if a given Colors enum is in the player list.
@@ -221,11 +222,12 @@ public class BoardUtils {
 	 **/
 	private static boolean uniquePlayer(RiskBoard board, Colors playerColor){
 		for(Colors color : board.getPlayerList()){
-			if(color.equals(playerColor)) return false;
+			if(color.equals(playerColor)) {
+				return false;
+			}
 		}
 		return true;
 	}
-	
 	
 	/**
 	 * Sets up the board with random pieces from each player in the player list.
@@ -235,19 +237,27 @@ public class BoardUtils {
 		// Error check for minimum number of players.
 		List<Colors> players = board.getPlayerList();
 		List<Territory> territories = board.getTerritories();
-		
-		if (players.size() < 3) return;
+
+		if (players.size() < 3) {
+			return;
+		}
 		
 		int count = 0;
-		
+
 		// randomize territories list
 		Collections.shuffle(territories);
-		
+
 		// iterate through the territories and assign each player in turn.
 		for (Territory terra : territories) {
+			// TODO: This should not be the string representation of the
+			// territory.
+			// It looks like it should be the name?
 			board.setFaction(terra.toString(), players.get(count));
 			count++;
-			if(count >= players.size()) count = 0;
+			
+			if (count >= players.size()) {
+				count = 0;
+			}
 		}
 	}
 }
