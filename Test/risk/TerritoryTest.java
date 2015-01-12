@@ -48,22 +48,10 @@ public class TerritoryTest {
 	
 	@Test
 	public void testToString() throws Exception {
-		//TODO: re-implement when toString is fixed 
-//		Territory terra2 = new Territory("terra2");
-//		int numTroops = 42;
-//		territory.setTroops(numTroops);
-//		territory.setFaction(BoardUtils.Colors.BLUE);
-//		territory.addConnection(terra2);
-//		
-//		String expected = "name=testTerritory\n"
-//				+ "faction=BLUE\n"
-//				+ "troops=42\n"
-//				+ "connections=[name=terra2\n"
-//				+ "faction=NONE\n"
-//				+ "troops=0\n"
-//				+ "connections=[]]";
 		
-		String expected = "testTerritory";
+		String expected = "Territory: testTerritory\n"
+				+ "Troops: 42\t" 
+				+"BLUE\n";
 		
 		assertEquals(expected, territory.toString());
 	}
