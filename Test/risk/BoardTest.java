@@ -83,7 +83,7 @@ public class BoardTest {
 	
 	@Test
 	public void testRoutes(){
-		List<Territory> connections = new ArrayList<>();//Arrays.asList(new Territory(alberta), new Territory(argentina));
+		List<Territory> connections = new ArrayList<>();
 		connections.add(new Territory(alberta));
 		connections.add(new Territory(argentina));
 		
@@ -120,18 +120,13 @@ public class BoardTest {
 	
 	@Test
 	public void testTakeTerritory() {
-		board.changeTroops(alaska, 1);
+		board.changeTroops(alaska, 0);
 		board.changeTroops(alberta, 100);
 		
 		board.setFaction(alaska, Colors.PINK);
 		board.setFaction(alberta, Colors.BLACK);
 		
-		
-		// WARNING: Chances of not taking the territory are very, very small, 
-		// but there is a chance this test will fail.
-		for(int i=0; i<1000; i++){
-			board.attack(alberta, alaska);
-		}
+		board.attack(alberta, alaska);
 		
 		assertSame(Colors.BLACK, board.getFaction(alaska));
 		assertSame(3, board.getTroops(alaska));
@@ -139,19 +134,13 @@ public class BoardTest {
 	
 	@Test
 	public void testTakeTerritoryWithTwo() {
-		board.changeTroops(alaska, 1);
+		board.changeTroops(alaska, 0);
 		board.changeTroops(alberta, 100);
 		
 		board.setFaction(alaska, Colors.PINK);
 		board.setFaction(alberta, Colors.BLACK);
 		
-		
-		// WARNING: Chances of not taking the territory are very, very small, 
-		// but there is a chance this test will fail.
-		//TODO: fix this then, don't introduce an intermittent failure this early and knowingly
-		for (int i = 0; i < 1000; i++) {
-			board.attack(alberta, alaska, 2);
-		}
+		board.attack(alberta, alaska, 2);
 		
 		assertSame(Colors.BLACK, board.getFaction(alaska));
 		assertSame(2, board.getTroops(alaska));
