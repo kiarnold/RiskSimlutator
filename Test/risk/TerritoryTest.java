@@ -46,9 +46,9 @@ public class TerritoryTest {
 		assertEquals("terra2", territory.getConnections().get(0).getName());
 	}
 	
-	//TODO: re-implement when toString is fixed 
-//	@Test
-//	public void testToString() throws Exception {
+	@Test
+	public void testToString() throws Exception {
+		//TODO: re-implement when toString is fixed 
 //		Territory terra2 = new Territory("terra2");
 //		int numTroops = 42;
 //		territory.setTroops(numTroops);
@@ -62,9 +62,11 @@ public class TerritoryTest {
 //				+ "faction=NONE\n"
 //				+ "troops=0\n"
 //				+ "connections=[]]";
-//		
-//		assertEquals(expected, territory.toString());
-//	}
+		
+		String expected = "testTerritory";
+		
+		assertEquals(expected, territory.toString());
+	}
 	
 	//TODO: add JUnit extension to test hashcode and equals
 	@Test
