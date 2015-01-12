@@ -54,7 +54,23 @@ public class Territory {
 	
 	@Override
 	public String toString() {
-		return name;
+		StringBuilder sb = new StringBuilder();
+		
+		// Name
+		sb.append("Territory: ");
+		sb.append(name);
+		sb.append("\n");
+		
+		// Troop Count
+		sb.append("Troops: ");
+		sb.append(troops);
+		sb.append("\t");
+		
+		// Faction Control
+		sb.append(faction.name());
+		sb.append("\n");
+		
+		return sb;
 	}
 
 	@Override
