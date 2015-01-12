@@ -77,10 +77,7 @@ public class Territory {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((connections == null) ? 0 : connections.hashCode());
-		result = prime * result + ((faction == null) ? 0 : faction.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + troops;
 		return result;
 	}
 
@@ -93,19 +90,10 @@ public class Territory {
 		if (getClass() != obj.getClass())
 			return false;
 		Territory other = (Territory) obj;
-		if (connections == null) {
-			if (other.connections != null)
-				return false;
-		} else if (!connections.equals(other.connections))
-			return false;
-		if (faction != other.faction)
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
-			return false;
-		if (troops != other.troops)
 			return false;
 		return true;
 	}
