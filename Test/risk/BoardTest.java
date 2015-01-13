@@ -178,6 +178,7 @@ public class BoardTest {
 		assertEquals(0, board.getTroops(brazil));
 		assertEquals(5, board.getTroops(argentina));
 		assertEquals(5, board.getTroops(alberta));
+		
 	}
 	
 }
