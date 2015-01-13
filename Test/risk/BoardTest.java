@@ -162,4 +162,22 @@ public class BoardTest {
 		assertTrue(board.getFaction(argentina) != Colors.NONE);
 	}
 	
+	@Test
+	public void testMoveTerritory() {
+		board.setFaction(alberta, Colors.BLACK);
+		board.setFaction(argentina, Colors.BLACK);
+		board.setFaction(brazil, Colors.BLACK);
+		
+		board.setTroops(alberta, 10);
+		
+		board.moveTroops(alberta, alaska, 5);
+		board.moveTroops(alberta, brazil, 5);
+		board.moveTroops(alberta, argentina, 5);
+		
+		assertEquals(0, board.getTroops(alaska));
+		assertEquals(0, board.getTroops(brazil));
+		assertEquals(5, board.getTroops(argentina));
+		assertEquals(5, board.getTroops(alberta));
+	}
+	
 }
