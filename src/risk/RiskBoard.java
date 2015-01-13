@@ -26,9 +26,7 @@ public class RiskBoard {
 	 * @param fileName	Name of a file with setup information
 	 */
 	public RiskBoard(String fileName){ 
-		territories = new ArrayList<Territory>();
-		players = new ArrayList<Colors>();
-		
+		RiskBoard();
 		BoardUtils.setup(this, fileName);
 	}
 
