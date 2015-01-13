@@ -115,10 +115,10 @@ public class RiskBoard {
 	}
 	
 	/**
-	 * Helper method to roll a number of dice in succession. 
+	 * Helper method to roll a number of dice in succession and sort the results.
 	 * 
 	 * @param num	the number of times to roll dice
-	 * @return 	an array with the number of dice rolled.
+	 * @return 	a sorted array with the number of dice rolled.
 	 **/
 	private int[] getRolls(int num) {
 		int[] rolls = new int[num];
@@ -139,6 +139,37 @@ public class RiskBoard {
 	 **/
 	private static int rollDice(int i) {
 		return (int) (Math.random() * i) + 1;
+	}
+	
+	/**
+	 * Checks the territory for the same faction flag and a connection between the two. 
+	 * Then moves the number of troops specified or the max able to move, whichever is smaller.
+	 * 
+	 * @param from	a string naming the originating territory
+	 * @param to	a string naming the destination territory
+	 * @param num	the number of troops to move 
+	 */
+	public void moveTroops(String from, String to, int num) {
+		Territory toTerra = new Territory(to);
+		
+		//check connection
+		List<Territory> fromList = getConnections(from);
+		if (!fromList.contains(toTerra)) {
+			return;
+		}
+		
+		// check faction
+		if (!getFaction(from).equals(getFaction.to())) {
+			return;
+		}
+		
+		// check numbers
+		if (num > (getTroops(from)-1)) {
+			num = getTroops(from)-1;
+		}
+		
+		// move
+		changeTroops(to, num);
 	}
 	
 	/*
