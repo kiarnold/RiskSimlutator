@@ -168,7 +168,7 @@ public class BoardTest {
 		board.setFaction(argentina, Colors.BLACK);
 		board.setFaction(brazil, Colors.BLACK);
 		
-		board.setTroops(alberta, 10);
+		board.changeTroops(alberta, 10);
 		
 		board.moveTroops(alberta, alaska, 5);
 		board.moveTroops(alberta, brazil, 5);
