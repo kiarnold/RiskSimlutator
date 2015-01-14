@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import risk.BoardUtils.Colors;
+
 public class TerritoryTest {
 	Territory territory;
 	String name = "testTerritory";
@@ -48,10 +50,12 @@ public class TerritoryTest {
 	
 	@Test
 	public void testToString() throws Exception {
-		
 		String expected = "Territory: testTerritory\n"
 				+ "Troops: 42\t" 
 				+"BLUE\n";
+		
+		territory.setFaction(Colors.BLUE);
+		territory.setTroops(42);
 		
 		assertEquals(expected, territory.toString());
 	}

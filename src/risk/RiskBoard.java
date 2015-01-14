@@ -26,7 +26,9 @@ public class RiskBoard {
 	 * @param fileName	Name of a file with setup information
 	 */
 	public RiskBoard(String fileName){ 
-		RiskBoard();
+		territories = new ArrayList<Territory>();
+		players = new ArrayList<Colors>();
+		
 		BoardUtils.setup(this, fileName);
 	}
 
@@ -159,7 +161,7 @@ public class RiskBoard {
 		}
 		
 		// check faction
-		if (!getFaction(from).equals(getFaction.to())) {
+		if (!getFaction(from).equals(getFaction(to))) {
 			return;
 		}
 		
@@ -169,6 +171,7 @@ public class RiskBoard {
 		}
 		
 		// move
+		changeTroops(from, -(num));
 		changeTroops(to, num);
 	}
 	
