@@ -15,6 +15,10 @@ import risk.Territory;
 
 public class BoardTest {
 	RiskBoard board;
+	private String alaska = "Alaska";
+	private String alberta = "Alberta";
+	private String argentina = "Argentina";
+	private String brazil = "Brazil";
 	
 	@Before
 	public void setUp(){
@@ -31,123 +35,115 @@ public class BoardTest {
 
 	@Test
 	public void testBoardSetup() {
-		
 		List<Territory> expected = new ArrayList<>();
-		expected.add(new Territory("Alaska"));
-		expected.add(new Territory("Alberta"));
 		
-		expected.add(new Territory("Argentina"));
-		expected.add(new Territory("Brazil"));
+		expected.add(new Territory(alaska));
+		expected.add(new Territory(alberta));
+		
+		expected.add(new Territory(argentina));
+		expected.add(new Territory(brazil));
 			
 		assertEquals(expected.toString(), board.getTerritories().toString());
 	}
 	
 	@Test
 	public void testChangeTroops(){
-		board.changeTroops("Argentina", 5);
-		assertEquals(5, board.getTroops("Argentina"));
+		board.changeTroops(argentina, 5);
+		assertEquals(5, board.getTroops(argentina));
 		
-		board.changeTroops("Argentina", 2);
-		assertEquals(7, board.getTroops("Argentina"));
+		board.changeTroops(argentina, 2);
+		assertEquals(7, board.getTroops(argentina));
 		
-		board.changeTroops("Argentina", -2);
-		assertEquals(5, board.getTroops("Argentina"));
+		board.changeTroops(argentina, -2);
+		assertEquals(5, board.getTroops(argentina));
 		
-		board.changeTroops("Argentina", -2);
-		assertEquals(3, board.getTroops("Argentina"));
+		board.changeTroops(argentina, -2);
+		assertEquals(3, board.getTroops(argentina));
 		
-		board.changeTroops("Argentina", -2);
-		assertEquals(1, board.getTroops("Argentina"));
+		board.changeTroops(argentina, -2);
+		assertEquals(1, board.getTroops(argentina));
 		
-		board.changeTroops("Argentina", -20);
-		assertEquals(0, board.getTroops("Argentina"));
+		board.changeTroops(argentina, -20);
+		assertEquals(0, board.getTroops(argentina));
 	}
 	
 	@Test
 	public void testFactions(){
-		assertEquals(Colors.NONE, board.getFaction("Alaska"));
+		assertEquals(Colors.NONE, board.getFaction(alaska));
 		
-		board.setFaction("Alaska", Colors.BLUE);
-		assertEquals(Colors.BLUE, board.getFaction("Alaska"));
+		board.setFaction(alaska, Colors.BLUE);
+		assertEquals(Colors.BLUE, board.getFaction(alaska));
 		
 		
-		board.setFaction("Argentina", Colors.BLACK);
-		board.setFaction("Alaska", Colors.BLACK);
-		assertEquals(Colors.BLACK, board.getFaction("Argentina"));
-		assertEquals(Colors.BLACK, board.getFaction("Alaska"));
+		board.setFaction(argentina, Colors.BLACK);
+		board.setFaction(alaska, Colors.BLACK);
+		assertEquals(Colors.BLACK, board.getFaction(argentina));
+		assertEquals(Colors.BLACK, board.getFaction(alaska));
 	}
 	
 	@Test
 	public void testRoutes(){
-		List<Territory> connections = Arrays.asList(new Territory("Alberta"), new Territory("Argentina"));		
+		List<Territory> connections = new ArrayList<>();
+		connections.add(new Territory(alberta));
+		connections.add(new Territory(argentina));
 		
-		assertEquals(connections.toString(), board.getConnections("Alaska").toString());
+		assertEquals(connections.toString(), board.getConnections(alaska).toString());
 	}
 	
 	@Test
 	public void testAttack(){
-		board.changeTroops("Alaska", 2);
-		board.changeTroops("Alberta", 2);
+		board.changeTroops(alaska, 2);
+		board.changeTroops(alberta, 2);
 		
-		board.setFaction("Alaska", Colors.PINK);
-		board.setFaction("Alberta", Colors.BLACK);
+		board.setFaction(alaska, Colors.PINK);
+		board.setFaction(alberta, Colors.BLACK);
 		
-		board.attack("Alaska", "Alberta");
+		board.attack(alaska, alberta);
 		
-		assertTrue(board.getTroops("Alaska")!=2 || board.getTroops("Alberta")!=2);
-		assertTrue(board.getTroops("Alaska")==1 || board.getTroops("Alberta")==1);
+		assertTrue(board.getTroops(alaska)!=2 || board.getTroops(alberta)!=2);
+		assertTrue(board.getTroops(alaska)==1 || board.getTroops(alberta)==1);
 	}
 	
 	@Test
 	public void testTooFewToAttack(){
-		board.changeTroops("Alaska", 1);
-		board.changeTroops("Alberta", 10);
+		board.changeTroops(alaska, 1);
+		board.changeTroops(alberta, 10);
 		
-		board.setFaction("Alaska", Colors.PINK);
-		board.setFaction("Alberta", Colors.BLACK);
+		board.setFaction(alaska, Colors.PINK);
+		board.setFaction(alberta, Colors.BLACK);
 		
-		board.attack("Alaska", "Alberta");
+		board.attack(alaska, alberta);
 		
-		assertTrue(board.getTroops("Alaska")==1);
-		assertTrue(board.getTroops("Alberta")==10);
+		assertTrue(board.getTroops(alaska)==1);
+		assertTrue(board.getTroops(alberta)==10);
 	}
 	
 	@Test
 	public void testTakeTerritory() {
-		board.changeTroops("Alaska", 1);
-		board.changeTroops("Alberta", 100);
+		board.changeTroops(alaska, 0);
+		board.changeTroops(alberta, 100);
 		
-		board.setFaction("Alaska", Colors.PINK);
-		board.setFaction("Alberta", Colors.BLACK);
+		board.setFaction(alaska, Colors.PINK);
+		board.setFaction(alberta, Colors.BLACK);
 		
+		board.attack(alberta, alaska);
 		
-		// WARNING: Chances of not taking the territory are very, very small, 
-		// but there is a chance this test will fail.
-		for(int i=0; i<1000; i++){
-			board.attack("Alberta", "Alaska");
-		}
-		
-		assertSame(Colors.BLACK, board.getFaction("Alaska"));
-		assertSame(3, board.getTroops("Alaska"));
+		assertSame(Colors.BLACK, board.getFaction(alaska));
+		assertSame(3, board.getTroops(alaska));
 	}
 	
 	@Test
 	public void testTakeTerritoryWithTwo() {
-		board.changeTroops("Alaska", 1);
-		board.changeTroops("Alberta", 100);
+		board.changeTroops(alaska, 0);
+		board.changeTroops(alberta, 100);
 		
-		board.setFaction("Alaska", Colors.PINK);
-		board.setFaction("Alberta", Colors.BLACK);
+		board.setFaction(alaska, Colors.PINK);
+		board.setFaction(alberta, Colors.BLACK);
 		
+		board.attack(alberta, alaska, 2);
 		
-		// WARNING: Chances of not taking the territory are very, very small, 
-		// but there is a chance this test will fail.
-		for(int i=0; i<1000; i++){
-			board.attack("Alberta", "Alaska", 2);
-		}
-		
-		assertSame(Colors.BLACK, board.getFaction("Alaska"));
-		assertSame(2, board.getTroops("Alaska"));
+		assertSame(Colors.BLACK, board.getFaction(alaska));
+		assertSame(2, board.getTroops(alaska));
 	}
 	
 	
@@ -160,9 +156,32 @@ public class BoardTest {
 	public void testAssignRandomTerritories() {
 		BoardUtils.randomStart(board);
 		
-		assertTrue(board.getFaction("Alaska") != Colors.NONE);
-		assertTrue(board.getFaction("Alberta") != Colors.NONE);
-		assertTrue(board.getFaction("Brazil") != Colors.NONE);
-		assertTrue(board.getFaction("Argentina") != Colors.NONE);
+		assertTrue(board.getFaction(alaska) != Colors.NONE);
+		assertTrue(board.getFaction(alberta) != Colors.NONE);
+		assertTrue(board.getFaction(brazil) != Colors.NONE);
+		assertTrue(board.getFaction(argentina) != Colors.NONE);
 	}
+	
+	@Test
+	public void testMoveTerritory() {
+		board.setFaction(alberta, Colors.BLACK);
+		board.setFaction(argentina, Colors.BLACK);
+		board.setFaction(brazil, Colors.BLACK);
+		
+		board.changeTroops(alberta, 10);
+		
+		board.moveTroops(alberta, alaska, 5);
+		board.moveTroops(alberta, brazil, 5);
+		board.moveTroops(alberta, argentina, 5);
+		
+		assertEquals(0, board.getTroops(alaska));
+		assertEquals(0, board.getTroops(brazil));
+		assertEquals(5, board.getTroops(argentina));
+		assertEquals(5, board.getTroops(alberta));
+		
+		board.moveTroops(board.moveTroops(alberta, argentina, 5);
+		assertEquals(9, board.getTroops(argentina));
+		assertEquals(1, board.getTroops(alberta));
+	}
+	
 }

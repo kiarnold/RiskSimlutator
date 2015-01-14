@@ -14,6 +14,7 @@ At the moment, it can set up a simulated Risk board as a graph and poplulate tha
 ## Who made it
 
 Keith Arnold
+Brian Arnold
 
 ## Other
 
