@@ -249,6 +249,5 @@ public class BoardUtils {
 			count++;
 			if(count >= players.size()) count = 0;
 		}
-		
 	}
 }

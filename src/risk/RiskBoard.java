@@ -11,6 +11,7 @@ public class RiskBoard {
 	private List<Territory> territories;
 	private List<Colors> players;
 	
+	
 	/**
 	 * Default constructor setting up a blank board with 
 	 * no territories and no connections.

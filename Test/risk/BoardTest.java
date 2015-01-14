@@ -150,6 +150,7 @@ public class BoardTest {
 		assertSame(2, board.getTroops("Alaska"));
 	}
 	
+	
 	@Test
 	public void testPlayerList() {
 		assertFalse(board.getPlayerList().equals(new ArrayList<Colors>()));
