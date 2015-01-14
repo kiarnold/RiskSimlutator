@@ -249,9 +249,6 @@ public class BoardUtils {
 
 		// iterate through the territories and assign each player in turn.
 		for (Territory terra : territories) {
-			// TODO: This should not be the string representation of the
-			// territory.
-			// It looks like it should be the name?
 			board.setFaction(terra.getName(), players.get(count));
 			count++;
 			
