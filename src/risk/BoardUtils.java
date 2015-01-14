@@ -252,7 +252,7 @@ public class BoardUtils {
 			// TODO: This should not be the string representation of the
 			// territory.
 			// It looks like it should be the name?
-			board.setFaction(terra.toString(), players.get(count));
+			board.setFaction(terra.getName(), players.get(count));
 			count++;
 			
 			if (count >= players.size()) {
