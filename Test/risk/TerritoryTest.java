@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,13 +64,8 @@ public class TerritoryTest {
 	
 	//TODO: add JUnit extension to test hashcode and equals
 	@Test
-	public void testEquals() throws Exception {
-		Territory terra2 = new Territory(name);
-		assertEquals(terra2, territory);
-		
-		terra2.setTroops(4);
-		assertNotEquals(terra2, territory);
-		assertEquals(terra2, terra2);
+	public void testEquals() {
+		EqualsVerifier.forClass(Territory.class).verify();
 	}
 
 }

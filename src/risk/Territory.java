@@ -5,9 +5,9 @@ import java.util.List;
 
 import risk.BoardUtils.Colors;
 
-public class Territory {
+public final class Territory {
 	private int troops;
-	private String name;
+	private final String name;
 	private List<Territory> connections;
 	private Colors faction;
 	
