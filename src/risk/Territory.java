@@ -70,7 +70,7 @@ public class Territory {
 		sb.append(faction.name());
 		sb.append("\n");
 		
-		return sb;
+		return sb.toString();
 	}
 
 	@Override
