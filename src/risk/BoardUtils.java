@@ -11,6 +11,12 @@ import java.util.List;
 
 public class BoardUtils {
 	
+	// Private constructor to prevent creating BoardUtil objects.
+	private BoardUtils(){
+		throw new AssertionError(); // Never call this
+	}
+	
+	
 	/**
 	 * Colors of game pieces.
 	 **/
