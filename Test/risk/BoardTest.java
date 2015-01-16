@@ -184,4 +184,16 @@ public class BoardTest {
 		assertEquals(1, board.getTroops(alberta));
 	}
 	
+	@Test
+	public void testStartingReserves() {
+		Dictionary reserves = board.getReserves();
+		
+		assertFalse(reserves.isEmpty());
+
+		for(Colors player : board.getPlayerList()){
+			assertEquals(0, reserves.get(player));
+		}
+		
+	}
+	
 }
