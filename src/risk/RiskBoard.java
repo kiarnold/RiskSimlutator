@@ -286,7 +286,7 @@ public class RiskBoard {
 	 * @param players	list to set the player list as.
 	 */
 	public void setPlayerList(ArrayList<Colors> players) {
-		for (player : players) {
+		for (Colors player : players) {
 			this.players.addPlayer(player);
 		}
 	}
