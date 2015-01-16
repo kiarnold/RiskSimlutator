@@ -9,11 +9,14 @@ public class JSONImportTest {
 
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 
 	@Test
-	public void testReadFile() {
+	public void testCreateJSONObject() {
+		JSONImport json = new JSONImport("TestBoard.js");
 		
 	}
+
 
 }
