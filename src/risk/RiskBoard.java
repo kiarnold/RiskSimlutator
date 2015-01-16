@@ -9,6 +9,7 @@ import risk.BoardUtils.Colors;
 public class RiskBoard {
 	private List<Territory> territories;
 	private List<Colors> players;
+	private Dictionary reserves;
 	
 	
 	/**
@@ -18,6 +19,7 @@ public class RiskBoard {
 	public RiskBoard(){ 
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
+		reserves = new Dictionary();
 	}	
 	
 	
@@ -284,7 +286,9 @@ public class RiskBoard {
 	 * @param players	list to set the player list as.
 	 */
 	public void setPlayerList(ArrayList<Colors> players) {
-		this.players = players;
+		for (player : players) {
+			this.players.addPlayer(player);
+		}
 	}
 	
 	/**
@@ -296,11 +300,22 @@ public class RiskBoard {
 	}
 	
 	/**
-	 * Add a player to the player list
+	 * Add a player to the player list an set that player's reserves to 0.
 	 * @param playerColor
 	 */
 	public void addPlayer(Colors player) {
 		players.add(player);
+		reserves.put(player, 0);
+	}
+	
+	/**
+	 * Returns the dictionary of troop reserves which are keyed 
+	 * to each player's Colors value.
+	 * 
+	 * @return 	the dictionary of troop reserves.
+	 */
+	public Dictionary getReserves() {
+		return reserves;
 	}
 	
 }
