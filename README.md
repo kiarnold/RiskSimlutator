@@ -14,10 +14,10 @@ At the moment, it can set up a simulated Risk board as a graph and poplulate tha
 ### Who made it
 
 Author:
-*Keith Arnold
+* Keith Arnold
 
 Contributions: 
-*Brian Arnold
+* Brian Arnold
 
 ### Other
 
