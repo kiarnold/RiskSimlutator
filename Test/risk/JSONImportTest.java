@@ -14,7 +14,7 @@ public class JSONImportTest {
 
 	@Test
 	public void testCreateJSONObject() {
-		JSONImport json = new JSONImport("TestBoard.js");
+		JSONImport json = new JSONImport("TestBoard.txt");
 		
 	}
 
