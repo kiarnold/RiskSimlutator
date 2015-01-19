@@ -16,7 +16,7 @@ At the moment, it can set up a simulated Risk board as a graph and poplulate tha
 Author:
 * Keith Arnold
 
-Contributions: 
+Contributor: 
 * Brian Arnold
 
 ### Other
