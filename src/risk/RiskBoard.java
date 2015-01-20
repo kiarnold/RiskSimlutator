@@ -329,4 +329,7 @@ public class RiskBoard {
 		reserves.put(player, num);
 	}
 	
+	public void removeReserves(Colors, player, int num) {
+		reserves.put(player, (reserves.get(player) - num) );
+	}
 }
