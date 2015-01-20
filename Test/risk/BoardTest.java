@@ -196,7 +196,7 @@ public class BoardTest {
 			assertEquals(0, reserveNum);
 		}
 		
-		board.randomStart();
+		BoardUtils.randomStart(board);
 		
 		for(Colors player : board.getPlayerList()){
 			int reserveNum = reserves.get(player);
