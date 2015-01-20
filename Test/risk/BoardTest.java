@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.junit.Before;
@@ -186,12 +187,13 @@ public class BoardTest {
 	
 	@Test
 	public void testStartingReserves() {
-		Dictionary reserves = board.getReserves();
+		Hashtable<Colors, Integer> reserves = board.getReserves();
 		
 		assertFalse(reserves.isEmpty());
 
 		for(Colors player : board.getPlayerList()){
-			assertEquals(0, reserves.get(player));
+			int reserveNum = reserves.get(player);
+			assertEquals(0, reserveNum);
 		}
 		
 	}

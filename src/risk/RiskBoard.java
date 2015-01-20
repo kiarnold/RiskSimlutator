@@ -2,6 +2,7 @@ package risk;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 
 import risk.BoardUtils.Colors;
@@ -9,7 +10,7 @@ import risk.BoardUtils.Colors;
 public class RiskBoard {
 	private List<Territory> territories;
 	private List<Colors> players;
-	private Dictionary reserves;
+	private Hashtable<Colors, Integer> reserves;
 	
 	
 	/**
@@ -19,7 +20,7 @@ public class RiskBoard {
 	public RiskBoard(){ 
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
-		reserves = new Dictionary();
+		reserves = new Hashtable<Colors, Integer>();
 	}	
 	
 	
@@ -287,7 +288,7 @@ public class RiskBoard {
 	 */
 	public void setPlayerList(ArrayList<Colors> players) {
 		for (Colors player : players) {
-			this.players.addPlayer(player);
+			this.addPlayer(player);
 		}
 	}
 	
@@ -309,12 +310,12 @@ public class RiskBoard {
 	}
 	
 	/**
-	 * Returns the dictionary of troop reserves which are keyed 
+	 * Returns the Hashtable of troop reserves which are keyed 
 	 * to each player's Colors value.
 	 * 
-	 * @return 	the dictionary of troop reserves.
+	 * @return 	the Hashtable of troop reserves.
 	 */
-	public Dictionary getReserves() {
+	public Hashtable getReserves() {
 		return reserves;
 	}
 	
