@@ -196,6 +196,13 @@ public class BoardTest {
 			assertEquals(0, reserveNum);
 		}
 		
+		board.randomStart();
+		
+		for(Colors player : board.getPlayerList()){
+			int reserveNum = reserves.get(player);
+			assertFalse(0 == reserveNum);
+		}
+		
 	}
 	
 }
