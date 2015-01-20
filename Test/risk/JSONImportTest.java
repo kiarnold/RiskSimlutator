@@ -16,6 +16,10 @@ public class JSONImportTest {
 	public void testCreateJSONObject() {
 		JSONImport json = new JSONImport("TestBoard.txt");
 		
+		RiskBoard board = new RiskBoard();
+		board.setup("TestBoard.txt");
+		
+		assertEquals(board, json.getBoard());
 	}
 
 
