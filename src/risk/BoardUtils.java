@@ -10,6 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class BoardUtils {
+	private final int THREE_PLAYERS = 35;
+	private final int FOUR_PLAYERS = 30;
+	private final int FIVE_PLAYERS = 25;
+	private final int SIX_PLAYERS = 20;
 	
 	// Private constructor to prevent creating BoardUtil objects.
 	private BoardUtils(){
@@ -236,7 +240,8 @@ public class BoardUtils {
 	}
 	
 	/**
-	 * Sets up the board with random pieces from each player in the player list.
+	 * Sets up the board with random territories for each player in the player list,
+	 * and adds the correct number of peices to the player's reserves to begin a game.
 	 * Will check for minimum players (3) in the player list.
 	 **/
 	public static void randomStart(RiskBoard board) {
@@ -244,23 +249,50 @@ public class BoardUtils {
 		List<Colors> players = board.getPlayerList();
 		List<Territory> territories = board.getTerritories();
 
-		if (players.size() < 3) {
+		if (players.size() < 3 || players.size() > 6) {
 			return;
 		}
+
+		// add the appropreate number to reserves
+		startReserves(players);
 		
 		int count = 0;
-
+		
 		// randomize territories list
 		Collections.shuffle(territories);
 
-		// iterate through the territories and assign each player in turn.
+		// iterate through the territories and assign each player a territory in turn.
 		for (Territory terra : territories) {
 			board.setFaction(terra.getName(), players.get(count));
 			count++;
 			
+			board.removeReserves(players.get(count), 1);
+			
 			if (count >= players.size()) {
 				count = 0;
 			}
+		}
+		
+		
+	}
+	
+	/**
+	 * Helper method to put the correct number of reserve troops for each player
+	**/
+	private void startReserves(List<Colors> players) {
+		int num = 0;
+		if (players.size() == 3) {
+			num = THREE_PLAYERS;
+		} else if (players.size() == 4) {
+			num = FOUR_PLAYERS;
+		} else if (players.size() == 5) {
+			num = FIVE_PLAYERS;
+		} else if (players.size() == 6) {
+			num = SIX_PLAYERS;
+		}
+		
+		for(Colors player : players) {
+			board.setPlayerReserves(player, num);
 		}
 	}
 }
