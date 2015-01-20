@@ -14,7 +14,7 @@ public class JSONImport {
 			Object obj = parser.parse(new FileReader(fileName));
 			jsonObject = (JSONObject) obj;
 			
-			board = parseNewBoard(jsonObject);
+			parseNewBoard(jsonObject);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -25,9 +25,15 @@ public class JSONImport {
 	 * Parses out a fresh baord from a json object.
 	 * 
 	 * @param json	a jason object with the board setup information
-	 * @return	a risk board with the infor from the json file
 	 **/
-	private RiskBoard parseNewBoard(JSONObject json) {
-		return null;
+	private parseNewBoard(JSONObject json) {
+		// TODO: parse json to board
+	}
+	
+	/*
+	* Getters and Setters
+	*/
+	public getBoard() {
+		return board;
 	}
 }
