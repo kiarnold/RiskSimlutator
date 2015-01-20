@@ -319,4 +319,14 @@ public class RiskBoard {
 		return reserves;
 	}
 	
+	/**
+	 * Sets the number of reserves for a player.
+	 * 
+	 * @param player	the player to set
+	 * @param num		the number to set reserves to
+	 */
+	public void setPlayerReserves(Colors player, int num) {
+		reserves.put(player, num);
+	}
+	
 }
