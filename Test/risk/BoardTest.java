@@ -212,11 +212,9 @@ public class BoardTest {
 		
 		assertEquals(29, board.getReserves(players.get(0)));
 		
-		for (int i = 1; i <= 4; i++){
-			board.removeReserves(players.get(0), 7);
-		}
+		board.removeReserves(players.get(0), 30);
 		
-		assertEquals(1, board.getReserves(players.get(0)));
+		assertEquals(0, board.getReserves(players.get(0)));
 	}
 	
 }

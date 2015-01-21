@@ -340,9 +340,10 @@ public class RiskBoard {
 	public void removeReserves(Colors player, int num) {
 		int changeTo = reserves.get(player) - num;
 		
-		if (changeTo > 0) {
-			return;
+		if (changeTo < 0) {
+			changeTo = 0;
 		}
 		setPlayerReserves(player, changeTo);
 	}
+
 }

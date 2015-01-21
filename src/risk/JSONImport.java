@@ -29,7 +29,7 @@ public class JSONImport {
 	 * @param json	a jason object with the board setup information
 	 **/
 	private void parseNewBoard(JSONObject json) {
-		// TODO: parse json to board
+		System.out.println(json);
 	}
 	
 	/*
