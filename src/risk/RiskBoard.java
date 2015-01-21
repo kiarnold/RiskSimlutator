@@ -345,5 +345,15 @@ public class RiskBoard {
 		}
 		setPlayerReserves(player, changeTo);
 	}
-
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for(Territory terra : territories) {
+			sb.append(terra.toString());
+		}
+		
+		return sb.toString();
+	}
 }
