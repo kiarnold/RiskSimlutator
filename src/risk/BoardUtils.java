@@ -10,10 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class BoardUtils {
-	private final int THREE_PLAYERS = 35;
-	private final int FOUR_PLAYERS = 30;
-	private final int FIVE_PLAYERS = 25;
-	private final int SIX_PLAYERS = 20;
+	private final static int THREE_PLAYERS = 35;
+	private final static int FOUR_PLAYERS = 30;
+	private final static int FIVE_PLAYERS = 25;
+	private final static int SIX_PLAYERS = 20;
 	
 	// Private constructor to prevent creating BoardUtil objects.
 	private BoardUtils(){
@@ -241,7 +241,7 @@ public class BoardUtils {
 	
 	/**
 	 * Sets up the board with random territories for each player in the player list,
-	 * and adds the correct number of peices to the player's reserves to begin a game.
+	 * and adds the correct number of pieces to the player's reserves to begin a game.
 	 * Will check for minimum players (3) in the player list.
 	 **/
 	public static void randomStart(RiskBoard board) {
@@ -253,8 +253,8 @@ public class BoardUtils {
 			return;
 		}
 
-		// add the appropreate number to reserves
-		startReserves(players);
+		// add the appropriate number to reserves
+		startReserves(board, players);
 		
 		int count = 0;
 		
@@ -266,20 +266,18 @@ public class BoardUtils {
 			board.setFaction(terra.getName(), players.get(count));
 			count++;
 			
-			board.removeReserves(players.get(count), 1);
+			//board.removeReserves(players.get(count), 1);
 			
 			if (count >= players.size()) {
 				count = 0;
 			}
 		}
-		
-		
 	}
 	
 	/**
 	 * Helper method to put the correct number of reserve troops for each player
 	**/
-	private void startReserves(List<Colors> players) {
+	private static void startReserves(RiskBoard board, List<Colors> players) {
 		int num = 0;
 		if (players.size() == 3) {
 			num = THREE_PLAYERS;

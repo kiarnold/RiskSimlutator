@@ -315,8 +315,8 @@ public class RiskBoard {
 	 * 
 	 * @return 	the Hashtable of troop reserves.
 	 */
-	public Hashtable getReserves() {
-		return reserves;
+	public int getReserves(Colors player) {
+		return reserves.get(player);
 	}
 	
 	/**
@@ -329,7 +329,20 @@ public class RiskBoard {
 		reserves.put(player, num);
 	}
 	
-	public void removeReserves(Colors, player, int num) {
-		reserves.put(player, (reserves.get(player) - num) );
+	
+	/**
+	 * Method to remove numbers easily from the reserves list.
+	 * This will error check to make sure the reserves do not fall below 0.
+	 * 
+	 * @param player	The player to remove
+	 * @param num		the number of troops to remove
+	 */
+	public void removeReserves(Colors player, int num) {
+		int changeTo = reserves.get(player) - num;
+		
+		if (changeTo > 0) {
+			return;
+		}
+		setPlayerReserves(player, changeTo);
 	}
 }

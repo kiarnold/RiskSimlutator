@@ -17,7 +17,7 @@ public class JSONImportTest {
 		JSONImport json = new JSONImport("TestBoard.txt");
 		
 		RiskBoard board = new RiskBoard();
-		board.setup("TestBoard.txt");
+		BoardUtils.setup(board, "TestBoard.txt");
 		
 		assertEquals(board, json.getBoard());
 	}

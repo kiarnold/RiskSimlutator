@@ -3,7 +3,6 @@ package risk;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -187,22 +186,37 @@ public class BoardTest {
 	
 	@Test
 	public void testStartingReserves() {
-		Hashtable<Colors, Integer> reserves = board.getReserves();
-		
-		assertFalse(reserves.isEmpty());
+		List<Colors> players = board.getPlayerList();
 
 		for(Colors player : board.getPlayerList()){
-			int reserveNum = reserves.get(player);
+			int reserveNum = board.getReserves(player);
 			assertEquals(0, reserveNum);
 		}
 		
 		BoardUtils.randomStart(board);
 		
 		for(Colors player : board.getPlayerList()){
-			int reserveNum = reserves.get(player);
-			assertFalse(0 == reserveNum);
+			int reserveNum = board.getReserves(player);
+			assertTrue(0 != reserveNum);
 		}
 		
+	}
+	
+	@Test
+	public void TestRemoveReserves() {
+		BoardUtils.randomStart(board);
+		
+		List<Colors> players = board.getPlayerList();
+		
+		board.removeReserves(players.get(0), 1);
+		
+		assertEquals(29, board.getReserves(players.get(0)));
+		
+		for (int i = 1; i <= 4; i++){
+			board.removeReserves(players.get(0), 7);
+		}
+		
+		assertEquals(1, board.getReserves(players.get(0)));
 	}
 	
 }

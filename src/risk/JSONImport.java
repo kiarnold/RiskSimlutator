@@ -1,13 +1,15 @@
 package risk;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.parser.JSONParser;
+import java.io.FileReader;
+
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 
 public class JSONImport {
 	private JSONObject jsonObject;
-	private board = new RiskBoard();
+	private JSONParser parser;
+	private RiskBoard board = new RiskBoard();
 	
 	public JSONImport(String fileName){
 		try {
@@ -26,14 +28,14 @@ public class JSONImport {
 	 * 
 	 * @param json	a jason object with the board setup information
 	 **/
-	private parseNewBoard(JSONObject json) {
+	private void parseNewBoard(JSONObject json) {
 		// TODO: parse json to board
 	}
 	
 	/*
 	* Getters and Setters
 	*/
-	public getBoard() {
+	public RiskBoard getBoard() {
 		return board;
 	}
 }
