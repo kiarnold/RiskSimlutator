@@ -14,7 +14,7 @@ public class JSONImportTest {
 
 	@Test
 	public void testCreateJSONObject() {
-		JSONImport json = new JSONImport("TestBoard.txt");
+		JSONBoardImport json = new JSONBoardImport("TestBoard.txt");
 		
 		RiskBoard board = new RiskBoard();
 		BoardUtils.setup(board, "TestBoard.txt");
