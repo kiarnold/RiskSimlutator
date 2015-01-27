@@ -62,7 +62,6 @@ public class TerritoryTest {
 		assertEquals(expected, territory.toString());
 	}
 	
-	//TODO: add JUnit extension to test hashcode and equals
 	@Test
 	public void testEquals() {
 		EqualsVerifier.forClass(Territory.class).verify();

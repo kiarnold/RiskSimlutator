@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -215,6 +217,11 @@ public class BoardTest {
 		board.removeReserves(players.get(0), 30);
 		
 		assertEquals(0, board.getReserves(players.get(0)));
+	}
+	
+	@Test
+	public void testEqualsAndHash() {
+		EqualsVerifier.forClass(RiskBoard.class).verify();
 	}
 	
 }
