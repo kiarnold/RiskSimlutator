@@ -24,8 +24,7 @@ public class JSONBoardImport {
 				JSONArray territories = (JSONArray) continent;
 				
 				for(Object territory : territories) {
-					System.out.println(territory);
-					//addTerritory((JSONObject) territory);
+					// TODO: Set up territories for board.
 				}
 			}
 			
@@ -33,11 +32,6 @@ public class JSONBoardImport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void addTerritory(JSONObject territory) {
-		board.addTerritory(new Territory(territory
-				.get("name").toString()));
 	}
 
 	/*
