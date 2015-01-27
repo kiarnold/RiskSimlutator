@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -222,6 +223,7 @@ public class BoardTest {
 	@Test
 	public void testEqualsAndHash() {
 		EqualsVerifier.forClass(RiskBoard.class).verify();
+		
 	}
 	
 }

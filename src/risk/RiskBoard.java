@@ -7,7 +7,7 @@ import java.util.List;
 
 import risk.BoardUtils.Colors;
 
-public class RiskBoard {
+public final class RiskBoard {
 	private List<Territory> territories;
 	private List<Colors> players;
 	private Hashtable<Colors, Integer> reserves;
@@ -383,7 +383,7 @@ public class RiskBoard {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof RiskBoard))
 			return false;
 		RiskBoard other = (RiskBoard) obj;
 		if (players == null) {
