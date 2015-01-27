@@ -2,22 +2,24 @@
 	"name" : "Alberta",
 	"troops" : 0
 	"faction" : "None"
+	"connections" : ["Alaska", "Argentina"]
 },
 {
 	"name" : "Alaska",
 	"troops" : 0
 	"faction" : "None"
+	"connections" : ["Alberta", "Argentina"]
 }]
 
 [{
 	"name" : "Argentina",
 	"troops" : 0
 	"faction" : "None"
+	"connections" : ["Alberta", "Alaska"]
 },
 {
 	"name" : "Brazil",
 	"troops" : 0
 	"faction" : "None"
-}]
-
-["Alaska", "Argentina"], ["Alberta", "Argentina"], ["Alberta", "Argentina"], ["Argentina", "Brazil"]]
+	"connections" : ["Argentina"]
+}]]
