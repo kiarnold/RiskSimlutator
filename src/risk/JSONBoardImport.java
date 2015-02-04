@@ -6,16 +6,23 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 
 
-public class JSONBoardImport {
-	private JSONObject jsonObject;
-	private JSONParser parser = new JSONParser();
-	private RiskBoard board = new RiskBoard();
+public final class JSONBoardImport {
+	private static JSONObject jsonObject;
+	private static JSONParser parser = new JSONParser();
+	private static RiskBoard board = new RiskBoard();
 	
-	private final String NAME = "name";
-	private final String CONNECTIONS = "connections";
+	// Private constructor so an instance is never created
+	private JSONBoardImport(String fileName){
+		throw new AssertionError(); // Never call this
+	}
 	
-	public JSONBoardImport(String fileName){
-		
+	/**
+	 * Takes a file name, and reads in JSON code to create a new risk board.
+	 * 
+	 * @param fileName	the name of the file with valid JSON information
+	 * @return			a RiskBoard setup by the file
+	 */
+	public static RiskBoard newBoard(String fileName){
 		try {
 			Object obj = parser.parse(new FileReader(fileName));
 			JSONArray continents = (JSONArray) obj;
@@ -32,12 +39,8 @@ public class JSONBoardImport {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
-	/*
-	* Getters and Setters
-	*/
-	public RiskBoard getBoard() {
-		return board;
-	}
 }

@@ -13,13 +13,8 @@ public class JSONImportTest {
 	}
 
 	@Test
-	public void testCreateJSONObject() {
-		JSONBoardImport json = new JSONBoardImport("TestBoard.txt");
+	public void testCreateJSONBoard() {
 		
-		RiskBoard board = new RiskBoard();
-		BoardUtils.setup(board, "TestBoard.txt");
-		
-		assertEquals(board, json.getBoard());
 	}
 
 

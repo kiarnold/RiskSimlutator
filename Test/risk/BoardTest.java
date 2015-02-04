@@ -220,10 +220,4 @@ public class BoardTest {
 		assertEquals(0, board.getReserves(players.get(0)));
 	}
 	
-	@Test
-	public void testEqualsAndHash() {
-		EqualsVerifier.forClass(RiskBoard.class).verify();
-		
-	}
-	
 }
