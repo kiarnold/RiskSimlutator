@@ -27,6 +27,7 @@ public final class JSONBoardImport {
 			
 			// The whole object is the board containing continents
 			JSONObject board = (JSONObject) obj;
+			board = (JSONObject) board.get("board");
 			
 			// The continents are an array of territories
 			JSONArray continents = (JSONArray) board.get("continents");
@@ -47,6 +48,8 @@ public final class JSONBoardImport {
 				
 			}
 			
+			// Once the territories have all been created, add the connections 
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,6 +64,28 @@ public final class JSONBoardImport {
 	 * @param ter	a JSONObject with a territory
 	 */
 	private static void parseTerritory(JSONObject ter) {
+		
+		// Add a territory with the name based on the JSON name
+		String name = ter.get("name").toString();
+		board.addTerritory(new Territory(name));
+		
+		// ter.get("faction"); // Saved faction data
+		// ter.get("troops"); // Saved troops data
+		
+		//Pass the connections part to a parser to store till the end
+		 addConnections((JSONArray) ter.get("connections"), name);
+		
+	}
+
+	/**
+	 * Helper method to parse out connection information and store that
+	 * till it is needed at the end of building a board.
+	 * @param name 
+	 * 
+	 * @param jsonArray
+	 */
+	private static void addConnections(JSONArray connections, String name) {
+		
 		
 	}
 
