@@ -14,6 +14,9 @@ public class JSONImportTest {
 
 	@Test
 	public void testCreateJSONBoard() {
+		String fileName = "TestBoard.txt";
+		
+		RiskBoard board = JSONBoardImport.newBoard(fileName);
 		
 	}
 

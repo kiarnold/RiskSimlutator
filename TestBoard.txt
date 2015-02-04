@@ -31,7 +31,9 @@
 				"connections" : ["Argentina"]
 			}]	
 		},
-	]
+	],
+	
+	"players" : 0
 }}
 
 	
