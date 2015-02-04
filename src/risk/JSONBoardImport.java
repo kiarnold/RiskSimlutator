@@ -86,7 +86,7 @@ public final class JSONBoardImport {
 	 */
 	private static void addConnections(JSONArray connections, String name) {
 		
-		
+		//TODO: impliment
 	}
 
 }
