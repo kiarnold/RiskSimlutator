@@ -7,7 +7,6 @@ import org.json.simple.parser.*;
 
 
 public final class JSONBoardImport {
-	private static JSONObject jsonObject;
 	private static JSONParser parser = new JSONParser();
 	private static RiskBoard board = new RiskBoard();
 	
@@ -25,22 +24,18 @@ public final class JSONBoardImport {
 	public static RiskBoard newBoard(String fileName){
 		try {
 			Object obj = parser.parse(new FileReader(fileName));
+			
+			// The whole object is the array of continents
 			JSONArray continents = (JSONArray) obj;
 			
-			for(Object continent : continents) {
-				JSONArray territories = (JSONArray) continent;
-				
-				for(Object territory : territories) {
-					// TODO: Set up territories for board.
-				}
-			}
+			// Each continent is an array of territories
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return board;
 	}
 
 }
