@@ -37,7 +37,7 @@ public final class JSONBoardImport {
 			for(Object con : continents) {
 				JSONObject continent = (JSONObject) con;
 				
-				continent.get("name"); // Name of the area, to use later?
+				// continent.get("name"); // Name of the continent, use later?
 				
 				// The territories are in an array of JSON objects
 				JSONArray territories = (JSONArray) continent.get("territories");
@@ -50,7 +50,7 @@ public final class JSONBoardImport {
 			}
 			
 			// Once the territories have all been created, add the connections 
-			
+			addConnections();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,7 +74,7 @@ public final class JSONBoardImport {
 		// ter.get("troops"); // Saved troops data
 		
 		//Pass the connections part to a parser to store till the end
-		 addConnections((JSONArray) ter.get("connections"), name);
+		 storeConnections((JSONArray) ter.get("connections"), name);
 		
 	}
 
@@ -85,7 +85,7 @@ public final class JSONBoardImport {
 	 * 
 	 * @param jsonArray
 	 */
-	private static void addConnections(JSONArray connections, String name) {
+	private static void storeConnections(JSONArray connections, String name) {
 		// Iterate through the array and create a list
 		List<String> connect = new List<>();
 		for(Object obj : connections){
@@ -95,5 +95,26 @@ public final class JSONBoardImport {
 		// Store the list in a map
 		storedConnections.put(name, connect);
 	}
-
+	
+	/**
+	 *Helper method to add all the stored connections into the RiskBoard. 
+	 */
+	private static void addConnections() {
+		Set<String> keySet = storedConnections.keySet();
+		List<Territory> boardTerritories = board.getTerritories();
+		// Loop through keys
+		for(String key : keySet) {
+			// look up values
+			List<String> connect = storedConnections.get(key);
+			// loop through values
+			for(String terra : connect) {
+				// Lookup connector
+				int pos = boardTerritories.indexOf(new Territory(terra); // -1 means does not exist
+				if (pos >= 0) {
+					// assign connection
+					// TODO
+				}
+			}
+		}
+	}
 }
