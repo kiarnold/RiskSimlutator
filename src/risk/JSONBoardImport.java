@@ -9,6 +9,7 @@ import org.json.simple.parser.*;
 public final class JSONBoardImport {
 	private static JSONParser parser = new JSONParser();
 	private static RiskBoard board = new RiskBoard();
+	private static Map<String, List<String>> storedConnections = new Map<>();
 	
 	// Private constructor so an instance is never created
 	private JSONBoardImport(String fileName){
@@ -85,8 +86,14 @@ public final class JSONBoardImport {
 	 * @param jsonArray
 	 */
 	private static void addConnections(JSONArray connections, String name) {
+		// Iterate through the array and create a list
+		List<String> connect = new List<>();
+		for(Object obj : connections){
+			connect.add((String) obj);
+		}
 		
-		//TODO: impliment
+		// Store the list in a map
+		storedConnections.put(name, connect);
 	}
 
 }
