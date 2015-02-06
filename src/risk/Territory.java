@@ -12,7 +12,7 @@ public final class Territory {
 	private Colors faction;
 	
 	/**
-	 * Constructor builds the object with name initalized, 
+	 * Constructor builds the object with name initialized, 
 	 * troops set to 0, and an empty connections list.
 	 * 
 	 * @param name	the name of the territory.

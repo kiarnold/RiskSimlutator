@@ -1,6 +1,7 @@
 package risk;
 
 import java.io.FileReader;
+import java.util.*;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -9,7 +10,7 @@ import org.json.simple.parser.*;
 public final class JSONBoardImport {
 	private static JSONParser parser = new JSONParser();
 	private static RiskBoard board = new RiskBoard();
-	private static Map<String, List<String>> storedConnections = new Map<>();
+	private static Map<String, List<String>> storedConnections = new HashMap<String, List<String>>();
 	
 	// Private constructor so an instance is never created
 	private JSONBoardImport(String fileName){
@@ -49,9 +50,6 @@ public final class JSONBoardImport {
 				
 			}
 			
-			// Once the territories have all been created, add the connections 
-			addConnections();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,53 +66,17 @@ public final class JSONBoardImport {
 		
 		// Add a territory with the name based on the JSON name
 		String name = ter.get("name").toString();
-		board.addTerritory(new Territory(name));
+		Territory terra = new Territory(name);
 		
 		// ter.get("faction"); // Saved faction data
 		// ter.get("troops"); // Saved troops data
 		
-		//Pass the connections part to a parser to store till the end
-		 storeConnections((JSONArray) ter.get("connections"), name);
-		
-	}
-
-	/**
-	 * Helper method to parse out connection information and store that
-	 * till it is needed at the end of building a board.
-	 * @param name 
-	 * 
-	 * @param jsonArray
-	 */
-	private static void storeConnections(JSONArray connections, String name) {
-		// Iterate through the array and create a list
-		List<String> connect = new List<>();
-		for(Object obj : connections){
-			connect.add((String) obj);
+		// Create Territory objects and add them to the connections list	
+		for (Object obj : (JSONArray) ter.get("connections")) {
+			String newName = (String) obj;
+			terra.addConnection(new Territory(newName));
 		}
-		
-		// Store the list in a map
-		storedConnections.put(name, connect);
-	}
-	
-	/**
-	 *Helper method to add all the stored connections into the RiskBoard. 
-	 */
-	private static void addConnections() {
-		Set<String> keySet = storedConnections.keySet();
-		List<Territory> boardTerritories = board.getTerritories();
-		// Loop through keys
-		for(String key : keySet) {
-			// look up values
-			List<String> connect = storedConnections.get(key);
-			// loop through values
-			for(String terra : connect) {
-				// Lookup connector
-				int pos = boardTerritories.indexOf(new Territory(terra); // -1 means does not exist
-				if (pos >= 0) {
-					// assign connection
-					// TODO
-				}
-			}
-		}
+				
+		board.addTerritory(terra);
 	}
 }
