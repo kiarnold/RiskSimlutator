@@ -21,7 +21,7 @@ public final class JSONBoardImport {
 	 * Takes a file name, and reads in JSON code to create a new risk board.
 	 * 
 	 * @param fileName	the name of the file with valid JSON information
-	 * @return			a RiskBoard setup by the file
+	 * @return		a RiskBoard setup by the file
 	 */
 	public static RiskBoard newBoard(String fileName){
 		try {
