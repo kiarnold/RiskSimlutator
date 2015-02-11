@@ -79,4 +79,22 @@ public final class JSONBoardImport {
 				
 		board.addTerritory(terra);
 	}
+	
+	/**
+	 * Method to save the game state in a text file with the JSON format
+	 * @param board	the board to save
+	 */
+	public static void saveGame(RiskBoard board) {
+		
+	}
+	
+	/**
+	 * Method to load a saved board state from a file.
+	 * 
+	 * @param fileName	the file name where the board is saved
+	 * @return		the board created by the load
+	 */
+	public static RiskBoard loadGame(String fileName) {
+		return newBoard(fileName);
+	}
 }
