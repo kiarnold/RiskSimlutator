@@ -20,11 +20,23 @@ public class JSONImportTest {
 		RiskBoard textBoard = new RiskBoard(textFile);
 		RiskBoard jsonBoard = JSONBoardImport.newBoard(jsonFile);
 		
-		System.out.println(textBoard.getTerritories());
-		
-		assertSame(textBoard.getTerritories(),jsonBoard.getTerritories());
+		assertEquals(textBoard.getTerritories(), jsonBoard.getTerritories());
 		
 	}
 
-
+	@Test
+	public void testSaveLoadGame() {
+		String saveFile = "SavedGame.txt";
+		String boardSetup = "TestBoard.txt";
+		
+		RiskBoard initial = JSONBoardImport.newBoard(boardSetup);
+		
+		BoardUtils.randomStart(initial);
+		
+		JSONBoardImport.saveGame(saveFile);
+		
+		RiskBoard loaded = JSONBoardImport.loadGame(saveFile);
+		
+		assertEquals(initial.getTerritories(), loaded.getTerritories());
+	}
 }
