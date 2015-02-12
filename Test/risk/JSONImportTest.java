@@ -33,7 +33,7 @@ public class JSONImportTest {
 		
 		BoardUtils.randomStart(initial);
 		
-		JSONBoardImport.saveGame(saveFile);
+		JSONBoardImport.saveGame(initial, saveFile);
 		
 		RiskBoard loaded = JSONBoardImport.loadGame(saveFile);
 		
