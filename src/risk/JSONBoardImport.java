@@ -52,7 +52,7 @@ public final class JSONBoardImport {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 		
 		return board;
 	}
@@ -84,8 +84,35 @@ public final class JSONBoardImport {
 	 * Method to save the game state in a text file with the JSON format
 	 * @param board	the board to save
 	 */
-	public static void saveGame(RiskBoard board) {
+	public static void saveGame(RiskBoard board, String fileName) {
 		
+		List<Territories> territories = board.getTerritories();
+		FileWriter file = new FileWriter(fileName);
+		
+		
+		// TODO: Add writing as continents
+		try {
+			for(terra : territories) {
+				JSONObject obj = new JSONObject();
+				obj.put("name", terra.getName());
+				obj.put("faction", terra.getFaction().name());
+				obj.put("troops", terra.getTroops());
+				
+				JSONArray connections = new JSONArray();
+				for(ter : terra.getConnections()) {
+					connections.add(ter.getName());	
+				}
+				        		
+				obj.put("connections", connections);
+				
+				file.write(obj.toJSONString());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			file.flush();
+			file.close();
+		}	
 	}
 	
 	/**
@@ -95,6 +122,7 @@ public final class JSONBoardImport {
 	 * @return		the board created by the load
 	 */
 	public static RiskBoard loadGame(String fileName) {
-		return newBoard(fileName);
+		return newBoard(fileName); 
+		// TODO switch this call so a new board calls a load board without faction and troop data.
 	}
 }
