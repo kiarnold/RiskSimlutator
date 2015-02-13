@@ -17,13 +17,18 @@ public final class JSONBoardImport {
 		throw new AssertionError(); // Never call this
 	}
 	
+	public static RiskBoard newBoard(String fileName) {
+		return createBoard(fileName, TRUE);
+	}
+	
 	/**
-	 * Takes a file name, and reads in JSON code to create a new risk board.
+	 * Takes a file name, and reads in JSON code to create a risk board.
 	 * 
 	 * @param fileName	the name of the file with valid JSON information
+	 * @param newBoard	True if the call should ignore troop and faction data
 	 * @return		a RiskBoard setup by the file
 	 */
-	public static RiskBoard newBoard(String fileName){
+	private static RiskBoard createBoard(String fileName, boolean newBoard){
 		try {
 			Object obj = parser.parse(new FileReader(fileName));
 			
@@ -43,8 +48,9 @@ public final class JSONBoardImport {
 				// The territories are in an array of JSON objects
 				JSONArray territories = (JSONArray) continent.get("territories");
 				
+				// TODO: impliment difference between load and new
 				// for each territory, pass the info to a parser for territories
-				for(Object ter : territories) {					
+				for(Object ter : territories) {	
 					parseTerritory((JSONObject) ter);
 				}
 				
@@ -122,7 +128,6 @@ public final class JSONBoardImport {
 	 * @return		the board created by the load
 	 */
 	public static RiskBoard loadGame(String fileName) {
-		return newBoard(fileName); 
-		// TODO switch this call so a new board calls a load board without faction and troop data.
+		return createBoard(fileName, false); 
 	}
 }
