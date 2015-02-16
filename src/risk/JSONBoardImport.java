@@ -1,6 +1,8 @@
 package risk;
 
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 import org.json.simple.*;
@@ -48,7 +50,7 @@ public final class JSONBoardImport {
 				// The territories are in an array of JSON objects
 				JSONArray territories = (JSONArray) continent.get("territories");
 				
-				// TODO: impliment difference between load and new
+				// TODO: implement difference between load and new
 				// for each territory, pass the info to a parser for territories
 				for(Object ter : territories) {	
 					parseTerritory((JSONObject) ter);
@@ -91,21 +93,21 @@ public final class JSONBoardImport {
 	 * @param board	the board to save
 	 */
 	public static void saveGame(RiskBoard board, String fileName) {
-		
-		List<Territories> territories = board.getTerritories();
-		FileWriter file = new FileWriter(fileName);
-		
+		FileWriter file;
 		
 		// TODO: Add writing as continents
 		try {
-			for(terra : territories) {
+			List<Territory> territories = board.getTerritories();
+			file = new FileWriter(fileName);
+			
+			for(Territory terra : territories) {
 				JSONObject obj = new JSONObject();
 				obj.put("name", terra.getName());
 				obj.put("faction", terra.getFaction().name());
 				obj.put("troops", terra.getTroops());
 				
 				JSONArray connections = new JSONArray();
-				for(ter : terra.getConnections()) {
+				for(Territory ter : terra.getConnections()) {
 					connections.add(ter.getName());	
 				}
 				        		
@@ -113,11 +115,13 @@ public final class JSONBoardImport {
 				
 				file.write(obj.toJSONString());
 			}
+			
+			file.flush();
+			file.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			file.flush();
-			file.close();
+
 		}	
 	}
 	
