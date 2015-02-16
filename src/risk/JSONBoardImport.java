@@ -18,7 +18,7 @@ public final class JSONBoardImport {
 	}
 	
 	public static RiskBoard newBoard(String fileName) {
-		return createBoard(fileName, TRUE);
+		return createBoard(fileName, true);
 	}
 	
 	/**

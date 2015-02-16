@@ -17,7 +17,8 @@ public class JSONImportTest {
 		String jsonFile = "TestBoard.txt";
 		String textFile = "TestRisk.txt";
 		
-		RiskBoard textBoard = new RiskBoard(textFile);
+		RiskBoard textBoard = new RiskBoard();
+		BoardUtils.setup(textBoard, textFile);
 		RiskBoard jsonBoard = JSONBoardImport.newBoard(jsonFile);
 		
 		assertEquals(textBoard.getTerritories(), jsonBoard.getTerritories());

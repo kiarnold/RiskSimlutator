@@ -31,6 +31,7 @@ public final class RiskBoard {
 	public RiskBoard(String fileName){ 
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
+		reserves = new Hashtable<Colors, Integer>();
 		
 		BoardUtils.setup(this, fileName);
 	}
