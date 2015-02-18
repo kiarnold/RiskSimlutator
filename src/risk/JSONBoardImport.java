@@ -8,6 +8,8 @@ import java.util.*;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
+import risk.BoardUtils.Colors;
+
 
 public final class JSONBoardImport {
 	private static JSONParser parser = new JSONParser();
@@ -53,7 +55,11 @@ public final class JSONBoardImport {
 				// TODO: implement difference between load and new
 				// for each territory, pass the info to a parser for territories
 				for(Object ter : territories) {	
-					parseTerritory((JSONObject) ter);
+					if(newBoard) {
+						parseNewTerritory((JSONObject) ter);
+					} else {
+						parseSavedTerritory((JSONObject) ter);
+					}
 				}
 				
 			}
@@ -70,14 +76,38 @@ public final class JSONBoardImport {
 	 * 
 	 * @param ter	a JSONObject with a territory
 	 */
-	private static void parseTerritory(JSONObject ter) {
+	private static void parseSavedTerritory(JSONObject ter) {
 		
 		// Add a territory with the name based on the JSON name
 		String name = ter.get("name").toString();
 		Territory terra = new Territory(name);
 		
-		// ter.get("faction"); // Saved faction data
-		// ter.get("troops"); // Saved troops data
+		// Saved faction data
+		Colors faction = Colors.valueOf((String)ter.get("faction"));
+		terra.setFaction(faction); 
+		// Saved troops data
+		int troops = Integer.parseInt((String) ter.get("troops"));
+		terra.setTroops(troops); 
+		
+		// Create Territory objects and add them to the connections list	
+		for (Object obj : (JSONArray) ter.get("connections")) {
+			String newName = (String) obj;
+			terra.addConnection(new Territory(newName));
+		}
+				
+		board.addTerritory(terra);
+	}
+	
+	/**
+	 * Helper method to parse territories and add them to the board
+	 * 
+	 * @param ter	a JSONObject with a territory
+	 */
+	private static void parseNewTerritory(JSONObject ter) {
+		
+		// Add a territory with the name based on the JSON name
+		String name = ter.get("name").toString();
+		Territory terra = new Territory(name);
 		
 		// Create Territory objects and add them to the connections list	
 		for (Object obj : (JSONArray) ter.get("connections")) {
@@ -121,7 +151,7 @@ public final class JSONBoardImport {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-
+			
 		}	
 	}
 	
