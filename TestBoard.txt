@@ -1,10 +1,8 @@
-{ "board" : {
-	"continents" : [
-		{
-		"name" : "North America",
-		"territories" : [{
-				"name" : "Alaska",
-				"troops" : 0,
+{ "board" : 
+	{
+	"territories" : [{
+			"name" : "Alaska",
+			"troops" : 0,
 				"faction" : "NONE",
 				"connections" : ["Alberta", "Argentina"]
 			},
@@ -13,12 +11,8 @@
 				"troops" : 0,
 				"faction" : "NONE",
 				"connections" : ["Alaska", "Argentina"]
-			}]		
-		},
-		
-		{
-		"name" : "South America",
-		"territories" : [{
+			},		
+			{
 				"name" : "Argentina",
 				"troops" : 0,
 				"faction" : "NONE",
