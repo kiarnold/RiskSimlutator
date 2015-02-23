@@ -36,32 +36,22 @@ public final class JSONBoardImport {
 		try {
 			Object obj = parser.parse(new FileReader(fileName));
 			
-			// The whole object is the board containing continents
+			// The whole object is the board containing territories
 			JSONObject board = (JSONObject) obj;
 			board = (JSONObject) board.get("board");
 			
-			// The continents are an array of territories
-			JSONArray continents = (JSONArray) board.get("continents");
-			
-			// For each continent specified, parse each territory
-			for(Object con : continents) {
-				JSONObject continent = (JSONObject) con;
 				
-				// continent.get("name"); // Name of the continent, use later?
+			// The territories are in an array of JSON objects
+			JSONArray territories = (JSONArray) board.get("territories");
 				
-				// The territories are in an array of JSON objects
-				JSONArray territories = (JSONArray) continent.get("territories");
-				
-				// TODO: implement difference between load and new
-				// for each territory, pass the info to a parser for territories
-				for(Object ter : territories) {	
-					if(newBoard) {
-						parseNewTerritory((JSONObject) ter);
-					} else {
-						parseSavedTerritory((JSONObject) ter);
-					}
+			// TODO: implement difference between load and new
+			// for each territory, pass the info to a parser for territories
+			for(Object ter : territories) {	
+				if(newBoard) {
+					parseNewTerritory((JSONObject) ter);
+				} else {
+					parseSavedTerritory((JSONObject) ter);
 				}
-				
 			}
 			
 		} catch (Exception e) {
