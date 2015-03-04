@@ -43,10 +43,12 @@ public class BoardFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		Canvas mainScreen = new Canvas();
+		BoardPanel mainScreen = new BoardPanel();
 		mainScreen.setForeground(new Color(105, 105, 105));
 		mainScreen.setBackground(new Color(248, 248, 255));
 		contentPane.add(mainScreen, BorderLayout.CENTER);
+	
+		
 	}
 
 }

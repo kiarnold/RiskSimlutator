@@ -49,7 +49,6 @@ public class BoardUtils {
 		}
 	}
 		
-	//TODO: this input should be a standard format ie. XML, JSON etc...
 	/**
 	 * Will attempt to setup the board based on an input file. Territories 
 	 * will be added first and then routes will be set up.
