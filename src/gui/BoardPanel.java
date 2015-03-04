@@ -21,25 +21,54 @@ public class BoardPanel extends JPanel {
         int height = this.getHeight();
         int width = this.getWidth();
         
-        List<Point> positions = new ArrayList<Point>();
-        
         // set locations based on size of list
-        
-        
+			// algorithm to assign positions for minimal overlap?
+        List<Point> positions = getListPositions(territories.size(), height, width);
         
         // Go through each territory
-        for (Territory territory : territories) {
-
-       			// algorithm to assign positions for minimal overlap?
-        
+        for (int i = 0; i <= territories.size(); i++) {
+        	
+        	Point p = positions.get(i);
+        	
+        	g2d.drawOval(p.x, p.y, 5, 5);
+        	
         	// draw connection lines underneath
         
         	// draw territory circles on top
         }
         
     }
+    
+    /**
+     * Method to compute evenly spaced positions for Territories given a mostly square board.
+     * 
+     * @param size
+     * @param height
+     * @param width
+     * @return
+     */
+    private List<Point> getListPositions(int size, int height, int width) {
+    	List<Point> positions = new ArrayList<>();
+    	
+        double sqrDivisor = Math.sqrt(Math.ceil(size));
+        
+        int divHeight = (int) Math.round(height/sqrDivisor);
+        int divWidth = (int) Math.round(height/sqrDivisor);
+        
+        for (int i = 1; i*divHeight < height; i ++) {
+        	for (int j = 1; j*divWidth < width; j++) {
+        		if (j*i > size) {
+        			break;
+        		}
+        		
+        		positions.add(new Point(i*divHeight, j*divWidth));
+        	}
+        }
+        
+		return positions;
+	}
 
-    @Override
+	@Override
     public void paintComponent(Graphics g) {
         
         super.paintComponent(g);
