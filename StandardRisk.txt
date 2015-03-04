@@ -1,53 +1,273 @@
-Region: North America (5)
-Alaska
-Alberta
-Central America
-Eastern United States
-Greenland
-Northwest Territories
-Ontario
-Quebec
-Western United States
+{ "board" : 
+	{
+	"territories" : [{
+			"name" : "Alaska",
+			"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},
+			{
+				"name" : "Alberta",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},		
+			{
+				"name" : "Central America",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},
+			{
+				"name" : "Eastern United States",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},
+			{
+				"name" : "Northwest Territories",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Greenland",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},
+			{
+				"name" : "Ontario",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Quebec",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Western United States",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			
+			
+			{
+				"name" : "Argentina",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Brazil",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Peru",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Venezuela",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			
+			
+			{
+				"name" : "Great Britain",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Iceland",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Northern Europe",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Scandinavia",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Southern Europe",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Ukraine",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Western Europe",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},
+			
+				
+			{
+				"name" : "Congo",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "East Africa",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Egypt",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Madagascar",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "North Africa",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "South Africa",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			
+			
+			{
+				"name" : "Afghanistan",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "China",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "India",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Irkutsk",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Japan",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Kamchatka",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Middle East",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Mongolia",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Siam",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Siberia",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Ural",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Yakutsk",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Eastern Australia",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "Indonesia",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+			{
+				"name" : "New Guinea",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},
+			{
+				"name" : "Western Australia",
+				"troops" : 0,
+				"faction" : "NONE",
+				"connections" : []
+			},	
+				
+				
+			]	
+		},
+	],
+	
+	"players" : 0
+}}
 
-Region: South America (2)
-Argentina
-Brazil
-Peru
-Venezuela
 
-Region: Europe (5)
-Great Britain
-Iceland
-Northern Europe
-Scandinavia
-Southern Europe
-Ukraine
-Western Europe
 
-Region: Africa (3)
-Congo
-East Africa
-Egypt
-Madagascar
-North Africa
-South Africa
-
-Region: Asia (7)
-Afghanistan
-China
-India
-Irkutsk
-Japan
-Kamchatka
-Middle East
-Mongolia
-Siam
-Siberia
-Ural
-Yakutsk
-
-Region: Australia (2)
-Eastern Australia
-Indonesia
-New Guinea
-Western Australia
