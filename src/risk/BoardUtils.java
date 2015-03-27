@@ -25,7 +25,19 @@ public class BoardUtils {
 	 * Colors of game pieces.
 	 **/
 	public static enum Colors {
-		BLACK, BLUE, GREEN, PINK, RED, YELLOW, NONE;
+		BLACK(Color.BLACK), 
+		BLUE(Color.BLUE), 
+		GREEN(Color.GREEN), 
+		PINK(Color.PINK), 
+		RED(Color.RED), 
+		YELLOW(Color.YEllow), 
+		NONE(Color.WHITE);
+		
+		private Color color;
+		
+		Colors(Color color) {
+			this.color = color;
+		}
 
 		/**
 		 * Returns a random color not currently in the players list
@@ -46,6 +58,10 @@ public class BoardUtils {
 
 			// return the random element
 			return colors.get(rand);
+		}
+		
+		public static Color getColor() {
+			return color;
 		}
 	}
 		
