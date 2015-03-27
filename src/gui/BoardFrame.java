@@ -19,6 +19,8 @@ import java.util.List;
 public class BoardFrame extends JFrame {
 
 	private JPanel contentPane;
+	private int maxOvalSize = 0;
+	private int lineThickness = 5;
 
 	/**
 	 * Launch the application.
@@ -65,12 +67,17 @@ public class BoardFrame extends JFrame {
 		        int height = this.getHeight();
 		        int width = this.getWidth();
 		        
+		        // define the outer circle to be a fraction of the screen.
+		        maxOvalSize = (int) height/12;
+		        
 		        g2d.drawOval(width/2, height/2, 5, 5);
 		        
 		        
 		        // get territory list
 		        // interate through list
 		        // territoryDraw for each at correct cords
+		        
+		        // draw connection lines
 		    }
 		
 		   @Override
@@ -86,11 +93,30 @@ public class BoardFrame extends JFrame {
 		     **/
 		    private void territoryDraw(Territory terra, Graphics2D g2d, Point cords) {
 		    	// get color
+		    	Color color = terra.getFaction().getColor();
 		    	// get troop count
+		    	String count = Integer.toString(terra. getTroops());
+		    	
 		    	// draw outer dark gray circle
+		    	g2d.setColor(Color.DARK_GRAY)
+		    	g2d.drawOval(cords.x, cords.y, maxOvalSize, maxOvalSize);
+		    	
 		    	// draw inner colored circle
+		    	g2d.setColor(color);
+		    	g2d.drawOval(cords.x, cords.y, maxOvalSize-lineThickness, maxOvalSize-lineThickness);
+		    	
 		    	// draw inner light gray circle
+		    	g2d.setColor(Color.LIGHT_GRAY);
+		    	g2d.drawOval(cords.x, cords.y, maxOvalSize-lineThickness*2, maxOvalSize-lineThickness*2);
+		    	
 		    	// draw colored troop number in center
+		    	g2d.setColor(color);
+		    	int stringWidth = (int) g2d.getFontMetrics().getStringBounds(count, g2d).getWidth();
+		    	int stringHight = (int) g2d.getFontMetrics().getStringBounds(count, g2d).getHeight();
+        		int startX = stringWidth/2;
+        		int startY = AstringHight/2
+        		g2d.drawString(count, startX + cords.x, startY + cords.y);
+		    	
 		    }
 		
 	}
