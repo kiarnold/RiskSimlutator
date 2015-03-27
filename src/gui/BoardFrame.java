@@ -67,6 +67,10 @@ public class BoardFrame extends JFrame {
 		        
 		        g2d.drawOval(width/2, height/2, 5, 5);
 		        
+		        
+		        // get territory list
+		        // interate through list
+		        // territoryDraw for each at correct cords
 		    }
 		
 		   @Override
@@ -74,6 +78,19 @@ public class BoardFrame extends JFrame {
 		        
 		        super.paintComponent(g);
 		        doDrawing(g);
+		    }
+		    
+		    /**
+		     * Method to draw a territory represented as a graphical circle.
+		     * 
+		     **/
+		    private void territoryDraw(Territory terra, Graphics2D g2d, Point cords) {
+		    	// get color
+		    	// get troop count
+		    	// draw outer dark gray circle
+		    	// draw inner colored circle
+		    	// draw inner light gray circle
+		    	// draw colored troop number in center
 		    }
 		
 	}
