@@ -5,11 +5,13 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import risk.BoardUtils.Colors;
 import risk.Territory;
 
 import java.awt.Color;
@@ -64,18 +66,27 @@ public class BoardFrame extends JFrame {
 
 		        Graphics2D g2d = (Graphics2D) g;
 		        
+		        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		        
 		        int height = this.getHeight();
 		        int width = this.getWidth();
 		        
 		        // define the outer circle to be a fraction of the screen.
 		        maxOvalSize = (int) height/12;
 		        
-		        g2d.drawOval(width/2, height/2, 5, 5);
+		        //g2d.drawOval(width/2, height/2, 5, 5);
 		        
 		        
 		        // get territory list
-		        // interate through list
+		        // Iterate through list
 		        // territoryDraw for each at correct cords
+		        
+		        Point cords = new Point(width/2, height/2);
+		        Territory terra = new Territory("Test");
+		        terra.setTroops(5);
+		        terra.setFaction(Colors.GREEN);
+		        
+		        territoryDraw(terra, g2d, cords);
 		        
 		        // draw connection lines
 		    }
@@ -98,23 +109,23 @@ public class BoardFrame extends JFrame {
 		    	String count = Integer.toString(terra. getTroops());
 		    	
 		    	// draw outer dark gray circle
-		    	g2d.setColor(Color.DARK_GRAY)
-		    	g2d.drawOval(cords.x, cords.y, maxOvalSize, maxOvalSize);
+		    	g2d.setColor(Color.DARK_GRAY);
+		    	g2d.fillOval(cords.x, cords.y, maxOvalSize, maxOvalSize);
 		    	
 		    	// draw inner colored circle
 		    	g2d.setColor(color);
-		    	g2d.drawOval(cords.x, cords.y, maxOvalSize-lineThickness, maxOvalSize-lineThickness);
+		    	g2d.fillOval(cords.x, cords.y, maxOvalSize-lineThickness, maxOvalSize-lineThickness);
 		    	
 		    	// draw inner light gray circle
 		    	g2d.setColor(Color.LIGHT_GRAY);
-		    	g2d.drawOval(cords.x, cords.y, maxOvalSize-lineThickness*2, maxOvalSize-lineThickness*2);
+		    	g2d.fillOval(cords.x, cords.y, maxOvalSize-lineThickness*2, maxOvalSize-lineThickness*2);
 		    	
 		    	// draw colored troop number in center
 		    	g2d.setColor(color);
 		    	int stringWidth = (int) g2d.getFontMetrics().getStringBounds(count, g2d).getWidth();
 		    	int stringHight = (int) g2d.getFontMetrics().getStringBounds(count, g2d).getHeight();
         		int startX = stringWidth/2;
-        		int startY = AstringHight/2
+        		int startY = stringHight/2;
         		g2d.drawString(count, startX + cords.x, startY + cords.y);
 		    	
 		    }

@@ -1,5 +1,6 @@
 package risk;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,7 +31,7 @@ public class BoardUtils {
 		GREEN(Color.GREEN), 
 		PINK(Color.PINK), 
 		RED(Color.RED), 
-		YELLOW(Color.YEllow), 
+		YELLOW(Color.YELLOW), 
 		NONE(Color.WHITE);
 		
 		private Color color;
@@ -60,7 +61,7 @@ public class BoardUtils {
 			return colors.get(rand);
 		}
 		
-		public static Color getColor() {
+		public Color getColor() {
 			return color;
 		}
 	}
