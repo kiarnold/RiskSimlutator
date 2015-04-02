@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -22,7 +23,7 @@ public class BoardFrame extends JFrame {
 
 	private JPanel contentPane;
 	private int maxOvalSize = 0;
-	private int lineThickness = 5;
+	private int lineThickness = 10;
 
 	/**
 	 * Launch the application.
@@ -72,22 +73,12 @@ public class BoardFrame extends JFrame {
 		        int width = this.getWidth();
 		        
 		        // define the outer circle to be a fraction of the screen.
-		        maxOvalSize = (int) height/12;
-		        
-		        //g2d.drawOval(width/2, height/2, 5, 5);
+		        maxOvalSize = (int) height/10;
 		        
 		        
 		        // get territory list
 		        // Iterate through list
-		        // territoryDraw for each at correct cords
-		        
-		        Point cords = new Point(width/2, height/2);
-		        Territory terra = new Territory("Test");
-		        terra.setTroops(5);
-		        terra.setFaction(Colors.GREEN);
-		        
-		        territoryDraw(terra, g2d, cords);
-		        
+		        // territoryDraw for each at correct cords  
 		        // draw connection lines
 		    }
 		
@@ -100,6 +91,8 @@ public class BoardFrame extends JFrame {
 		    
 		    /**
 		     * Method to draw a territory represented as a graphical circle.
+		     * 
+		     * Only looks correct with: lineThickness = 10
 		     * 
 		     **/
 		    private void territoryDraw(Territory terra, Graphics2D g2d, Point cords) {
@@ -114,19 +107,22 @@ public class BoardFrame extends JFrame {
 		    	
 		    	// draw inner colored circle
 		    	g2d.setColor(color);
-		    	g2d.fillOval(cords.x, cords.y, maxOvalSize-lineThickness, maxOvalSize-lineThickness);
+		    	g2d.fillOval(cords.x+lineThickness/2, cords.y+lineThickness/2, maxOvalSize-lineThickness, maxOvalSize-lineThickness);
 		    	
 		    	// draw inner light gray circle
 		    	g2d.setColor(Color.LIGHT_GRAY);
-		    	g2d.fillOval(cords.x, cords.y, maxOvalSize-lineThickness*2, maxOvalSize-lineThickness*2);
+		    	g2d.fillOval(cords.x+lineThickness, cords.y+lineThickness, maxOvalSize-lineThickness*2, maxOvalSize-lineThickness*2);
 		    	
 		    	// draw colored troop number in center
 		    	g2d.setColor(color);
+		    	g2d.setFont(new Font("Monospaced", Font.BOLD, 25));
+		    	
 		    	int stringWidth = (int) g2d.getFontMetrics().getStringBounds(count, g2d).getWidth();
 		    	int stringHight = (int) g2d.getFontMetrics().getStringBounds(count, g2d).getHeight();
-        		int startX = stringWidth/2;
-        		int startY = stringHight/2;
-        		g2d.drawString(count, startX + cords.x, startY + cords.y);
+        		int startX = (int) (stringWidth/2+cords.x+lineThickness*1.5);
+        		int startY = (int) (stringHight/2+cords.y+lineThickness*2);
+        		
+        		g2d.drawString(count, startX, startY);
 		    	
 		    }
 		
