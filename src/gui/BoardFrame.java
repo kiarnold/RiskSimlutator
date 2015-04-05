@@ -13,17 +13,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import risk.BoardUtils.Colors;
+import risk.RiskBoard;
 import risk.Territory;
 
 import java.awt.Color;
 import java.awt.Canvas;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class BoardFrame extends JFrame {
 
 	private JPanel contentPane;
 	private int maxOvalSize = 0;
-	private int lineThickness = 10;
 
 	/**
 	 * Launch the application.
@@ -74,15 +77,62 @@ public class BoardFrame extends JFrame {
 		        
 		        // define the outer circle to be a fraction of the screen.
 		        maxOvalSize = (int) height/10;
-		        
-		        
+		        		        
 		        // get territory list
+		        // TODO: Get user input to find risk load file
+		        String fileName = "TestRisk.txt";
+		        RiskBoard board = new RiskBoard(fileName);
+		        List<Territory> terraList = board.getTerritories();
+		        
+		        // create cords list
+		        Random rand = new Random();
+		        Map<Territory, Point> terraLocs = new HashMap<Territory, Point>();
+		        for (Territory terra : terraList) {
+		        	Point p = randomCheckedPoint(terraLocs, rand);
+		        	terraLocs.put(terra, p);
+		        }
+		        
 		        // Iterate through list
 		        // territoryDraw for each at correct cords  
 		        // draw connection lines
 		    }
 		
-		   @Override
+		private Point randomCheckedPoint(Map<Territory, Point> terraLocs, Random rand) {
+        	Point p = checkPoint(terraLocs, rand);    	
+			return p;
+		}
+
+		private Point randomPoint(Random rand) {
+			int x = rand.nextInt(getWidth() - maxOvalSize * 3) + maxOvalSize;
+	        int y = rand.nextInt(getHeight() - maxOvalSize * 3) + maxOvalSize;
+	        Point p = new Point(x, y);
+	        	
+			return p;
+		}
+
+		private Point checkPoint(Map<Territory, Point> terraLocs, Random rand) {
+			Point p = randomPoint(rand);
+			boolean checked = false;
+			for (Territory terra : terraLocs.keySet()) {
+        		while (checked) {
+	        		if (terraLocs.get(terra) != null) {
+	        			Point pt = terraLocs.get(terra);
+	        			if ((p.x - pt.x > maxOvalSize*2 ||
+	        					pt.x - p.x > maxOvalSize*2) &&
+	        						(p.y - pt.y > maxOvalSize*2 ||
+	        							pt.y -p.y > maxOvalSize*2)) {
+	        				checked = true;
+	        			} else {
+	        				p = randomPoint(rand);
+	        			}
+	        		}
+        		}
+        	}
+			
+			return p;
+		}
+
+		@Override
 		    public void paintComponent(Graphics g) {
 		        
 		        super.paintComponent(g);
@@ -95,7 +145,9 @@ public class BoardFrame extends JFrame {
 		     * Only looks correct with: lineThickness = 10
 		     * 
 		     **/
-		    private void territoryDraw(Territory terra, Graphics2D g2d, Point cords) {
+		    private void territoryDraw(Territory terra, Graphics2D g2d, Point cords) {		    	
+		    	int lineThickness = 10;
+		    	
 		    	// get color
 		    	Color color = terra.getFaction().getColor();
 		    	// get troop count
