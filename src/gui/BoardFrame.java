@@ -93,7 +93,10 @@ public class BoardFrame extends JFrame {
 		        }
 		        
 		        // Iterate through list
-		        // territoryDraw for each at correct cords  
+		        for (Territory terra : terraLocs.keySet()) {
+			        // territoryDraw for each at correct cords  
+		        	territoryDraw(terra, g2d, terraLocs.get(terra));
+		        }
 		        // draw connection lines
 		    }
 		
