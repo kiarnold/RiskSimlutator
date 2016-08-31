@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.Color;
+import java.awt.Canvas;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,8 +19,7 @@ import risk.BoardUtils.Colors;
 import risk.RiskBoard;
 import risk.Territory;
 
-import java.awt.Color;
-import java.awt.Canvas;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +78,7 @@ public class BoardFrame extends JFrame {
 		        int width = this.getWidth();
 		        
 		        // define the outer circle to be a fraction of the screen.
-		        maxOvalSize = (int) height/10;
+		        maxOvalSize = (int) 570/10;
 		        		        
 		        // get territory list
 		        // TODO: Get user input to find risk load file
@@ -85,10 +87,15 @@ public class BoardFrame extends JFrame {
 		        List<Territory> terraList = board.getTerritories();
 		        
 		        // create cords list
+		        /* TODO:
+		         * New idea: create grid of N x N where N * N >= number of territories.
+		         * For each grid, pick a random point, draw territory away from the edges.
+		         */
+		        System.out.println("New Draw: ");
 		        Random rand = new Random();
 		        Map<Territory, Point> terraLocs = new HashMap<Territory, Point>();
 		        for (Territory terra : terraList) {
-		        	Point p = randomCheckedPoint(terraLocs, rand);
+		        	Point p = checkPoint(terraLocs, rand);
 		        	terraLocs.put(terra, p);
 		        }
 		        
@@ -100,11 +107,6 @@ public class BoardFrame extends JFrame {
 		        // draw connection lines
 		    }
 		
-		private Point randomCheckedPoint(Map<Territory, Point> terraLocs, Random rand) {
-        	Point p = checkPoint(terraLocs, rand);    	
-			return p;
-		}
-
 		private Point randomPoint(Random rand) {
 			int x = rand.nextInt(getWidth() - maxOvalSize * 3) + maxOvalSize;
 	        int y = rand.nextInt(getHeight() - maxOvalSize * 3) + maxOvalSize;
@@ -115,30 +117,49 @@ public class BoardFrame extends JFrame {
 
 		private Point checkPoint(Map<Territory, Point> terraLocs, Random rand) {
 			Point p = randomPoint(rand);
-			boolean checked = false;
-			for (Territory terra : terraLocs.keySet()) {
-        		while (checked) {
-	        		if (terraLocs.get(terra) != null) {
-	        			Point pt = terraLocs.get(terra);
-	        			if ((p.x - pt.x > maxOvalSize*2 ||
-	        					pt.x - p.x > maxOvalSize*2) &&
-	        						(p.y - pt.y > maxOvalSize*2 ||
-	        							pt.y -p.y > maxOvalSize*2)) {
-	        				checked = true;
-	        			} else {
-	        				p = randomPoint(rand);
-	        			}
+			List<Point> randomPoint = new ArrayList<Point>();
+			
+			System.out.println("New set of " + terraLocs.size());
+			boolean rerun = true;
+			while (rerun) {
+				rerun = false;
+				for (Territory terra : terraLocs.keySet()) {
+					System.out.println("Running point checker: ");
+					boolean unchecked = true;
+	        		while (unchecked) {
+		        		if (terraLocs.get(terra) != null) {
+		        			Point pt = terraLocs.get(terra);
+		        			System.out.println(pt + " " +p);
+		        			if (contains(p, pt, maxOvalSize*4)) {
+		        				p = randomPoint(rand);
+		        				unchecked = true;
+		        				rerun = true;
+		        			} else {
+		        				unchecked = false;
+		        			}
+		        		}
 	        		}
-        		}
+				}
         	}
 			
 			return p;
 		}
+		
+		private boolean contains(Point p, Point pt, int minDistance) {
+			Boolean contains = false;
+			
+			if (Math.abs(p.x - pt.x) < minDistance && Math.abs(p.y - pt.y) < minDistance) {
+				contains = true;
+			}
+			
+			return contains;
+		}
 
 		@Override
 		    public void paintComponent(Graphics g) {
-		        
 		        super.paintComponent(g);
+		        ///initilize paint here
+		        
 		        doDrawing(g);
 		    }
 		    
@@ -174,8 +195,8 @@ public class BoardFrame extends JFrame {
 		    	
 		    	int stringWidth = (int) g2d.getFontMetrics().getStringBounds(count, g2d).getWidth();
 		    	int stringHight = (int) g2d.getFontMetrics().getStringBounds(count, g2d).getHeight();
-        		int startX = (int) (stringWidth/2+cords.x+lineThickness*1.5);
-        		int startY = (int) (stringHight/2+cords.y+lineThickness*2);
+        		int startX = (int) (stringWidth/2+cords.x+lineThickness*1.5)-1;
+        		int startY = (int) (stringHight/2+cords.y+lineThickness*2)+2;
         		
         		g2d.drawString(count, startX, startY);
 		    	

@@ -1,33 +1,26 @@
-{ "board" : 
-	{
-	"territories" : [{
-			"name" : "Alaska",
-			"troops" : 0,
-				"faction" : "NONE",
-				"connections" : ["Alberta", "Argentina"]
-			},
-			{
-				"name" : "Alberta",
-				"troops" : 0,
-				"faction" : "NONE",
-				"connections" : ["Alaska", "Argentina"]
-			},		
-			{
-				"name" : "Argentina",
-				"troops" : 0,
-				"faction" : "NONE",
-				"connections" : ["Alaska", "Alberta"]
-			},
-			{
-				"name" : "Brazil",
-				"troops" : 0,
-				"faction" : "NONE",
-				"connections" : ["Argentina"]
-			}]	
-		},
-	],
-	
-	"players" : 0
-}}
-
-	
+{
+	"board": {
+		"territories": [{
+			"name": "Alaska",
+			"troops": 0,
+			"faction": "NONE",
+			"connections": ["Alberta", "Argentina"]
+		}, {
+			"name": "Alberta",
+			"troops": 0,
+			"faction": "NONE",
+			"connections": ["Alaska", "Argentina"]
+		}, {
+			"name": "Argentina",
+			"troops": 0,
+			"faction": "NONE",
+			"connections": ["Alaska", "Alberta"]
+		}, {
+			"name": "Brazil",
+			"troops": 0,
+			"faction": "NONE",
+			"connections": ["Argentina"]
+		}]
+	},
+	"players": 0
+}

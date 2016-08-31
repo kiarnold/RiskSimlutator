@@ -39,7 +39,6 @@ public final class JSONBoardImport {
 			// The whole object is the board containing territories
 			JSONObject board = (JSONObject) obj;
 			board = (JSONObject) board.get("board");
-			
 				
 			// The territories are in an array of JSON objects
 			JSONArray territories = (JSONArray) board.get("territories");
@@ -112,6 +111,7 @@ public final class JSONBoardImport {
 	 * Method to save the game state in a text file with the JSON format
 	 * @param board	the board to save
 	 */
+	// TODO: Needs to be rewritten to save the board as well.
 	public static void saveGame(RiskBoard board, String fileName) {
 		FileWriter file;
 		
@@ -119,6 +119,8 @@ public final class JSONBoardImport {
 		try {
 			List<Territory> territories = board.getTerritories();
 			file = new FileWriter(fileName);
+			
+			JSONArray territorisJson = new JSONArray();
 			
 			for(Territory terra : territories) {
 				JSONObject obj = new JSONObject();
@@ -133,9 +135,10 @@ public final class JSONBoardImport {
 				        		
 				obj.put("connections", connections);
 				
-				file.write(obj.toJSONString());
+				territorisJson.add(obj);
 			}
 			
+			file.write(territorisJson.toJSONString());
 			file.flush();
 			file.close();
 		} catch (IOException e) {
@@ -151,7 +154,8 @@ public final class JSONBoardImport {
 	 * @param fileName	the file name where the board is saved
 	 * @return		the board created by the load
 	 */
+	// TODO: Not working becuase save needs to save to whole board.
 	public static RiskBoard loadGame(String fileName) {
-		return createBoard(fileName, false); 
+		return createBoard(fileName, false);
 	}
 }
