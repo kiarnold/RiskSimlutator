@@ -19,7 +19,7 @@ public class JSONImportTest {
 		
 		Board textBoard = new Board();
 		BoardUtils.setup(textBoard, textFile);
-		Board jsonBoard = JSONBoardImport.newBoard(jsonFile);
+		Board jsonBoard = BoardIO.newBoard(jsonFile);
 		
 		assertEquals(textBoard.getTerritories(), jsonBoard.getTerritories());
 		
@@ -30,13 +30,13 @@ public class JSONImportTest {
 		String saveFile = "SavedGame.txt";
 		String boardSetup = "TestBoard.txt";
 		
-		Board initial = JSONBoardImport.newBoard(boardSetup);
+		Board initial = BoardIO.newBoard(boardSetup);
 		
 		BoardUtils.randomStart(initial);
 		
-		JSONBoardImport.saveGame(initial, saveFile);
+		BoardIO.saveGame(initial, saveFile);
 		
-		Board loaded = JSONBoardImport.loadGame(saveFile);
+		Board loaded = BoardIO.loadGame(saveFile);
 		
 		assertEquals(initial.getTerritories(), loaded.getTerritories());
 	}

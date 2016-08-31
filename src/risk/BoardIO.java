@@ -11,13 +11,13 @@ import org.json.simple.parser.*;
 import risk.BoardUtils.Colors;
 
 
-public final class JSONBoardImport {
+public final class BoardIO {
 	private static JSONParser parser = new JSONParser();
 	private static Board board = new Board();
 	private static Map<String, List<String>> storedConnections = new HashMap<String, List<String>>();
 	
 	// Private constructor so an instance is never created
-	private JSONBoardImport(String fileName){
+	private BoardIO(String fileName){
 		throw new AssertionError(); // Never call this
 	}
 	
