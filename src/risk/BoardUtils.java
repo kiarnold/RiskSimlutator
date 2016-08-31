@@ -11,19 +11,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class BoardUtils {
-	private final static int THREE_PLAYERS = 35;
-	private final static int FOUR_PLAYERS = 30;
-	private final static int FIVE_PLAYERS = 25;
-	private final static int SIX_PLAYERS = 20;
+	private final static int THREE_PLAYER_PEICE_COUNT = 35;
+	private final static int FOUR_PLAYER_PEICE_COUNT = 30;
+	private final static int FIVE_PLAYER_PEICE_COUNT = 25;
+	private final static int SIX_PLAYER_PEICE_COUNT = 20;
+	
+	private final static int MIN_PLAYERS = 3;
+	private final static int MAX_PLAYERS = 6;
 	
 	// Private constructor to prevent creating BoardUtil objects.
 	private BoardUtils(){
 		throw new AssertionError(); // Never call this
 	}
 	
-	
 	/**
-	 * Colors of game pieces.
+	 * Colors represent a player and the player's peices on the board.
 	 **/
 	public static enum Colors {
 		BLACK(Color.BLACK), 
@@ -41,20 +43,19 @@ public class BoardUtils {
 		}
 
 		/**
-		 * Returns a random color not currently in the players list
+		 * Returns a random color not currently present in the players list.
 		 * 
-		 * @return A random, unused color
+		 * @return A random, unused Colors enum value that is not NONE
 		 */
-		public static Colors getRandomColor(RiskBoard board) {
-			// get a list of the colors not used
+		public static Colors getRandomColor(Board board) {
+			// Create a list of the colors not used and not the NONE color
 			List<Colors> colors = new ArrayList<Colors>();
-
 			for (Colors col : Colors.values()) {
-				if (uniquePlayer(board, col) && !col.equals(Colors.NONE))
+				if (isColorUsed(board, col) && !col.equals(Colors.NONE))
 					colors.add(col);
 			}
 
-			// roll a random number corresponding each element
+			// roll the dic for a random number corresponding each element
 			int rand = rollDice(colors.size()) - 1;
 
 			// return the random element
@@ -75,11 +76,13 @@ public class BoardUtils {
 	 * in that region should be a blank line. (You can have as many regions as you like.)
 	 * Following all the regions and territories, the routes are set up by starting 
 	 * a line with "Routes:". This should be followed by a list of each connection 
-	 * (routes are all bi-directional) in the format "Place-Place2".
+	 * (routes are all bi-directional) in the format "Place1-Place2".
 	 * 
 	 * @param fileName 	the name of a file containing valid board information
 	 **/
-	public static void setup(RiskBoard board, String fileName) {
+	// TODO: There is probably a better way to represent the data in storage.
+	// Currently we are using JSON and name values.
+	public static void setup(Board board, String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 
@@ -114,7 +117,7 @@ public class BoardUtils {
 	 * 
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
-	private static void setupRegions(RiskBoard board, BufferedReader br) throws IOException {
+	private static void setupRegions(Board board, BufferedReader br) throws IOException {
 		while(br.ready()) {
 			String input = br.readLine();
 			if(input.equals("")) {
@@ -134,7 +137,7 @@ public class BoardUtils {
 	 * 
 	 * @param br 	a BufferedReader object of the file with setup information
 	 **/
-	private static void setupRoutes(RiskBoard board, BufferedReader br) throws IOException {
+	private static void setupRoutes(Board board, BufferedReader br) throws IOException {
 		while (br.ready()) {
 			String input = br.readLine();
 			if (input.equals("")) {
@@ -153,20 +156,23 @@ public class BoardUtils {
 	 * @param from	Territory to start in
 	 * @param to	Territory to end in
 	 **/
-	public static void addConnection(RiskBoard board, String from, String to) {
-		Territory terraFrom = null;
-		Territory terraTo = null;
-		for (Territory terra : board.getTerritories()) {
-			if (terra.getName().equals(from)) {
-				terraFrom = terra;
-			} else if (terra.getName().equals(to)) {
-				terraTo = terra;
+	// TODO: Is there a faster way to populate this? 
+	// What happens when the board is excessively large?
+	// Can we use a Map here?
+	private static void addConnection(Board board, String from, String to) {
+		Territory fromTerritory = null;
+		Territory toTerritory = null;
+		for (Territory territory : board.getTerritories()) {
+			if (territory.getName().equals(from)) {
+				fromTerritory = territory;
+			} else if (territory.getName().equals(to)) {
+				toTerritory = territory;
 			}
 		}
 
-		if (terraFrom != null && terraTo != null) {
-			terraFrom.addConnection(terraTo);
-			terraTo.addConnection(terraFrom);
+		if (fromTerritory != null && toTerritory != null) {
+			fromTerritory.addConnection(toTerritory);
+			toTerritory.addConnection(fromTerritory);
 		}
 	}
 
@@ -175,9 +181,10 @@ public class BoardUtils {
 	 * Private method takes a BufferedReader and reads in each line, 
 	 * adds players and assigns them a random Colors.
 	 * 
-	 * @param br 	a BufferedReader object of the file with setup information
+	 * @param br 	a BufferedReader object of the file with setup information at a line containing "Players:"
+	 * @param baord The board game object that is being set up.
 	 **/
-	private static void setupPlayers(RiskBoard board, BufferedReader br) throws IOException {
+	private static void setupPlayers(Board board, BufferedReader br) throws IOException {
 		while (br.ready()) {
 			String input = br.readLine();
 			if (input.equals("")) {
@@ -194,18 +201,22 @@ public class BoardUtils {
 	 * Method that will add the specified number of players using a random color
 	 * from the Colors enum.
 	 * 
-	 * @param num	the number of players to add, min: 0, max: 6
+	 * @param num	the number of players to add, min: 3, max: 6
+	 * @param baord	The board game object being set up.
 	 **/
-	private static void addPlayers(RiskBoard board,int num){
+	private static void addPlayers(Board board,int num){
 		// error checking for out of bounds
-		if (num < 0) num = 0;
-		else if (num > 6) num = 6;
+		if (num < MIN_PLAYERS) {
+			num = MIN_PLAYERS;
+		} else if (num > MAX_PLAYERS) {
+			num = MAX_PLAYERS;
+		}
 		
 		// assigning a random, unused color
 		for(int i = 0; i<num; i++){
 			Colors playerColor = Colors.getRandomColor(board);
 			
-			while(!uniquePlayer(board, playerColor)){
+			while(!isColorUsed(board, playerColor)){
 				playerColor = Colors.getRandomColor(board);
 			}
 			
@@ -243,10 +254,10 @@ public class BoardUtils {
 	/**
 	 * Helper method to check if a given Colors enum is in the player list.
 	 * 
-	 * @param playerColor	Colors enum in question
+	 * @param playerColor	Colors enum value to check for
 	 * @return		true if no other is present, false otherwise
 	 **/
-	private static boolean uniquePlayer(RiskBoard board, Colors playerColor){
+	private static boolean isColorUsed(Board board, Colors playerColor){
 		for(Colors color : board.getPlayerList()){
 			if(color.equals(playerColor)) {
 				return false;
@@ -258,14 +269,14 @@ public class BoardUtils {
 	/**
 	 * Sets up the board with random territories for each player in the player list,
 	 * and adds the correct number of pieces to the player's reserves to begin a game.
-	 * Will check for minimum players (3) in the player list.
+	 * Will check for minimum players (3) and maximum players (6) in the player list.
 	 **/
-	public static void randomStart(RiskBoard board) {
+	public static void randomStart(Board board) {
 		// Error check for minimum number of players.
 		List<Colors> players = board.getPlayerList();
 		List<Territory> territories = board.getTerritories();
 
-		if (players.size() < 3 || players.size() > 6) {
+		if (players.size() < MIN_PLAYERS || players.size() > MAX_PLAYERS) {
 			return;
 		}
 
@@ -293,16 +304,16 @@ public class BoardUtils {
 	/**
 	 * Helper method to put the correct number of reserve troops for each player
 	**/
-	private static void startReserves(RiskBoard board, List<Colors> players) {
+	private static void startReserves(Board board, List<Colors> players) {
 		int num = 0;
 		if (players.size() == 3) {
-			num = THREE_PLAYERS;
+			num = THREE_PLAYER_PEICE_COUNT;
 		} else if (players.size() == 4) {
-			num = FOUR_PLAYERS;
+			num = FOUR_PLAYER_PEICE_COUNT;
 		} else if (players.size() == 5) {
-			num = FIVE_PLAYERS;
+			num = FIVE_PLAYER_PEICE_COUNT;
 		} else if (players.size() == 6) {
-			num = SIX_PLAYERS;
+			num = SIX_PLAYER_PEICE_COUNT;
 		}
 		
 		for(Colors player : players) {

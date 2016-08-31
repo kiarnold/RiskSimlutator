@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import risk.BoardUtils.Colors;
-import risk.RiskBoard;
+import risk.Board;
 import risk.Territory;
 
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class BoardFrame extends JFrame {
 		        // get territory list
 		        // TODO: Get user input to find risk load file
 		        String fileName = "TestRisk.txt";
-		        RiskBoard board = new RiskBoard(fileName);
+		        Board board = new Board(fileName);
 		        List<Territory> terraList = board.getTerritories();
 		        
 		        // create cords list

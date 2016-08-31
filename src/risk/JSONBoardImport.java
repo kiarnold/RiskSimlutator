@@ -13,7 +13,7 @@ import risk.BoardUtils.Colors;
 
 public final class JSONBoardImport {
 	private static JSONParser parser = new JSONParser();
-	private static RiskBoard board = new RiskBoard();
+	private static Board board = new Board();
 	private static Map<String, List<String>> storedConnections = new HashMap<String, List<String>>();
 	
 	// Private constructor so an instance is never created
@@ -21,7 +21,7 @@ public final class JSONBoardImport {
 		throw new AssertionError(); // Never call this
 	}
 	
-	public static RiskBoard newBoard(String fileName) {
+	public static Board newBoard(String fileName) {
 		return createBoard(fileName, true);
 	}
 	
@@ -32,7 +32,7 @@ public final class JSONBoardImport {
 	 * @param newBoard	True if the call should ignore troop and faction data
 	 * @return		a RiskBoard setup by the file
 	 */
-	private static RiskBoard createBoard(String fileName, boolean newBoard){
+	private static Board createBoard(String fileName, boolean newBoard){
 		try {
 			Object obj = parser.parse(new FileReader(fileName));
 			
@@ -112,7 +112,7 @@ public final class JSONBoardImport {
 	 * @param board	the board to save
 	 */
 	// TODO: Needs to be rewritten to save the board as well.
-	public static void saveGame(RiskBoard board, String fileName) {
+	public static void saveGame(Board board, String fileName) {
 		FileWriter file;
 		
 		// TODO: Add writing as continents
@@ -155,7 +155,7 @@ public final class JSONBoardImport {
 	 * @return		the board created by the load
 	 */
 	// TODO: Not working becuase save needs to save to whole board.
-	public static RiskBoard loadGame(String fileName) {
+	public static Board loadGame(String fileName) {
 		return createBoard(fileName, false);
 	}
 }

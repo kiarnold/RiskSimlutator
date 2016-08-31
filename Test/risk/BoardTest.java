@@ -12,12 +12,12 @@ import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
 import org.junit.Test;
 
-import risk.RiskBoard;
+import risk.Board;
 import risk.BoardUtils.Colors;
 import risk.Territory;
 
 public class BoardTest {
-	RiskBoard board;
+	Board board;
 	private String alaska = "Alaska";
 	private String alberta = "Alberta";
 	private String argentina = "Argentina";
@@ -25,7 +25,7 @@ public class BoardTest {
 	
 	@Before
 	public void setUp(){
-		board = new RiskBoard();
+		board = new Board();
 		BoardUtils.setup(board, "TestRisk.txt");
 	}
 

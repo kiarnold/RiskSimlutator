@@ -7,7 +7,7 @@ import java.util.List;
 
 import risk.BoardUtils.Colors;
 
-public final class RiskBoard {
+public final class Board {
 	private List<Territory> territories;
 	private List<Colors> players;
 	private Hashtable<Colors, Integer> reserves;
@@ -17,7 +17,7 @@ public final class RiskBoard {
 	 * Default constructor setting up a blank board with 
 	 * no territories and no connections.
 	 */
-	public RiskBoard(){ 
+	public Board(){ 
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
 		reserves = new Hashtable<Colors, Integer>();
@@ -28,7 +28,7 @@ public final class RiskBoard {
 	 * Optional constructor to pass a file name directly to setup a board.
 	 * @param fileName	Name of a file with setup information
 	 */
-	public RiskBoard(String fileName){ 
+	public Board(String fileName){ 
 		territories = new ArrayList<Territory>();
 		players = new ArrayList<Colors>();
 		reserves = new Hashtable<Colors, Integer>();
