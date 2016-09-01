@@ -80,8 +80,6 @@ public class BoardUtils {
 	 * 
 	 * @param fileName 	the name of a file containing valid board information
 	 **/
-	// TODO: There is probably a better way to represent the data in storage.
-	// Currently we are using JSON and name values.
 	public static void setup(Board board, String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
