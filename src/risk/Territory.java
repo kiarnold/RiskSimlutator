@@ -3,6 +3,8 @@ package risk;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 public final class Territory {
 	private final String name;
 	private int troops;
@@ -62,7 +64,7 @@ public final class Territory {
 		return connections;
 	}
 	
-	/* Hash/Equals/ToString: Equality is based on name. */
+	/* Hash/Equals/ToString: Equality is based on all fields being the same. */
 	
 	@Override
 	public String toString() {
@@ -84,29 +86,63 @@ public final class Territory {
 		
 		return sb.toString();
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((connections == null) ? 0 : connections.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((playerName == null) ? 0 : playerName.hashCode());
+		result = prime * result + troops;
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof Territory)) {
 			return false;
+		}
 		Territory other = (Territory) obj;
-		if (name == null) {
-			if (other.name != null)
+		if (connections == null) {
+			if (other.connections != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!CollectionUtils.isEqualCollection(connections, other.connections)) {
 			return false;
+		}
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		if (playerName == null) {
+			if (other.playerName != null) {
+				return false;
+			}
+		} else if (!playerName.equals(other.playerName)) {
+			return false;
+		}
+		if (troops != other.troops) {
+			return false;
+		}
 		return true;
 	}
+	
 }

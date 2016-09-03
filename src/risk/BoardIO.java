@@ -12,9 +12,6 @@ import risk.BoardUtils.Colors;
 
 
 public final class BoardIO {
-	private static JSONParser parser = new JSONParser();
-	private static Board board = new Board();
-	private static Map<String, List<String>> storedConnections = new HashMap<String, List<String>>();
 	
 	// Private constructor so an instance is never created
 	private BoardIO(){
