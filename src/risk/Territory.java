@@ -19,7 +19,7 @@ public final class Territory {
 		troops = 0;
 		this.name = name;
 		connections = new ArrayList<Territory>();
-		playerName = "None"; // TODO: Assign default player?
+		playerName = ""; // TODO: Assign default player?
 	}
 	
 	/* Getters and Setters */
