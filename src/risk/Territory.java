@@ -3,14 +3,12 @@ package risk;
 import java.util.ArrayList;
 import java.util.List;
 
-import risk.BoardUtils.Colors;
-
 public final class Territory {
-	private int troops;
 	private final String name;
+	private int troops;
 	private List<Territory> connections;
-	private Colors faction;
-	
+	private String playerName;
+
 	/**
 	 * Constructor builds the object with name initialized, 
 	 * troops set to 0, and an empty connections list.
@@ -21,36 +19,50 @@ public final class Territory {
 		troops = 0;
 		this.name = name;
 		connections = new ArrayList<Territory>();
-		faction = Colors.NONE;
+		playerName = "None"; // TODO: Assign default player?
 	}
+	
+	/* Getters and Setters */
 
 	public int getTroops() {
 		return troops;
+	}
+	
+	public void setTroops(int num) {
+		this.troops = num;
 	}
 
 	public String getName() {
 		return name;
 	}
-
-	public void setTroops(int num) {
-		this.troops = num;
+	
+	/**
+	 * @return the playerName
+	 */
+	public String getPlayerName() {
+		return playerName;
 	}
 
-	public void setFaction(Colors faction) {
-		this.faction = faction;
+	/**
+	 * @param playerName the playerName to set
+	 */
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
 
-	public Colors getFaction() {
-		return faction;
+	public void addConnection(Territory territory) {
+		connections.add(territory);
 	}
-
-	public void addConnection(Territory terra) {
-		connections.add(terra);
+	
+	public void setConnections(List<Territory> connections) {
+		this.connections = connections;
 	}
 
 	public List<Territory> getConnections() {
 		return connections;
 	}
+	
+	/* Hash/Equals/ToString: Equality is based on name. */
 	
 	@Override
 	public String toString() {
@@ -67,12 +79,12 @@ public final class Territory {
 		sb.append("\t");
 		
 		// Faction Control
-		sb.append(faction.name());
+		sb.append(playerName);
 		sb.append("\n");
 		
 		return sb.toString();
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
