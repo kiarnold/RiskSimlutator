@@ -9,9 +9,7 @@ public class GameBoard {
 	private List<Player> players;
 	
 	// Private constructor. Use factory methods in BoardIO to instantiate.
-	private GameBoard() {
-		throw new AssertionError(); // Never call this.
-	}
+	private GameBoard() {}
 	
 	/* Getters and Setters */
 

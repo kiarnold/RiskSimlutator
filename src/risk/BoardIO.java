@@ -5,12 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
-
-import org.json.simple.*;
-import org.json.simple.parser.*;
-
 import risk.BoardUtils.Colors;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public final class BoardIO {
 	
@@ -24,7 +20,7 @@ public final class BoardIO {
 	 * @param gameBoard the GameBoard to serialize.
 	 * @return A JSON object searialized from the GameBoard. Will return null and log if there is any error.
 	 */
-	public static JSONObject getJsonFromGameBoard (GameBoard gameBoard) {
+	public static String getJsonFromGameBoard (GameBoard gameBoard) {
 		return null;
 	}
 	
@@ -37,13 +33,18 @@ public final class BoardIO {
 		if (boardJson == null) {
 			return null;
 		}
+		ObjectMapper mapper = new ObjectMapper();
+		
 		
 		GameBoard board = null;
-		
-		JSONValue parser = new JSONValue();
-		Object boardObj= parser.parse(boardJson);
-		
-		board = (GameBoard) boardObj;
+		try {
+			board = mapper.readValue(boardJson, GameBoard.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return null; // All errors will return null
+		}
 		
 		return board;
 	}

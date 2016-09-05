@@ -2,16 +2,14 @@ package risk;
 
 import static org.junit.Assert.*;
 
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class BoardIoTest {
-	private JSONObject boardJson;
+	private String boardJson;
 	private GameBoard gameBoard;
 
 	@Before
@@ -35,22 +33,23 @@ public class BoardIoTest {
 	@Test
 	public void compatableMethods_FromJson() {
 		gameBoard = BoardIO.getGameBoardFromJson(boardJson);
-		JSONObject newBoardJson = BoardIO.getJsonFromGameBoard(gameBoard);
+		String newBoardJson = BoardIO.getJsonFromGameBoard(gameBoard);
 		
 		assertEquals(boardJson, newBoardJson);
 	}
 
 	@Test
-	public void getJsonFromGameBoard_EmptyBoard() throws ParseException {
-		String emptyBoard = "{\"board\":{}}";
-		JSONParser parser = new JSONParser();
+	public void getJsonFromGameBoard_EmptyBoard() {
+		String emptyBoard = "{\"players\":[],\"territories\":[]}";
 		
 		//JSONObject obj = (JSONObject) parser.parse(emptyBoard);
 		gameBoard = BoardIO.getGameBoardFromJson(emptyBoard);
 		
 		assertNotNull(gameBoard);
-		assertNull(gameBoard.getTerritories());
-		assertNull(gameBoard.getPlayers());
+		assertNotNull(gameBoard.getTerritories());
+		assertTrue(gameBoard.getTerritories().isEmpty());
+		assertNotNull(gameBoard.getPlayers());
+		assertTrue(gameBoard.getPlayers().isEmpty());
 	}
 
 	@Test
