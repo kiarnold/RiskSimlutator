@@ -45,8 +45,8 @@ public class BoardIoTest {
 		String emptyBoard = "{\"board\":{}}";
 		JSONParser parser = new JSONParser();
 		
-		JSONObject obj = (JSONObject) parser.parse(emptyBoard);
-		gameBoard = BoardIO.getGameBoardFromJson(obj);
+		//JSONObject obj = (JSONObject) parser.parse(emptyBoard);
+		gameBoard = BoardIO.getGameBoardFromJson(emptyBoard);
 		
 		assertNotNull(gameBoard);
 		assertNull(gameBoard.getTerritories());

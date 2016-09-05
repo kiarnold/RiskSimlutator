@@ -3,6 +3,7 @@ package risk;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.*;
 
 import org.json.simple.*;
@@ -32,8 +33,19 @@ public final class BoardIO {
 	 * @param boardJson the JSONObject that matches a GameBoard
 	 * @return a GameBoard object de-serialized from the JSONObject. Will return null and log if there is any error.
 	 */
-	public static GameBoard getGameBoardFromJson(JSONObject boardJson) {
-		return null;
+	public static GameBoard getGameBoardFromJson(String boardJson) {
+		if (boardJson == null) {
+			return null;
+		}
+		
+		GameBoard board = null;
+		
+		JSONValue parser = new JSONValue();
+		Object boardObj= parser.parse(boardJson);
+		
+		board = (GameBoard) boardObj;
+		
+		return board;
 	}
 	
 //	public static Board newBoard(String fileName) {
