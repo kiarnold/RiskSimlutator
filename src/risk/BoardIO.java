@@ -5,7 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
+
 import risk.BoardUtils.Colors;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public final class BoardIO {
@@ -21,7 +24,22 @@ public final class BoardIO {
 	 * @return A JSON object searialized from the GameBoard. Will return null and log if there is any error.
 	 */
 	public static String getJsonFromGameBoard (GameBoard gameBoard) {
-		return null;
+		if (gameBoard == null) {
+			return null;
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String jsonBoard;
+		try {
+			jsonBoard = mapper.writeValueAsString(gameBoard);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return null; // Null is returned on any error.
+		}
+		
+		return jsonBoard;
 	}
 	
 	/**
@@ -36,7 +54,7 @@ public final class BoardIO {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		
-		GameBoard board = null;
+		GameBoard board;
 		try {
 			board = mapper.readValue(boardJson, GameBoard.class);
 		} catch (IOException e) {

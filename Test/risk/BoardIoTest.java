@@ -23,7 +23,7 @@ public class BoardIoTest {
 	}
 	
 	@Test
-	public void compatableMethods_FromGameBoard() {
+	public void compatableMethods_FromGameBoard_Null() {
 		boardJson = BoardIO.getJsonFromGameBoard(gameBoard);
 		GameBoard newGameBoard = BoardIO.getGameBoardFromJson(boardJson);
 		
@@ -31,7 +31,7 @@ public class BoardIoTest {
 	}
 	
 	@Test
-	public void compatableMethods_FromJson() {
+	public void compatableMethods_FromJson_Null() {
 		gameBoard = BoardIO.getGameBoardFromJson(boardJson);
 		String newBoardJson = BoardIO.getJsonFromGameBoard(gameBoard);
 		
@@ -40,9 +40,8 @@ public class BoardIoTest {
 
 	@Test
 	public void getJsonFromGameBoard_EmptyBoard() {
-		String emptyBoard = "{\"players\":[],\"territories\":[]}";
+		String emptyBoard = "{\"territories\":[],\"players\":[]}";
 		
-		//JSONObject obj = (JSONObject) parser.parse(emptyBoard);
 		gameBoard = BoardIO.getGameBoardFromJson(emptyBoard);
 		
 		assertNotNull(gameBoard);
@@ -50,6 +49,10 @@ public class BoardIoTest {
 		assertTrue(gameBoard.getTerritories().isEmpty());
 		assertNotNull(gameBoard.getPlayers());
 		assertTrue(gameBoard.getPlayers().isEmpty());
+		
+		String newEmptyBoard = BoardIO.getJsonFromGameBoard(gameBoard);
+		
+		assertEquals(emptyBoard, newEmptyBoard); // Cross compatability test
 	}
 
 	@Test
