@@ -1,5 +1,6 @@
 package risk;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -9,7 +10,9 @@ public class GameBoard {
 	private List<Player> players;
 	
 	// Private constructor. Use factory methods in BoardIO to instantiate.
-	private GameBoard() {}
+	private GameBoard() {
+		
+	}
 	
 	/* Getters and Setters */
 
@@ -47,6 +50,9 @@ public class GameBoard {
 	 * @param player the player to be added to the list of players.
 	 */
 	public void addPlayer(Player player) {
+		if (players == null) {
+			players = new ArrayList<Player>();
+		}
 		this.players.add(player);
 	}
 	
@@ -54,6 +60,9 @@ public class GameBoard {
 	 * @param territory the territory to be added to the list of territories.
 	 */
 	public void addTerritory(Territory territory) {
+		if (territories == null) {
+			territories = new ArrayList<Territory>();
+		}
 		this.territories.add(territory);
 	}
 

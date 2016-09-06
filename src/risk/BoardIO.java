@@ -20,8 +20,8 @@ public final class BoardIO {
 	
 	/**
 	 * Method takes a GameBoard object and return a JSON Object by serializing the object directly.
-	 * @param gameBoard the GameBoard to serialize.
-	 * @return A JSON object searialized from the GameBoard. Will return null and log if there is any error.
+	 * @param gameBoard the GameBoard to serialize. Null will return null.
+	 * @return a string of the JSON object. Null will be returned on an error.
 	 */
 	public static String getJsonFromGameBoard (GameBoard gameBoard) {
 		if (gameBoard == null) {
@@ -36,7 +36,7 @@ public final class BoardIO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-			return null; // Null is returned on any error.
+			return null; // Null is returned on error.
 		}
 		
 		return jsonBoard;
@@ -44,7 +44,7 @@ public final class BoardIO {
 	
 	/**
 	 * Method takes in a JSON object and returns a Game Board object by de-serializing the object directly.
-	 * @param boardJson the JSONObject that matches a GameBoard
+	 * @param boardJson the JSON string of an object. Null will return null.
 	 * @return a GameBoard object de-serialized from the JSONObject. Will return null and log if there is any error.
 	 */
 	public static GameBoard getGameBoardFromJson(String boardJson) {
@@ -61,7 +61,7 @@ public final class BoardIO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-			return null; // All errors will return null
+			return null; // Null is returned on error.
 		}
 		
 		return board;
