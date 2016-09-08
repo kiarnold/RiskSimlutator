@@ -1,5 +1,8 @@
 package risk;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -124,6 +127,20 @@ public final class BoardIO {
 	 * @return
 	 */
 	public static GameBoard loadGame(String fileName) {
-		return null;
+		try {
+			// Read file in.
+			BufferedReader reader = new BufferedReader(new FileReader(fileName));
+			String fileInput = "";
+			while (reader.ready()) {
+				fileInput += reader.readLine();
+			}
+			reader.close();
+			
+
+			return getGameBoardFromJson(fileInput);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

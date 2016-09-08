@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -140,10 +141,14 @@ public class BoardIoTest {
 		// Assert the GameBoard is not null
 		assertNotNull(gameBoard);
 		
-		// Assert the territories list is null
-		assertNull(gameBoard.getTerritories());
+		// Assert the territories list is populated with 1 null;
+		List<Territory> territories = gameBoard.getTerritories();
+		assertNotNull(territories);
+		assertNull(territories.get(0));
 		
-		// Assert the players list is null
-		assertNull(gameBoard.getPlayers());
+		// Assert the players list is populated with 1 null
+		List<Player> players = gameBoard.getPlayers();
+		assertNotNull(players);
+		assertNull(players.get(0));
 	}
 }
