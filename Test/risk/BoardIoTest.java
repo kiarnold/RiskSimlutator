@@ -100,9 +100,7 @@ public class BoardIoTest {
 		try {
 			reader = new BufferedReader(new FileReader(fileName));
 			String fileInput = "";
-			while (reader.ready()) {
-				fileInput = reader.readLine();
-			}
+			fileInput = reader.readLine();
 		
 			// Assert same as original JSON
 			assertEquals(emptyBoard, fileInput);
@@ -115,7 +113,6 @@ public class BoardIoTest {
 		
 		// Delete file
 		File testFile = new File(fileName);
-		System.out.println(testFile.getAbsolutePath());
 		
 		assert(testFile.exists());
 		
@@ -126,6 +123,27 @@ public class BoardIoTest {
 	
 	@Test
 	public void loadGame_EmptyBoard() {
-		// Create JSON
+		// Save a board using the same code as saveGame test
+		// Create test JSON
+		String emptyBoard = "{\"territories\":[null],\"players\":[null]}";
+		
+		// Create a test board
+		GameBoard saveBoard = BoardIO.getGameBoardFromJson(emptyBoard);
+		
+		// Run save
+		String fileName = "Test.sav";
+		BoardIO.saveGame(saveBoard, fileName);
+		
+		// Run load
+		GameBoard gameBoard = BoardIO.loadGame(fileName);
+		
+		// Assert the GameBoard is not null
+		assertNotNull(gameBoard);
+		
+		// Assert the territories list is null
+		assertNull(gameBoard.getTerritories());
+		
+		// Assert the players list is null
+		assertNull(gameBoard.getPlayers());
 	}
 }
