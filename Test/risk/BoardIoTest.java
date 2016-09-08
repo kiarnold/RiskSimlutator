@@ -2,6 +2,9 @@ package risk;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -78,4 +81,34 @@ public class BoardIoTest {
 		assertNotNull(boardJson);
 		assertEquals("{\"territories\":[null],\"players\":[null]}", boardJson);
 	}
+	
+	@Test
+	public void saveGame_EmptyBoard() {
+		// Create test JSON
+		String emptyBoard = "{\"territories\":[null],\"players\":[null]}";
+		
+		// Create a test board
+		GameBoard board = BoardIO.getGameBoardFromJson(emptyBoard);
+		
+		// Run save
+		String fileName = "Test.sav";
+		BoardIO.saveGame(board, fileName);
+		
+		// Read file in.
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(fileName));
+			String fileInput = "";
+			while (reader.ready()) {
+				fileInput = reader.readLine();
+			}
+		
+			// Assert same as original JSON
+			assertEquals(emptyBoard, fileInput);
+		} catch (Exception e) {
+			e.printStackTrace();
+			assert(false);
+		}
+	}
+	
 }

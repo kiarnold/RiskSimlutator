@@ -95,38 +95,16 @@ public final class BoardIO {
 	
 	
 	/**
-	 * Takes a file name, and reads in JSON code to create a risk board.
-	 * 
-	 * @param fileName	the name of the file with valid JSON information
-	 * @param newBoard	True if the call should ignore troop and faction data
-	 * @return		a RiskBoard setup by the file
-	 */
-	private static GameBoard createBoard(String fileName){
-		GameBoard board = null;
-		
-		try {
-			board = getGameBoardFromJson(new FileReader(fileName));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return board;
-	}
-
-	/**
 	 * Method to save the game state in a text file with the JSON format
 	 * @param board	the board to save
 	 */
-	// TODO: Needs to be rewritten to save the board as well.
 	public static void saveGame(GameBoard board, String fileName) {
-		FileWriter file;
-		
 		String boardJson = getJsonFromGameBoard(board);
 		if (boardJson == null) {
-			return; // TODO: How are we hanling errors here?
+			return; // TODO: How are we handling errors here?
 		}
 		
+		FileWriter file;
 		try {
 			file = new FileWriter(fileName);
 			
@@ -138,5 +116,14 @@ public final class BoardIO {
 		} finally {
 
 		}	
+	}
+	
+	/**
+	 * Method to load the game state from a JSON formatted text file.
+	 * @param fileName
+	 * @return
+	 */
+	public static GameBoard loadGame(String fileName) {
+		return null;
 	}
 }
