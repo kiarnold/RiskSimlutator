@@ -3,6 +3,7 @@ package risk;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -105,10 +106,22 @@ public class BoardIoTest {
 		
 			// Assert same as original JSON
 			assertEquals(emptyBoard, fileInput);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			assert(false);
 		}
+		
+		// Delete file
+		File testFile = new File(fileName);
+		
+		Boolean deleted = testFile.delete();
+		
+		assert(deleted);
 	}
 	
+	@Test
+	public void loadGame_EmptyBoard() {
+		// Create JSON
+	}
 }
