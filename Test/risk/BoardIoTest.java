@@ -107,6 +107,7 @@ public class BoardIoTest {
 			// Assert same as original JSON
 			assertEquals(emptyBoard, fileInput);
 			
+			reader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			assert(false);
@@ -114,6 +115,9 @@ public class BoardIoTest {
 		
 		// Delete file
 		File testFile = new File(fileName);
+		System.out.println(testFile.getAbsolutePath());
+		
+		assert(testFile.exists());
 		
 		Boolean deleted = testFile.delete();
 		
