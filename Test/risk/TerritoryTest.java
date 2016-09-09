@@ -17,7 +17,6 @@ public class TerritoryTest {
 	Territory territory;
 	String name = "testTerritory";
 	
-
 	@Before
 	public void setUp() throws Exception {
 		territory = new Territory(name);
@@ -32,7 +31,7 @@ public class TerritoryTest {
 		List<Territory> newList = new ArrayList<>();
 		assertEquals(name,  territory.getName());
 		assertEquals(newList,  territory.getConnections());
-		assertEquals(BoardUtils.Colors.NONE, territory.getFaction());
+		assertEquals("", territory.getPlayerName());
 		assertEquals(0, territory.getTroops());
 	}
 	
@@ -41,11 +40,11 @@ public class TerritoryTest {
 		Territory terra2 = new Territory("terra2");
 		int numTroops = 42;
 		territory.setTroops(numTroops);
-		territory.setFaction(BoardUtils.Colors.BLUE);
+		territory.setPlayerName("Blue");
 		territory.addConnection(terra2);
 		
 		assertEquals(numTroops, territory.getTroops());
-		assertEquals(BoardUtils.Colors.BLUE, territory.getFaction());
+		assertEquals("Blue", territory.getPlayerName());
 		assertEquals(1, territory.getConnections().size());
 		assertEquals("terra2", territory.getConnections().get(0).getName());
 	}
@@ -54,9 +53,9 @@ public class TerritoryTest {
 	public void testToString() throws Exception {
 		String expected = "Territory: testTerritory\n"
 				+ "Troops: 42\t" 
-				+"BLUE\n";
+				+"Blue\n";
 		
-		territory.setFaction(Colors.BLUE);
+		territory.setPlayerName("Blue");
 		territory.setTroops(42);
 		
 		assertEquals(expected, territory.toString());

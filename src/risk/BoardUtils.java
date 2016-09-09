@@ -71,17 +71,10 @@ public class BoardUtils {
 	 * Will attempt to setup the board based on an input file. Territories 
 	 * will be added first and then routes will be set up.
 	 * <p>
-	 * A valid file should contain Regions in the format "Region: Name".
-	 * followed by the names of territories. After all the territories 
-	 * in that region should be a blank line. (You can have as many regions as you like.)
-	 * Following all the regions and territories, the routes are set up by starting 
-	 * a line with "Routes:". This should be followed by a list of each connection 
-	 * (routes are all bi-directional) in the format "Place1-Place2".
+	 * A valid file will contain a board object in JSON format.
 	 * 
 	 * @param fileName 	the name of a file containing valid board information
 	 **/
-	// TODO: There is probably a better way to represent the data in storage.
-	// Currently we are using JSON and name values.
 	public static void setup(Board board, String fileName) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
