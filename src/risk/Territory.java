@@ -8,8 +8,8 @@ import org.apache.commons.collections4.CollectionUtils;
 public final class Territory {
 	private final String name;
 	private int troops;
-	private List<Territory> connections;
-	private String playerName;
+	private List<String> connections;
+	private String ownerName;
 
 	/**
 	 * Constructor builds the object with name initialized, 
@@ -20,12 +20,38 @@ public final class Territory {
 	public Territory(String name) {
 		troops = 0;
 		this.name = name;
-		connections = new ArrayList<Territory>();
-		playerName = ""; // TODO: Assign default player?
+		connections = new ArrayList<String>();
+		ownerName = "";
 	}
 	
-	/* Getters and Setters */
+	/* Attack/Move Logic*/
+	
+	public MoveResult moveTo(Territory target, int numberOfTroops) {
+		MoveResult result = null;
+		
+		if (target.getOwnerName() != this.getOwnerName()) {
+			// Do attack
+			this.attackTerritory(target, numberOfTroops);
+		} else {
+			// Do move
+			this.moveToTerritory(target, numberOfTroops);
+		}
+		
+		return result;
+	}
+	
+	
+	private void attackTerritory(Territory target, int numberOfTroops) {
+		// TODO Auto-generated method stub
+	}
 
+	private void moveToTerritory(Territory target, int numberOfTroops) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* Getters and Setters */
+	
 	public int getTroops() {
 		return troops;
 	}
@@ -41,30 +67,30 @@ public final class Territory {
 	/**
 	 * @return the playerName
 	 */
-	public String getPlayerName() {
-		return playerName;
+	public String getOwnerName() {
+		return ownerName;
 	}
 
 	/**
-	 * @param playerName the playerName to set
+	 * @param ownerName the playerName to set
 	 */
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 
-	public void addConnection(Territory territory) {
+	public void addConnection(String territory) {
 		connections.add(territory);
 	}
 	
-	public void setConnections(List<Territory> connections) {
+	public void setConnections(List<String> connections) {
 		this.connections = connections;
 	}
 
-	public List<Territory> getConnections() {
+	public List<String> getConnections() {
 		return connections;
 	}
 	
-	/* Hash/Equals/ToString: Equality is based on all fields being the same. */
+	/* Hash/Equals/ToString: Equality is based on the name field (final) */
 	
 	@Override
 	public String toString() {
@@ -81,7 +107,7 @@ public final class Territory {
 		sb.append("\t");
 		
 		// Faction Control
-		sb.append(playerName);
+		sb.append(ownerName);
 		sb.append("\n");
 		
 		return sb.toString();
@@ -94,12 +120,7 @@ public final class Territory {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((connections == null) ? 0 : connections.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((playerName == null) ? 0 : playerName.hashCode());
-		result = prime * result + troops;
 		return result;
 	}
 
@@ -118,13 +139,6 @@ public final class Territory {
 			return false;
 		}
 		Territory other = (Territory) obj;
-		if (connections == null) {
-			if (other.connections != null) {
-				return false;
-			}
-		} else if (!CollectionUtils.isEqualCollection(connections, other.connections)) {
-			return false;
-		}
 		if (name == null) {
 			if (other.name != null) {
 				return false;
@@ -132,17 +146,8 @@ public final class Territory {
 		} else if (!name.equals(other.name)) {
 			return false;
 		}
-		if (playerName == null) {
-			if (other.playerName != null) {
-				return false;
-			}
-		} else if (!playerName.equals(other.playerName)) {
-			return false;
-		}
-		if (troops != other.troops) {
-			return false;
-		}
 		return true;
 	}
+
 	
 }
