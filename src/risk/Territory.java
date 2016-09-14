@@ -36,6 +36,10 @@ public final class Territory {
 	
 	
 	private void attackTerritory(Territory target, int numberOfTroops) {
+		// Find how many troops can attack
+		// Find how many troops can defend
+		// Roll Dice for both sides
+		// Defender's advantage, remove troops from the low roller 
 	}
 
 	private void moveToTerritory(Territory target, int numberOfTroops) {
