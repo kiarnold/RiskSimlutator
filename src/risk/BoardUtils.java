@@ -114,14 +114,12 @@ public class BoardUtils {
 	**/
 	private static void startReserves(Board board, List<Colors> players) {
 		int num = 0;
-		if (players.size() == 3) {
-			num = THREE_PLAYER_PEICE_COUNT;
-		} else if (players.size() == 4) {
-			num = FOUR_PLAYER_PEICE_COUNT;
-		} else if (players.size() == 5) {
-			num = FIVE_PLAYER_PEICE_COUNT;
-		} else if (players.size() == 6) {
-			num = SIX_PLAYER_PEICE_COUNT;
+		
+		switch (players.size()) {
+			case 3: num = THREE_PLAYER_PEICE_COUNT;
+			case 4: num = FOUR_PLAYER_PEICE_COUNT;
+			case 5: num = FIVE_PLAYER_PEICE_COUNT;
+			case 6: num = SIX_PLAYER_PEICE_COUNT;
 		}
 		
 		for(Colors player : players) {
