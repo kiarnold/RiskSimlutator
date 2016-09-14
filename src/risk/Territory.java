@@ -3,8 +3,6 @@ package risk;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
-
 public final class Territory {
 	private final String name;
 	private int troops;
@@ -26,31 +24,30 @@ public final class Territory {
 	
 	/* Attack/Move Logic*/
 	
-	public MoveResult moveTo(Territory target, int numberOfTroops) {
-		MoveResult result;
-		
-		if (numberOfTroops < 1) {
-			return new MoveResult(false, MoveResult.NO_TROOPS);
-		}
-		
-		if (target.getOwnerName() != this.getOwnerName()) {
-			// Do attack
-			result = this.attackTerritory(target, numberOfTroops);
-		} else {
+	public void moveTo(Territory target, int numberOfTroops) {
+		if (target.getOwnerName().equals(this.getOwnerName())) {
 			// Do move
-			result = this.moveToTerritory(target, numberOfTroops);
+			this.moveToTerritory(target, numberOfTroops);
+		} else {
+			// Do attack
+			this.attackTerritory(target, numberOfTroops);
 		}
-		
-		return result;
 	}
 	
 	
-	private MoveResult attackTerritory(Territory target, int numberOfTroops) {
-		return null;
+	private void attackTerritory(Territory target, int numberOfTroops) {
 	}
 
-	private MoveResult moveToTerritory(Territory target, int numberOfTroops) {
-		return null;
+	private void moveToTerritory(Territory target, int numberOfTroops) {
+		this.addTroops(-numberOfTroops);
+		target.addTroops(numberOfTroops);
+	}
+	
+	/* Adders and Removers */
+	
+	public int addTroops(int numberOfTroops) {
+		troops += numberOfTroops;
+		return troops;
 	}
 
 	/* Getters and Setters */

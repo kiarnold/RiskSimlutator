@@ -10,6 +10,7 @@ public class MoveResult {
 	
 	// Reason codes
 	public static final String NO_TROOPS = "Not enough troops.";
+	public static final String TROOPS_MOVED = "Troops moved.";
 	
 	public MoveResult(boolean isSuccess, String reason) {
 		this.isSuccess = isSuccess;
