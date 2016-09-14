@@ -27,27 +27,30 @@ public final class Territory {
 	/* Attack/Move Logic*/
 	
 	public MoveResult moveTo(Territory target, int numberOfTroops) {
-		MoveResult result = null;
+		MoveResult result;
+		
+		if (numberOfTroops < 1) {
+			return new MoveResult(false, MoveResult.NO_TROOPS);
+		}
 		
 		if (target.getOwnerName() != this.getOwnerName()) {
 			// Do attack
-			this.attackTerritory(target, numberOfTroops);
+			result = this.attackTerritory(target, numberOfTroops);
 		} else {
 			// Do move
-			this.moveToTerritory(target, numberOfTroops);
+			result = this.moveToTerritory(target, numberOfTroops);
 		}
 		
 		return result;
 	}
 	
 	
-	private void attackTerritory(Territory target, int numberOfTroops) {
-		// TODO Auto-generated method stub
+	private MoveResult attackTerritory(Territory target, int numberOfTroops) {
+		return null;
 	}
 
-	private void moveToTerritory(Territory target, int numberOfTroops) {
-		// TODO Auto-generated method stub
-		
+	private MoveResult moveToTerritory(Territory target, int numberOfTroops) {
+		return null;
 	}
 
 	/* Getters and Setters */

@@ -2,12 +2,14 @@ package risk;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class MoveResult {
 	private final boolean isSuccess;
 	private final String reason;
-	public static final List<String> reasons = Arrays.asList(
-			"Not enough troops.");
+	
+	// Reason codes
+	public static final String NO_TROOPS = "Not enough troops.";
 	
 	public MoveResult(boolean isSuccess, String reason) {
 		this.isSuccess = isSuccess;
