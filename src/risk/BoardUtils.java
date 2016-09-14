@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BoardUtils {
 	private final static int THREE_PLAYER_PEICE_COUNT = 35;
@@ -49,13 +51,22 @@ public class BoardUtils {
 		 * If there are no available colors, returns null.
 		 */
 		public static Colors getUnusedColor(List<Player> players) {
-			Colors[] colors = Colors.values();
-			
-			// Create a list of unused colors.
-			for (Colors color : colors) {
-				
+			// Create a set of all the currently used colors.
+			Set<Colors> usedColors = new HashSet<>();
+			for (Player player : players) {
+				usedColors.add(player.getPlayerColor());
 			}
 			
+			// Loop through the available colors and see if it's been used yet, if not, return it.
+			for (Colors color : Colors.values()) {
+				if (usedColors.contains(color) || color.equals(Colors.NONE)) {
+					continue;
+				} else {
+					return color;
+				}
+			}
+			
+			// Fallback will return null
 			return null;
 		}
 		
