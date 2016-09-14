@@ -43,23 +43,20 @@ public class BoardUtils {
 		}
 
 		/**
-		 * Returns a random color not currently present in the players list.
+		 * Returns a color not currently present in the players list.
 		 * 
-		 * @return A random, unused Colors enum value that is not NONE
+		 * @return An unused Colors enum value that is not NONE. 
+		 * If there are no available colors, returns null.
 		 */
-		public static Colors getRandomColor(Board board) {
-			// Create a list of the colors not used and not the NONE color
-			List<Colors> colors = new ArrayList<Colors>();
-			for (Colors col : Colors.values()) {
-				if (isColorUsed(board, col) && !col.equals(Colors.NONE))
-					colors.add(col);
+		public static Colors getUnusedColor(List<Player> players) {
+			Colors[] colors = Colors.values();
+			
+			// Create a list of unused colors.
+			for (Colors color : colors) {
+				
 			}
-
-			// roll the dic for a random number corresponding each element
-			int rand = rollDice(colors.size()) - 1;
-
-			// return the random element
-			return colors.get(rand);
+			
+			return null;
 		}
 		
 		public Color getColor() {
@@ -73,7 +70,7 @@ public class BoardUtils {
 	 * @param num	the number of times to roll dice
 	 * @return 	an array with the number of dice rolled.
 	 **/
-	private int[] getRolls(int num) {
+	public int[] getRolls(int num) {
 		int[] rolls = new int[num];
 		
 		for (int i = 0; i < num; i++) {
@@ -92,38 +89,5 @@ public class BoardUtils {
 	 **/
 	private static int rollDice(int i) {
 		return (int) (Math.random() * i) + 1;
-	}
-	
-	/**
-	 * Helper method to check if a given Colors enum is in the player list.
-	 * 
-	 * @param playerColor	Colors enum value to check for
-	 * @return		true if no other is present, false otherwise
-	 **/
-	private static boolean isColorUsed(Board board, Colors playerColor){
-		for(Colors color : board.getPlayerList()){
-			if(color.equals(playerColor)) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * Helper method to put the correct number of reserve troops for each player
-	**/
-	private static void startReserves(Board board, List<Colors> players) {
-		int num = 0;
-		
-		switch (players.size()) {
-			case 3: num = THREE_PLAYER_PEICE_COUNT;
-			case 4: num = FOUR_PLAYER_PEICE_COUNT;
-			case 5: num = FIVE_PLAYER_PEICE_COUNT;
-			case 6: num = SIX_PLAYER_PEICE_COUNT;
-		}
-		
-		for(Colors player : players) {
-			board.setPlayerReserves(player, num);
-		}
 	}
 }
