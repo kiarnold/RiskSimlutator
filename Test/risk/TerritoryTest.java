@@ -100,9 +100,13 @@ public class TerritoryTest {
 		canada.setTroops(100);
 		
 		// Call attack on one territory
-		canada.moveTo(unitedStates, 90);
+		MoveResult result = canada.moveTo(unitedStates, 90);
 		
 		// Assert the attack was successful
+		assertNotNull(result);
+		assertEquals(true, result.isSuccess());
+		assertNotEquals(100, canada.getTroops());
+		assertNotEquals(0, unitedStates.getTroops());
 		assertEquals(canada.getOwnerName(), unitedStates.getOwnerName());
 	}
 	
