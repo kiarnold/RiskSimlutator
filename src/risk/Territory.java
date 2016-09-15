@@ -24,6 +24,12 @@ public final class Territory {
 	
 	/* Attack/Move Logic*/
 	
+	/**
+	 * Method to move (or attack one territory). Specify the territory to move to and the number of troops to move in.
+	 * The method will move if owned by the same person, or attack if owned by another player.
+	 * @param target The territory to attack
+	 * @param numberOfTroops The number of troops to attack with.
+	 */
 	public void moveTo(Territory target, int numberOfTroops) {
 		if (target.getOwnerName().equals(this.getOwnerName())) {
 			// Do move
@@ -49,6 +55,11 @@ public final class Territory {
 	
 	/* Adders and Removers */
 	
+	/**
+	 * Method to add troops to a territory. Number given is incremented with the existing troop count. 
+	 * @param numberOfTroops The number of troops to add to the territory.
+	 * @return The current number of troops after changes.
+	 */
 	public int addTroops(int numberOfTroops) {
 		troops += numberOfTroops;
 		return troops;

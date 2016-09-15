@@ -8,8 +8,9 @@ public class Player {
 	private boolean isActive;
 	private String name;
 	
-	public Player(String name) {
+	public Player(String name, Colors playerColor) {
 		this.name = name;
+		this.playerColor = playerColor;
 	}
 	
 	/* Getters and Setters */
