@@ -45,11 +45,14 @@ public final class Territory {
 		// Find how many troops can attack
 		// Find how many troops can defend
 		// Roll Dice for both sides
-		// Defender's advantage, remove troops from the low roller 
+		// Defender's advantage, remove troops from the low roller
+		// Check if empty, if so move troops in
 	}
 
 	private void moveToTerritory(Territory target, int numberOfTroops) {
+		// Remove troops here
 		this.addTroops(-numberOfTroops);
+		// Add troops there
 		target.addTroops(numberOfTroops);
 	}
 	
