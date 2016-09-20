@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 
+
 public class GameBoard {
 	private List<Territory> territories;
 	private List<Player> players;
@@ -16,7 +17,7 @@ public class GameBoard {
 	
 	/* Getters and Setters */
 
-	/**
+	/** 
 	 * @return the territories
 	 */
 	public List<Territory> getTerritories() {

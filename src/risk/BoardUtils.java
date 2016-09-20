@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 public class BoardUtils {
-	private final static int THREE_PLAYER_PEICE_COUNT = 35;
-	private final static int FOUR_PLAYER_PEICE_COUNT = 30;
-	private final static int FIVE_PLAYER_PEICE_COUNT = 25;
-	private final static int SIX_PLAYER_PEICE_COUNT = 20;
+	private final static int THREE_PLAYER_PIECE_COUNT = 35;
+	private final static int FOUR_PLAYER_PIECE_COUNT = 30;
+	private final static int FIVE_PLAYER_PIECE_COUNT = 25;
+	private final static int SIX_PLAYER_PIECE_COUNT = 20;
 	
 	private final static int MIN_PLAYERS = 3;
 	private final static int MAX_PLAYERS = 6;
@@ -75,7 +75,7 @@ public class BoardUtils {
 	 * @param num	the number of times to roll dice
 	 * @return 	an array with the number of dice rolled.
 	 **/
-	public int[] getRolls(int num) {
+	public static int[] getRolls(int num) {
 		int[] rolls = new int[num];
 		
 		for (int i = 0; i < num; i++) {
