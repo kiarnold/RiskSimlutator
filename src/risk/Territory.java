@@ -96,8 +96,8 @@ public final class Territory {
 		this.ownerName = ownerName;
 	}
 
-	public void addConnection(String territory) {
-		connections.add(territory);
+	public void addConnection(Territory territory) {
+		connections.add(territory.getName());
 	}
 	
 	public void setConnections(List<String> connections) {

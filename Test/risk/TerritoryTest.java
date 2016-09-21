@@ -50,8 +50,8 @@ public class TerritoryTest {
 		Territory unitedStates = board.getTerritories().get(1);
 		
 		// Add two connections
-		canada.addConnection(unitedStates.getName());
-		unitedStates.addConnection(canada.getName());
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
 		
 		// Add a player to one territory and troops
 		Player jimmy = new Player("Jimmy", Colors.BLUE);
@@ -87,8 +87,8 @@ public class TerritoryTest {
 		Territory unitedStates = board.getTerritories().get(1);
 		
 		// Add two connections
-		canada.addConnection(unitedStates.getName());
-		unitedStates.addConnection(canada.getName());
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
 		
 		// Add a player to one territory and troops
 		Player jimmy = new Player("Jimmy", Colors.BLUE);
@@ -148,9 +148,24 @@ public class TerritoryTest {
 		// Test that territories will attack and cause troops to be eliminated.
 		
 		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		
 		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("unitedStates", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
 		// Call a moveTo
+		canada.moveTo(unitedStates, 5);
 		// Assert the board has fewer troops.
+		assertNotEquals(20, canada.getTroops() + unitedStates.getTroops());
 	}
 	
 	// TODO: Not Yet Implemented
@@ -192,7 +207,7 @@ public class TerritoryTest {
 		int numTroops = 42;
 		territory.setTroops(numTroops);
 		territory.setOwnerName("Blue");
-		territory.addConnection(terra2.getName());
+		territory.addConnection(terra2);
 		
 		assertEquals(numTroops, territory.getTroops());
 		assertEquals("Blue", territory.getOwnerName());
