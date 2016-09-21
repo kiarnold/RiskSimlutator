@@ -92,8 +92,8 @@ public final class Territory {
 	/**
 	 * @param ownerName the playerName to set
 	 */
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
+	public void setOwner(Player owner) {
+		this.ownerName = owner.getName();
 	}
 
 	public void addConnection(Territory territory) {

@@ -58,7 +58,7 @@ public class TerritoryTest {
 		jimmy.setActive(true);
 		
 		board.addPlayer(jimmy);
-		canada.setOwnerName(jimmy.getName());
+		canada.setOwner(jimmy);
 		canada.setTroops(0);
 		
 		// Pre-assert the board is in the expected state
@@ -95,7 +95,7 @@ public class TerritoryTest {
 		jimmy.setActive(true);
 		
 		board.addPlayer(jimmy);
-		canada.setOwnerName(jimmy.getName());
+		canada.setOwner(jimmy);
 		canada.setTroops(100);
 		
 		// Pre-Assert the board is in the expected state
@@ -150,6 +150,8 @@ public class TerritoryTest {
 		// Setup board
 		board.addTerritory(new Territory("Canada"));
 		board.addTerritory(new Territory("United States"));
+		Player alice = new Player("Alice", Colors.BLACK);
+		Player bob = new Player("Bob", Colors.BLUE);
 
 		Territory canada = board.getTerritories().get(0);
 		Territory unitedStates = board.getTerritories().get(1);
@@ -157,6 +159,8 @@ public class TerritoryTest {
 		unitedStates.addTroops(10);
 		canada.addConnection(unitedStates);
 		unitedStates.addConnection(canada);
+		canada.setOwner(alice);
+		unitedStates.setOwner(bob);
 		
 		// Pre-assert that there is a connection and the total troops are a set number.
 		assertEquals("unitedStates", canada.getConnections().get(0));
@@ -173,10 +177,30 @@ public class TerritoryTest {
 	public void moveTo_attackWithOne_success() {
 		// Test that when attacking with only 1 unit, the total units only go down by 1
 		
-		// Setup boad 
-		// Get the total troops
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+		Player alice = new Player("Alice", Colors.BLACK);
+		Player bob = new Player("Bob", Colors.BLUE);
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		canada.setOwner(alice);
+		unitedStates.setOwner(bob);
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("unitedStates", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
 		// Call a moveTo
+		canada.moveTo(unitedStates, 1);
+		
 		// Assert the board has 1 fewer troops total
+		assertNotEquals(19, canada.getTroops() + unitedStates.getTroops());
 	}
 	
 	// TODO: Not Yet Implemented
@@ -184,10 +208,30 @@ public class TerritoryTest {
 	public void moveTo_attackWithTwo_success() {
 		// Test that when attacking with only 2 troops, the total units only go down by 2
 
-		// Setup boad 
-		// Get the total troops
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+		Player alice = new Player("Alice", Colors.BLACK);
+		Player bob = new Player("Bob", Colors.BLUE);
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		canada.setOwner(alice);
+		unitedStates.setOwner(bob);
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("unitedStates", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
 		// Call a moveTo
+		canada.moveTo(unitedStates, 2);
+		
 		// Assert the board has 2 fewer troops total
+		assertNotEquals(18, canada.getTroops() + unitedStates.getTroops());
 	}
 	
 	// TODO: Not Yet Implemented
@@ -196,9 +240,57 @@ public class TerritoryTest {
 		// Test that when attacking with 3, only two troops are committed.
 		
 		// Setup board
-		// Get the total troops
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("unitedStates", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
 		// Call a moveTo
-		//Assert the board has 2 fewe troops total
+		canada.moveTo(unitedStates, 10);
+		
+		// Assert the board has only 2 fewer troops total
+		assertNotEquals(18, canada.getTroops() + unitedStates.getTroops());
+	}
+	
+	// TODO: Not Yet Implemente
+	@Test
+	public void moveTo_attackAndMove_success() {
+		// Test that, when moving and attacking successfully (so that the enemy troops are reduced to 0), 
+		// the commited troops will move into the territory.
+		
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+		Player alice = new Player("Alice", Colors.BLACK);
+		Player bob = new Player("Bob", Colors.BLUE);
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		canada.setOwner(alice);
+		unitedStates.setOwner(bob);
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("unitedStates", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
+		// Call a moveTo
+		canada.moveTo(unitedStates, 10);
+		
+		// Assert the board has only 2 fewer troops total
+		assertNotEquals(18, canada.getTroops() + unitedStates.getTroops());
 	}
 	
 	@Test
@@ -206,7 +298,7 @@ public class TerritoryTest {
 		Territory terra2 = new Territory("terra2");
 		int numTroops = 42;
 		territory.setTroops(numTroops);
-		territory.setOwnerName("Blue");
+		territory.setOwner(new Player("Blue", Colors.BLUE));
 		territory.addConnection(terra2);
 		
 		assertEquals(numTroops, territory.getTroops());
@@ -221,7 +313,7 @@ public class TerritoryTest {
 				+ "Troops: 42\t" 
 				+"Blue\n";
 		
-		territory.setOwnerName("Blue");
+		territory.setOwner(new Player("Blue", Colors.BLUE));
 		territory.setTroops(42);
 		
 		assertEquals(expected, territory.toString());
