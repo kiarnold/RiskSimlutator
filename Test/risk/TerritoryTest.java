@@ -14,12 +14,17 @@ import org.junit.Test;
 import risk.BoardUtils.Colors;
 
 public class TerritoryTest {
-	Territory territory;
-	String name = "testTerritory";
+	private Territory territory;
+	private String name = "testTerritory";
+	private GameBoard board;
 	
 	@Before
 	public void setUp() throws Exception {
 		territory = new Territory(name);
+		
+		// Bootstrap a blank board
+		String boardJson = "{\"territories\":[], \"players\":[]}";
+		board = BoardIO.getGameBoardFromJson(boardJson);
 	}
 
 	@After
@@ -37,10 +42,6 @@ public class TerritoryTest {
 	
 	@Test
 	public void moveTo_EmptyTarget_NotEnough() {
-		// Bootstrap a blank board
-		String boardJson = "{\"territories\":[], \"players\":[]}";
-		GameBoard board = BoardIO.getGameBoardFromJson(boardJson);
-		
 		// Add two territories
 		board.addTerritory(new Territory("Canada"));
 		board.addTerritory(new Territory("United States"));
@@ -77,9 +78,6 @@ public class TerritoryTest {
 	//TODO: Not Yet Implemented
 	@Test
 	public void moveTo_EmptyTarget_Success() {
-		// Bootstrap a blank board
-		String boardJson = "{\"territories\":[], \"players\":[]}";
-		GameBoard board = BoardIO.getGameBoardFromJson(boardJson);
 		
 		// Add two territories
 		board.addTerritory(new Territory("Canada"));
@@ -120,9 +118,28 @@ public class TerritoryTest {
 		// Test that territories without connections cannot call a move to another territory.
 		
 		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+
+		// Add troops to a territory
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		
 		// Pre assert that there are no connections
+		assert(canada.getConnections().isEmpty());
+		assert(unitedStates.getConnections().isEmpty());
+		
 		// Call a moveTo
+		canada.moveTo(unitedStates, 1);
+		
 		// Assert the board state is the same
+		assert(canada.getConnections().isEmpty());
+		assert(unitedStates.getConnections().isEmpty());
+		
+		assertEquals(10, canada.getTroops());
+		assertEquals(10, unitedStates.getTroops());
 	}
 	
 	// TODO: Not Yet Implemented
