@@ -114,6 +114,7 @@ public class TerritoryTest {
 		assertEquals(canada.getOwnerName(), unitedStates.getOwnerName());
 	}
 	
+	// TODO: Not Yet Implemented
 	@Test
 	public void moveTo_noConnection_fail() {
 		// Test that territories without connections cannot call a move to another territory.
@@ -124,6 +125,7 @@ public class TerritoryTest {
 		// Assert the board state is the same
 	}
 	
+	// TODO: Not Yet Implemented
 	@Test
 	public void moveTo_attack_success() {
 		// Test that territories will attack and cause troops to be eliminated.
@@ -132,6 +134,39 @@ public class TerritoryTest {
 		// Pre-assert that there is a connection and the total troops are a set number.
 		// Call a moveTo
 		// Assert the board has fewer troops.
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_attackWithOne_success() {
+		// Test that when attacking with only 1 unit, the total units only go down by 1
+		
+		// Setup boad 
+		// Get the total troops
+		// Call a moveTo
+		// Assert the board has 1 fewer troops total
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_attackWithTwo_success() {
+		// Test that when attacking with only 2 troops, the total units only go down by 2
+
+		// Setup boad 
+		// Get the total troops
+		// Call a moveTo
+		// Assert the board has 2 fewer troops total
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_attackWithThree_success() {
+		// Test that when attacking with 3, only two troops are committed.
+		
+		// Setup board
+		// Get the total troops
+		// Call a moveTo
+		//Assert the board has 2 fewe troops total
 	}
 	
 	@Test
