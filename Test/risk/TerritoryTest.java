@@ -115,6 +115,26 @@ public class TerritoryTest {
 	}
 	
 	@Test
+	public void moveTo_noConnection_fail() {
+		// Test that territories without connections cannot call a move to another territory.
+		
+		// Setup board
+		// Pre assert that there are no connections
+		// Call a moveTo
+		// Assert the board state is the same
+	}
+	
+	@Test
+	public void moveTo_attack_success() {
+		// Test that territories will attack and cause troops to be eliminated.
+		
+		// Setup board
+		// Pre-assert that there is a connection and the total troops are a set number.
+		// Call a moveTo
+		// Assert the board has fewer troops.
+	}
+	
+	@Test
 	public void testGettersandSetters() throws Exception {
 		Territory terra2 = new Territory("terra2");
 		int numTroops = 42;
