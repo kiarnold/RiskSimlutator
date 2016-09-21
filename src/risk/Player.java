@@ -21,9 +21,6 @@ public class Player {
 	public Colors getPlayerColor() {
 		return playerColor;
 	}
-	/**
-	 * @param playerColor the playerColor to set
-	 */
 	public void setPlayerColor(Colors playerColor) {
 		this.playerColor = playerColor;
 	}

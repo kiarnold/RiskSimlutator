@@ -53,26 +53,28 @@ public class TerritoryTest {
 		unitedStates.addConnection(canada.getName());
 		
 		// Add a player to one territory and troops
-		Player jimmy = new Player("Jimmy");
+		Player jimmy = new Player("Jimmy", Colors.BLUE);
 		jimmy.setActive(true);
-		jimmy.setPlayerColor(Colors.BLUE);
 		
 		board.addPlayer(jimmy);
 		canada.setOwnerName(jimmy.getName());
 		canada.setTroops(0);
 		
-		// Call attack on one territory
-		MoveResult result = canada.moveTo(unitedStates, 90);
+		// Pre-assert the board is in the expected state
+		assertNotEquals(canada.getOwnerName(), unitedStates.getOwnerName());
+		assertEquals(0, canada.getTroops());
+		assertEquals(0, unitedStates.getTroops());
 		
-		// Assert the attack was un-successful (not enough troops)
-		assertNotNull(result);
-		assertEquals(false, result.isSuccess());
-		assertEquals("Not enough troops.", result.getReason());
+		// Call attack on one territory
+		canada.moveTo(unitedStates, 90);
+		
+		// Assert the attack was un-successful and the board has not changed
 		assertNotEquals(canada.getOwnerName(), unitedStates.getOwnerName());
 		assertEquals(0, canada.getTroops());
 		assertEquals(0, unitedStates.getTroops());
 	}
 	
+	//TODO: Not Yet Implemented
 	@Test
 	public void moveTo_EmptyTarget_Success() {
 		// Bootstrap a blank board
@@ -91,20 +93,22 @@ public class TerritoryTest {
 		unitedStates.addConnection(canada.getName());
 		
 		// Add a player to one territory and troops
-		Player jimmy = new Player("Jimmy");
+		Player jimmy = new Player("Jimmy", Colors.BLUE);
 		jimmy.setActive(true);
-		jimmy.setPlayerColor(Colors.BLUE);
 		
 		board.addPlayer(jimmy);
 		canada.setOwnerName(jimmy.getName());
 		canada.setTroops(100);
 		
+		// Pre-Assert the board is in the expected state
+		assertEquals(100, canada.getTroops());
+		assertEquals(0, unitedStates.getTroops());
+		assertNotEquals(canada.getOwnerName(), unitedStates.getOwnerName());
+		
 		// Call attack on one territory
-		MoveResult result = canada.moveTo(unitedStates, 90);
+		canada.moveTo(unitedStates, 90);
 		
 		// Assert the attack was successful
-		assertNotNull(result);
-		assertEquals(true, result.isSuccess());
 		assertNotEquals(100, canada.getTroops());
 		assertNotEquals(0, unitedStates.getTroops());
 		assertEquals(canada.getOwnerName(), unitedStates.getOwnerName());
