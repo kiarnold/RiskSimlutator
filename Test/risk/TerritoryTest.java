@@ -261,7 +261,7 @@ public class TerritoryTest {
 		assertNotEquals(18, canada.getTroops() + unitedStates.getTroops());
 	}
 	
-	// TODO: Not Yet Implemente
+	// TODO: Not Yet Implemented
 	@Test
 	public void moveTo_attackAndMove_success() {
 		// Test that, when moving and attacking successfully (so that the enemy troops are reduced to 0), 
@@ -276,7 +276,7 @@ public class TerritoryTest {
 		Territory canada = board.getTerritories().get(0);
 		Territory unitedStates = board.getTerritories().get(1);
 		canada.addTroops(10);
-		unitedStates.addTroops(10);
+		unitedStates.addTroops(0);
 		canada.addConnection(unitedStates);
 		unitedStates.addConnection(canada);
 		canada.setOwner(alice);
@@ -284,13 +284,17 @@ public class TerritoryTest {
 		
 		// Pre-assert that there is a connection and the total troops are a set number.
 		assertEquals("unitedStates", canada.getConnections().get(0));
-		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		assertEquals(10, canada.getTroops());
+		assertEquals(0, unitedStates.getTroops());
+		assertNotEquals(canada.getOwnerName(), unitedStates.getOwnerName());
 		
 		// Call a moveTo
-		canada.moveTo(unitedStates, 10);
+		canada.moveTo(unitedStates, 2);
 		
-		// Assert the board has only 2 fewer troops total
-		assertNotEquals(18, canada.getTroops() + unitedStates.getTroops());
+		// Assert the troops have moved from one to another and owner has changed.
+		assertEquals(8, canada.getTroops());
+		assertEquals(2, unitedStates.getTroops());
+		assertEquals(canada.getOwnerName(), unitedStates.getOwnerName());
 	}
 	
 	@Test
