@@ -31,6 +31,12 @@ public final class Territory {
 	 * @param numberOfTroops The number of troops to attack with.
 	 */
 	public void moveTo(Territory target, int numberOfTroops) {
+		// Check if a connection exists, if not no movement can happen.
+		if (!target.getConnections().contains(this.getName())) {
+			return;
+		}
+
+		// If this is owned by the same player as target, do a move, otherwise do an attack
 		if (target.getOwnerName().equals(this.getOwnerName())) {
 			// Do move
 			this.moveToTerritory(target, numberOfTroops);
