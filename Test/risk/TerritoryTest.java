@@ -14,12 +14,17 @@ import org.junit.Test;
 import risk.BoardUtils.Colors;
 
 public class TerritoryTest {
-	Territory territory;
-	String name = "testTerritory";
+	private Territory territory;
+	private String name = "testTerritory";
+	private GameBoard board;
 	
 	@Before
 	public void setUp() throws Exception {
 		territory = new Territory(name);
+		
+		// Bootstrap a blank board
+		String boardJson = "{\"territories\":[], \"players\":[]}";
+		board = BoardIO.getGameBoardFromJson(boardJson);
 	}
 
 	@After
@@ -37,10 +42,6 @@ public class TerritoryTest {
 	
 	@Test
 	public void moveTo_EmptyTarget_NotEnough() {
-		// Bootstrap a blank board
-		String boardJson = "{\"territories\":[], \"players\":[]}";
-		GameBoard board = BoardIO.getGameBoardFromJson(boardJson);
-		
 		// Add two territories
 		board.addTerritory(new Territory("Canada"));
 		board.addTerritory(new Territory("United States"));
@@ -49,35 +50,34 @@ public class TerritoryTest {
 		Territory unitedStates = board.getTerritories().get(1);
 		
 		// Add two connections
-		canada.addConnection(unitedStates.getName());
-		unitedStates.addConnection(canada.getName());
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
 		
 		// Add a player to one territory and troops
-		Player jimmy = new Player("Jimmy");
+		Player jimmy = new Player("Jimmy", Colors.BLUE);
 		jimmy.setActive(true);
-		jimmy.setPlayerColor(Colors.BLUE);
 		
 		board.addPlayer(jimmy);
 		canada.setOwnerName(jimmy.getName());
 		canada.setTroops(0);
 		
-		// Call attack on one territory
-		MoveResult result = canada.moveTo(unitedStates, 90);
+		// Pre-assert the board is in the expected state
+		assertNotEquals(canada.getOwnerName(), unitedStates.getOwnerName());
+		assertEquals(0, canada.getTroops());
+		assertEquals(0, unitedStates.getTroops());
 		
-		// Assert the attack was un-successful (not enough troops)
-		assertNotNull(result);
-		assertEquals(false, result.isSuccess());
-		assertEquals("Not enough troops.", result.getReason());
+		// Call attack on one territory
+		canada.moveTo(unitedStates, 90);
+		
+		// Assert the attack was un-successful and the board has not changed
 		assertNotEquals(canada.getOwnerName(), unitedStates.getOwnerName());
 		assertEquals(0, canada.getTroops());
 		assertEquals(0, unitedStates.getTroops());
 	}
 	
+	//TODO: Not Yet Implemented
 	@Test
 	public void moveTo_EmptyTarget_Success() {
-		// Bootstrap a blank board
-		String boardJson = "{\"territories\":[], \"players\":[]}";
-		GameBoard board = BoardIO.getGameBoardFromJson(boardJson);
 		
 		// Add two territories
 		board.addTerritory(new Territory("Canada"));
@@ -87,26 +87,213 @@ public class TerritoryTest {
 		Territory unitedStates = board.getTerritories().get(1);
 		
 		// Add two connections
-		canada.addConnection(unitedStates.getName());
-		unitedStates.addConnection(canada.getName());
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
 		
 		// Add a player to one territory and troops
-		Player jimmy = new Player("Jimmy");
+		Player jimmy = new Player("Jimmy", Colors.BLUE);
 		jimmy.setActive(true);
-		jimmy.setPlayerColor(Colors.BLUE);
 		
 		board.addPlayer(jimmy);
 		canada.setOwnerName(jimmy.getName());
 		canada.setTroops(100);
 		
+		// Pre-Assert the board is in the expected state
+		assertEquals(100, canada.getTroops());
+		assertEquals(0, unitedStates.getTroops());
+		assertNotEquals(canada.getOwnerName(), unitedStates.getOwnerName());
+		
 		// Call attack on one territory
-		MoveResult result = canada.moveTo(unitedStates, 90);
+		canada.moveTo(unitedStates, 90);
 		
 		// Assert the attack was successful
-		assertNotNull(result);
-		assertEquals(true, result.isSuccess());
 		assertNotEquals(100, canada.getTroops());
 		assertNotEquals(0, unitedStates.getTroops());
+		assertEquals(canada.getOwnerName(), unitedStates.getOwnerName());
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_noConnection_fail() {
+		// Test that territories without connections cannot call a move to another territory.
+		
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+
+		// Add troops to a territory
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		
+		// Pre assert that there are no connections
+		assert(canada.getConnections().isEmpty());
+		assert(unitedStates.getConnections().isEmpty());
+		
+		// Call a moveTo
+		canada.moveTo(unitedStates, 1);
+		
+		// Assert the board state is the same
+		assert(canada.getConnections().isEmpty());
+		assert(unitedStates.getConnections().isEmpty());
+		
+		assertEquals(10, canada.getTroops());
+		assertEquals(10, unitedStates.getTroops());
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_attack_success() {
+		// Test that territories will attack and cause troops to be eliminated.
+		
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+		Player alice = new Player("Alice", Colors.BLACK);
+		Player bob = new Player("Bob", Colors.BLUE);
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		canada.setOwnerName(alice.getName());
+		unitedStates.setOwnerName(bob.getName());
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("United States", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
+		// Call a moveTo
+		canada.moveTo(unitedStates, 5);
+		// Assert the board has fewer troops.
+		assertNotEquals(20, canada.getTroops() + unitedStates.getTroops());
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_attackWithOne_success() {
+		// Test that when attacking with only 1 unit, the total units only go down by 1
+		
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+		Player alice = new Player("Alice", Colors.BLACK);
+		Player bob = new Player("Bob", Colors.BLUE);
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		canada.setOwnerName(alice.getName());
+		unitedStates.setOwnerName(bob.getName());
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("United States", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
+		// Call a moveTo
+		canada.moveTo(unitedStates, 1);
+		
+		// Assert the board has 1 fewer troops total
+		assertEquals(19, canada.getTroops() + unitedStates.getTroops());
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_attackWithTwo_success() {
+		// Test that when attacking with only 2 troops, the total units only go down by 2
+
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+		Player alice = new Player("Alice", Colors.BLACK);
+		Player bob = new Player("Bob", Colors.BLUE);
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		canada.setOwnerName(alice.getName());
+		unitedStates.setOwnerName(bob.getName());
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("United States", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
+		// Call a moveTo
+		canada.moveTo(unitedStates, 2);
+		
+		// Assert the board has 2 fewer troops total
+		assertEquals(18, canada.getTroops() + unitedStates.getTroops());
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_attackWithThree_success() {
+		// Test that when attacking with 3, only two troops are committed.
+		
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(10);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("United States", canada.getConnections().get(0));
+		assertEquals(20, canada.getTroops() + unitedStates.getTroops());
+		
+		// Call a moveTo
+		canada.moveTo(unitedStates, 10);
+		
+		// Assert the board has only 2 fewer troops total
+		assertNotEquals(18, canada.getTroops() + unitedStates.getTroops());
+	}
+	
+	// TODO: Not Yet Implemented
+	@Test
+	public void moveTo_attackAndMove_success() {
+		// Test that, when moving and attacking successfully (so that the enemy troops are reduced to 0), 
+		// the commited troops will move into the territory.
+		
+		// Setup board
+		board.addTerritory(new Territory("Canada"));
+		board.addTerritory(new Territory("United States"));
+		Player alice = new Player("Alice", Colors.BLACK);
+		Player bob = new Player("Bob", Colors.BLUE);
+
+		Territory canada = board.getTerritories().get(0);
+		Territory unitedStates = board.getTerritories().get(1);
+		canada.addTroops(10);
+		unitedStates.addTroops(0);
+		canada.addConnection(unitedStates);
+		unitedStates.addConnection(canada);
+		canada.setOwnerName(alice.getName());
+		unitedStates.setOwnerName(bob.getName());
+		
+		// Pre-assert that there is a connection and the total troops are a set number.
+		assertEquals("United States", canada.getConnections().get(0));
+		assertEquals(10, canada.getTroops());
+		assertEquals(0, unitedStates.getTroops());
+		assertNotEquals(canada.getOwnerName(), unitedStates.getOwnerName());
+		
+		// Call a moveTo
+		canada.moveTo(unitedStates, 2);
+		
+		// Assert the troops have moved from one to another and owner has changed.
+		assertEquals(8, canada.getTroops());
+		assertEquals(2, unitedStates.getTroops());
 		assertEquals(canada.getOwnerName(), unitedStates.getOwnerName());
 	}
 	
@@ -116,7 +303,7 @@ public class TerritoryTest {
 		int numTroops = 42;
 		territory.setTroops(numTroops);
 		territory.setOwnerName("Blue");
-		territory.addConnection(terra2.getName());
+		territory.addConnection(terra2);
 		
 		assertEquals(numTroops, territory.getTroops());
 		assertEquals("Blue", territory.getOwnerName());
