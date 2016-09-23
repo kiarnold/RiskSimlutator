@@ -31,8 +31,12 @@ public final class Territory {
 	 * @param numberOfTroops The number of troops to attack with.
 	 */
 	public void moveTo(Territory target, int numberOfTroops) {
+		// Check numberOfTroops
+		if (numberOfTroops < 1) {
+			return;
+		}
 		// Check if a connection exists, if not no movement can happen.
-		if (!target.getConnections().contains(this.getName())) {
+		if (!this.getConnections().contains(target.getName())) {
 			return;
 		}
 
@@ -48,11 +52,52 @@ public final class Territory {
 	
 	
 	private void attackTerritory(Territory target, int numberOfTroops) {
-		// Find how many troops can attack
-		// Find how many troops can defend
+		int attackers;
+		int defenders;
+
+		// Check attacker
+		if (this.getTroops() <= 1) {
+			// Check for insufficient troops
+			return;
+		} else if (this.getTroops() == 2) {
+			// numberOfTroops must be greater than 0 at this point and the attacker only has 1 available troop to attack.
+			attackers = 1;
+		} else {
+			// Can only attack with one or two.
+			attackers = numberOfTroops >= 2 ? 2 : 1;
+		}
+		
+		// Check defender
+		if (target.getTroops() <= 0) {
+			// target is empty, no attack, change owner and move. 
+			target.setOwnerName(this.getOwnerName());
+			moveToTerritory(target, numberOfTroops);
+			return;
+		} else{
+			// Set the max available defenders
+			defenders = target.getTroops() >= 3 ? 3 : target.getTroops();
+		}
+		
 		// Roll Dice for both sides
+		int[] attackerRolls = BoardUtils.getRolls(attackers);
+		int[] defenderRolls = BoardUtils.getRolls(defenders);
+		
 		// Defender's advantage, remove troops from the low roller
+		for (int i = 0; i < attackerRolls.length; i ++) {
+			if (attackerRolls[i] <= defenderRolls[i]) {
+				attackers --;
+				this.setTroops(this.getTroops() - 1);
+			} else {
+				target.setTroops(target.getTroops() - 1);
+			}
+		}
+		
 		// Check if empty, if so move troops in
+		if (target.getTroops() <= 0) {
+			target.setOwnerName(this.getOwnerName());
+			moveToTerritory(target, attackers);
+			return;
+		}
 	}
 
 	private void moveToTerritory(Territory target, int numberOfTroops) {
@@ -98,8 +143,8 @@ public final class Territory {
 	/**
 	 * @param ownerName the playerName to set
 	 */
-	public void setOwner(Player owner) {
-		this.ownerName = owner.getName();
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 
 	public void addConnection(Territory territory) {
